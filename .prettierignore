@@ -1,0 +1,6 @@
+.svelte-kit
+.wrangler
+build
+package
+pnpm-lock.yaml
+static
