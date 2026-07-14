@@ -4,7 +4,7 @@
 
 ## Стек
 
-SvelteKit + Tailwind CSS v4, деплой на Cloudflare Pages (`adapter-cloudflare`).
+SvelteKit + Tailwind CSS v4, деплой на Cloudflare Workers (`adapter-cloudflare`, static assets).
 
 ## Разработка
 
@@ -22,4 +22,4 @@ pnpm build   # прод-сборка
 
 ## Деплой
 
-Cloudflare Pages, `pages_build_output_dir` — `.svelte-kit/cloudflare` (см. `wrangler.toml`).
+Cloudflare Workers со статическими ассетами: `main` и `[assets]` в `wrangler.toml`. Автодеплой на пуш в `main` через git-интеграцию Cloudflare.
