@@ -6,3 +6,11 @@ export const PROSE_CLASS =
 export function renderMarkdown(markdown: string): string {
   return marked.parse(markdown, { async: false }) as string;
 }
+
+export function excerpt(markdown: string, length = 160): string {
+  const text = markdown
+    .replace(/[#>*_`~[\]]/g, "")
+    .replace(/\n+/g, " ")
+    .trim();
+  return text.length > length ? `${text.slice(0, length).trimEnd()}…` : text;
+}
