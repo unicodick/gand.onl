@@ -7,5 +7,14 @@ export const handle: Handle = async ({ event, resolve }) => {
     const user = await getSessionUser(event.platform.env.DB, token);
     if (user) event.locals.user = user;
   }
+
+  if (
+    event.request.method !== "GET" &&
+    event.url.pathname.startsWith("/admin/") &&
+    !event.locals.user
+  ) {
+    return new Response("Unauthorized", { status: 401 });
+  }
+
   return resolve(event);
 };
