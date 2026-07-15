@@ -1,0 +1,7 @@
+import { listAllPlayers } from "$lib/server/players";
+import type { PageServerLoad } from "./$types";
+
+export const load: PageServerLoad = async ({ platform }) => {
+  const players = await listAllPlayers(platform!.env.DB);
+  return { players };
+};

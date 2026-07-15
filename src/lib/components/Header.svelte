@@ -5,6 +5,7 @@
   let path = $derived(page.url.pathname);
 
   const NAV = [
+    { href: "/players", label: "ИГРОКИ" },
     { href: "/news", label: "НОВОСТИ" },
     { href: "/contact", label: "СВЯЗЬ" },
   ];

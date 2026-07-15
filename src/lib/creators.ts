@@ -34,3 +34,7 @@ export const API_LINKS = [
 export function skinRender(uuid: string): string {
   return `https://nmsr.nickac.dev/fullbody/${uuid}`;
 }
+
+export function skinFace(username: string): string {
+  return `https://nmsr.nickac.dev/face/${username}`;
+}
