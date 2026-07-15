@@ -21,7 +21,10 @@ function base64UrlEncode(bytes: ArrayBuffer | Uint8Array): string {
   const arr = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
   let binary = "";
   for (const byte of arr) binary += String.fromCharCode(byte);
-  return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  return btoa(binary)
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/, "");
 }
 
 export function randomToken(): string {
@@ -67,7 +70,9 @@ export async function exchangeCodeForToken(
   return data.access_token;
 }
 
-export async function fetchDiscordUser(accessToken: string): Promise<DiscordUser> {
+export async function fetchDiscordUser(
+  accessToken: string,
+): Promise<DiscordUser> {
   const res = await fetch(`${DISCORD_API}/users/@me`, {
     headers: { Authorization: `Bearer ${accessToken}` },
   });
@@ -75,7 +80,10 @@ export async function fetchDiscordUser(accessToken: string): Promise<DiscordUser
   return res.json();
 }
 
-export function isAllowedAdmin(env: App.Platform["env"], discordId: string): boolean {
+export function isAllowedAdmin(
+  env: App.Platform["env"],
+  discordId: string,
+): boolean {
   return env.ADMIN_DISCORD_IDS.split(",")
     .map((id) => id.trim())
     .filter(Boolean)
@@ -108,16 +116,29 @@ export async function getSessionUser(
       "SELECT discord_id, discord_username, expires_at FROM admin_sessions WHERE token_hash = ?",
     )
     .bind(tokenHash)
-    .first<{ discord_id: string; discord_username: string; expires_at: string }>();
+    .first<{
+      discord_id: string;
+      discord_username: string;
+      expires_at: string;
+    }>();
   if (!row) return null;
   if (new Date(row.expires_at).getTime() < Date.now()) {
-    await db.prepare("DELETE FROM admin_sessions WHERE token_hash = ?").bind(tokenHash).run();
+    await db
+      .prepare("DELETE FROM admin_sessions WHERE token_hash = ?")
+      .bind(tokenHash)
+      .run();
     return null;
   }
   return { discordId: row.discord_id, username: row.discord_username };
 }
 
-export async function destroySession(db: D1Database, token: string): Promise<void> {
+export async function destroySession(
+  db: D1Database,
+  token: string,
+): Promise<void> {
   const tokenHash = await hashToken(token);
-  await db.prepare("DELETE FROM admin_sessions WHERE token_hash = ?").bind(tokenHash).run();
+  await db
+    .prepare("DELETE FROM admin_sessions WHERE token_hash = ?")
+    .bind(tokenHash)
+    .run();
 }
