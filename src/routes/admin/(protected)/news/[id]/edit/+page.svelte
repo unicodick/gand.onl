@@ -6,15 +6,17 @@
 
 <h1 class="text-sm text-neutral-100">Редактировать новость</h1>
 
-<NewsForm
-  action="?/update"
-  submitLabel="Сохранить"
-  title={data.news.title}
-  slug={data.news.slug}
-  body={data.news.body}
-  published={Boolean(data.news.published)}
-  errorMessage={form?.errorMessage ?? null}
-/>
+{#key data.news.id}
+  <NewsForm
+    action="?/update"
+    submitLabel="Сохранить"
+    title={data.news.title}
+    slug={data.news.slug}
+    body={data.news.body}
+    published={Boolean(data.news.published)}
+    errorMessage={form?.errorMessage ?? null}
+  />
+{/key}
 
 <form
   method="POST"

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { untrack } from "svelte";
   import { PROSE_CLASS, renderMarkdown } from "$lib/markdown";
   import { slugify } from "$lib/slug";
 
@@ -20,10 +21,10 @@
     action?: string;
   } = $props();
 
-  let title = $state(initialTitle);
-  let slug = $state(initialSlug);
-  let body = $state(initialBody);
-  let slugTouched = $state(Boolean(initialSlug));
+  let title = $state(untrack(() => initialTitle));
+  let slug = $state(untrack(() => initialSlug));
+  let body = $state(untrack(() => initialBody));
+  let slugTouched = $state(untrack(() => Boolean(initialSlug)));
 
   $effect(() => {
     if (!slugTouched) slug = slugify(title);
