@@ -1,10 +1,21 @@
 import { error, fail, redirect } from "@sveltejs/kit";
-import { deleteNews, getNewsById, updateNews } from "$lib/server/news";
+import {
+  deleteNews,
+  getNewsById,
+  isSlugConflictError,
+  updateNews,
+} from "$lib/server/news";
 import { slugify } from "$lib/slug";
 import type { Actions, PageServerLoad } from "./$types";
 
+function parseId(raw: string): number {
+  const id = Number(raw);
+  if (!Number.isInteger(id)) error(404, "Новость не найдена");
+  return id;
+}
+
 export const load: PageServerLoad = async ({ params, platform }) => {
-  const news = await getNewsById(platform!.env.DB, Number(params.id));
+  const news = await getNewsById(platform!.env.DB, parseId(params.id));
   if (!news) error(404, "Новость не найдена");
   return { news };
 };
@@ -26,21 +37,24 @@ export const actions: Actions = {
       return fail(400, { errorMessage: "Не удалось сформировать slug" });
 
     try {
-      await updateNews(platform!.env.DB, Number(params.id), {
+      await updateNews(platform!.env.DB, parseId(params.id), {
         slug,
         title,
         body,
         published,
       });
-    } catch {
-      return fail(400, { errorMessage: "Такой slug уже занят" });
+    } catch (err) {
+      if (isSlugConflictError(err)) {
+        return fail(400, { errorMessage: "Такой slug уже занят" });
+      }
+      throw err;
     }
 
     redirect(303, "/admin");
   },
 
   delete: async ({ params, platform }) => {
-    await deleteNews(platform!.env.DB, Number(params.id));
+    await deleteNews(platform!.env.DB, parseId(params.id));
     redirect(303, "/admin");
   },
 };

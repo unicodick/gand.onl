@@ -12,6 +12,12 @@ export interface NewsRow {
   author_discord_id: string;
 }
 
+export function isSlugConflictError(err: unknown): boolean {
+  return (
+    err instanceof Error && err.message.includes("UNIQUE constraint failed")
+  );
+}
+
 export async function listAllNews(db: D1Database): Promise<NewsRow[]> {
   const { results } = await db
     .prepare("SELECT * FROM news ORDER BY created_at DESC")

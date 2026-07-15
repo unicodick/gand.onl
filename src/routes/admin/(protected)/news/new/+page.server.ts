@@ -1,5 +1,5 @@
 import { fail, redirect } from "@sveltejs/kit";
-import { createNews } from "$lib/server/news";
+import { createNews, isSlugConflictError } from "$lib/server/news";
 import { slugify } from "$lib/slug";
 import type { Actions } from "./$types";
 
@@ -27,8 +27,11 @@ export const actions: Actions = {
         published,
         authorDiscordId: locals.user!.discordId,
       });
-    } catch {
-      return fail(400, { errorMessage: "Такой slug уже занят" });
+    } catch (err) {
+      if (isSlugConflictError(err)) {
+        return fail(400, { errorMessage: "Такой slug уже занят" });
+      }
+      throw err;
     }
 
     redirect(303, "/admin");
