@@ -1,5 +1,9 @@
 import type { Handle } from "@sveltejs/kit";
-import { getSessionUser, SESSION_COOKIE } from "$lib/server/auth";
+import {
+  getSessionUser,
+  isAllowedAdmin,
+  SESSION_COOKIE,
+} from "$lib/server/auth";
 
 export const handle: Handle = async ({ event, resolve }) => {
   const token = event.cookies.get(SESSION_COOKIE);
@@ -11,7 +15,11 @@ export const handle: Handle = async ({ event, resolve }) => {
   if (
     event.request.method !== "GET" &&
     event.url.pathname.startsWith("/admin/") &&
-    !event.locals.user
+    !(
+      event.locals.user &&
+      event.platform &&
+      isAllowedAdmin(event.platform.env, event.locals.user.discordId)
+    )
   ) {
     return new Response("Unauthorized", { status: 401 });
   }

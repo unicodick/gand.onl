@@ -2,10 +2,16 @@ import type { D1Database } from "@cloudflare/workers-types";
 
 const DISCORD_API = "https://discord.com/api/v10";
 
-export const SESSION_COOKIE = "admin_session";
+export const SESSION_COOKIE = "session";
 export const STATE_COOKIE = "discord_oauth_state";
+export const REDIRECT_COOKIE = "discord_oauth_redirect";
 export const SESSION_TTL_SECONDS = 60 * 60 * 24 * 7;
 export const STATE_TTL_SECONDS = 60 * 5;
+
+export function safeRedirectTarget(raw: string | null): string | null {
+  if (!raw || !raw.startsWith("/") || raw.startsWith("//")) return null;
+  return raw;
+}
 
 interface DiscordUser {
   id: string;
@@ -99,7 +105,7 @@ export async function createSession(
   const expiresAt = new Date(Date.now() + SESSION_TTL_SECONDS * 1000);
   await db
     .prepare(
-      "INSERT INTO admin_sessions (token_hash, discord_id, discord_username, expires_at) VALUES (?, ?, ?, ?)",
+      "INSERT INTO sessions (token_hash, discord_id, discord_username, expires_at) VALUES (?, ?, ?, ?)",
     )
     .bind(tokenHash, user.id, user.username, expiresAt.toISOString())
     .run();
@@ -113,7 +119,7 @@ export async function getSessionUser(
   const tokenHash = await hashToken(token);
   const row = await db
     .prepare(
-      "SELECT discord_id, discord_username, expires_at FROM admin_sessions WHERE token_hash = ?",
+      "SELECT discord_id, discord_username, expires_at FROM sessions WHERE token_hash = ?",
     )
     .bind(tokenHash)
     .first<{
@@ -124,7 +130,7 @@ export async function getSessionUser(
   if (!row) return null;
   if (new Date(row.expires_at).getTime() < Date.now()) {
     await db
-      .prepare("DELETE FROM admin_sessions WHERE token_hash = ?")
+      .prepare("DELETE FROM sessions WHERE token_hash = ?")
       .bind(tokenHash)
       .run();
     return null;
@@ -138,7 +144,7 @@ export async function destroySession(
 ): Promise<void> {
   const tokenHash = await hashToken(token);
   await db
-    .prepare("DELETE FROM admin_sessions WHERE token_hash = ?")
+    .prepare("DELETE FROM sessions WHERE token_hash = ?")
     .bind(tokenHash)
     .run();
 }
