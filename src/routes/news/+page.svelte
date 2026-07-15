@@ -16,7 +16,7 @@
 
 <svelte:head>
   <title>Новости — {BRAND}</title>
-  <meta name="description" content="новости проекта" />
+  <meta name="description" content="новости проекта и zlp.onl" />
 </svelte:head>
 
 <main
@@ -58,7 +58,7 @@
             href={`/news?page=${data.page - 1}`}
             class="mc-tab px-3 py-2 text-neutral-300 hover:text-white"
           >
-            ← НАЗАД
+            НАЗАД
           </a>
         {:else}
           <span></span>
@@ -68,7 +68,7 @@
             href={`/news?page=${data.page + 1}`}
             class="mc-tab px-3 py-2 text-neutral-300 hover:text-white"
           >
-            ДАЛЬШЕ →
+            ДАЛЬШЕ
           </a>
         {/if}
       </div>

@@ -4,13 +4,12 @@
 
   let { data } = $props();
 
-  const formattedDate = new Date(data.news.published_at!).toLocaleDateString(
-    "ru-RU",
-    {
+  let formattedDate = $derived(
+    new Date(data.news.published_at!).toLocaleDateString("ru-RU", {
       day: "numeric",
       month: "long",
       year: "numeric",
-    },
+    }),
   );
 </script>
 
@@ -25,7 +24,7 @@
     <a
       href="/news"
       class="text-[10px] tracking-widest text-neutral-500 hover:text-neutral-300"
-      >← НОВОСТИ</a
+      >НАЗАД</a
     >
 
     <div class="space-y-2">
