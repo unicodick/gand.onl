@@ -4,7 +4,10 @@
 
   let path = $derived(page.url.pathname);
 
-  const NAV = [{ href: "/contact", label: "СВЯЗЬ" }];
+  const NAV = [
+    { href: "/news", label: "НОВОСТИ" },
+    { href: "/contact", label: "СВЯЗЬ" },
+  ];
 </script>
 
 <header class="fixed top-5 left-1/2 z-30 -translate-x-1/2">
