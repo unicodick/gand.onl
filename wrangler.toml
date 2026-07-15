@@ -6,3 +6,12 @@ compatibility_flags = ["nodejs_als"]
 [assets]
 binding = "ASSETS"
 directory = ".svelte-kit/cloudflare"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "gandonl"
+database_id = "25ace723-df73-4814-8e24-952b1a571315"
+migrations_dir = "migrations"
+
+[vars]
+DISCORD_REDIRECT_URI = "https://gand.onl/auth/discord/callback"
