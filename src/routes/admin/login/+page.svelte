@@ -33,7 +33,7 @@
     {/if}
 
     <a
-      href="/auth/discord/login"
+      href="/auth/discord/login?redirect_to=/admin"
       class="mc-panel mc-tab flex items-center justify-center px-4 py-3 text-center text-[10px] tracking-widest text-neutral-200 hover:text-white"
     >
       ВОЙТИ ЧЕРЕЗ DISCORD

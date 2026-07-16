@@ -20,6 +20,7 @@ declare global {
         DISCORD_CLIENT_ID: string;
         DISCORD_CLIENT_SECRET: string;
         ADMIN_DISCORD_IDS: string;
+        MOD_SECRET: string;
       };
     }
   }

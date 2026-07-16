@@ -4,7 +4,8 @@ import {
   createSession,
   exchangeCodeForToken,
   fetchDiscordUser,
-  isAllowedAdmin,
+  REDIRECT_COOKIE,
+  safeRedirectTarget,
   SESSION_COOKIE,
   SESSION_TTL_SECONDS,
   STATE_COOKIE,
@@ -17,6 +18,9 @@ export const GET: RequestHandler = async ({ url, cookies, platform }) => {
   const savedState = cookies.get(STATE_COOKIE);
   cookies.delete(STATE_COOKIE, { path: "/" });
 
+  const redirectTo = safeRedirectTarget(cookies.get(REDIRECT_COOKIE) ?? null);
+  cookies.delete(REDIRECT_COOKIE, { path: "/" });
+
   const state = url.searchParams.get("state");
   const code = url.searchParams.get("code");
 
@@ -27,10 +31,6 @@ export const GET: RequestHandler = async ({ url, cookies, platform }) => {
   const accessToken = await exchangeCodeForToken(platform.env, code);
   const discordUser = await fetchDiscordUser(accessToken);
 
-  if (!isAllowedAdmin(platform.env, discordUser.id)) {
-    redirect(303, "/admin/login?error=forbidden");
-  }
-
   const session = await createSession(platform.env.DB, discordUser);
   cookies.set(SESSION_COOKIE, session.token, {
     path: "/",
@@ -40,5 +40,5 @@ export const GET: RequestHandler = async ({ url, cookies, platform }) => {
     maxAge: SESSION_TTL_SECONDS,
   });
 
-  redirect(303, "/admin");
+  redirect(303, redirectTo ?? "/");
 };

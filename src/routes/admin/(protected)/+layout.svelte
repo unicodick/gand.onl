@@ -1,5 +1,14 @@
 <script lang="ts">
+  import { page } from "$app/state";
+
   let { data, children } = $props();
+
+  const TABS = [
+    { href: "/admin", label: "НОВОСТИ" },
+    { href: "/admin/players", label: "ИГРОКИ" },
+  ];
+
+  let path = $derived(page.url.pathname);
 </script>
 
 <main
@@ -18,6 +27,19 @@
           >
         </form>
       </div>
+    </div>
+
+    <div class="flex gap-1.5 text-[10px] tracking-widest">
+      {#each TABS as tab (tab.href)}
+        <a
+          href={tab.href}
+          class="mc-panel mc-tab px-3 py-2 text-neutral-300 hover:text-white"
+          class:mc-tab-active={path === tab.href ||
+            (tab.href !== "/admin" && path.startsWith(tab.href))}
+        >
+          {tab.label}
+        </a>
+      {/each}
     </div>
 
     {@render children()}

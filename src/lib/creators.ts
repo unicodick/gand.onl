@@ -1,6 +1,5 @@
 export interface Creator {
   name: string;
-  uuid: string;
 }
 
 export interface Link {
@@ -9,9 +8,9 @@ export interface Link {
 }
 
 export const CREATORS: Creator[] = [
-  { name: "setunicode", uuid: "6d43a6cecdcd4e638a905cecf2e71150" },
-  { name: "Royalty72", uuid: "33407936318b46229a554d8ed5348943" },
-  { name: "Dizerg", uuid: "168fc919-2043-46cf-bef5-0f5e2a907498" },
+  { name: "setunicode" },
+  { name: "Royalty72" },
+  { name: "Dizerg" },
 ];
 
 export const BRAND = "gand.onl";
@@ -31,6 +30,10 @@ export const API_LINKS = [
   { label: "NMSR", href: "https://nmsr.nickac.dev" },
 ] satisfies Link[];
 
-export function skinRender(uuid: string): string {
-  return `https://nmsr.nickac.dev/fullbody/${uuid}`;
+export function skinRender(username: string): string {
+  return `https://nmsr.nickac.dev/fullbody/${username}`;
+}
+
+export function skinFace(username: string): string {
+  return `https://nmsr.nickac.dev/face/${username}`;
 }

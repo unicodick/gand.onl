@@ -1,7 +1,5 @@
 <script lang="ts">
-  import { skinRender } from "$lib/creators";
-
-  let { name, uuid }: { name: string; uuid: string } = $props();
+  let { name, src }: { name: string; src: string } = $props();
 </script>
 
 <div class="group relative flex flex-col items-center">
@@ -12,7 +10,7 @@
   </div>
 
   <img
-    src={skinRender(uuid)}
+    {src}
     alt={name}
     width="512"
     height="869"
