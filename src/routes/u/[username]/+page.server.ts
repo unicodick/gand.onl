@@ -1,7 +1,11 @@
 import { error } from "@sveltejs/kit";
 import { renderMarkdown } from "$lib/markdown";
 import { isAllowedAdmin } from "$lib/server/auth";
-import { getPlayerByUsername, getPlayerSocials } from "$lib/server/players";
+import {
+  getPlayerByUsername,
+  getPlayerSocials,
+  toPublicPlayer,
+} from "$lib/server/players";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ params, platform, locals }) => {
@@ -19,7 +23,7 @@ export const load: PageServerLoad = async ({ params, platform, locals }) => {
   );
 
   return {
-    player,
+    player: toPublicPlayer(player),
     socials,
     showEditLink,
     isLinked,

@@ -1,6 +1,7 @@
 import { error, json } from "@sveltejs/kit";
 import { consumeLinkRequest } from "$lib/server/link-requests";
 import {
+  getPlayerById,
   isOwnerConflictError,
   setPlayerOwner,
   upsertPlayerByUsername,
@@ -30,6 +31,11 @@ export const POST: RequestHandler = async ({ request, platform }) => {
   }
 
   const playerId = await upsertPlayerByUsername(db, username);
+  const player = await getPlayerById(db, playerId);
+  if (player?.owner_discord_id && player.owner_discord_id !== discordId) {
+    error(409, "This player is already linked to another Discord account");
+  }
+
   try {
     await setPlayerOwner(db, playerId, discordId);
   } catch (err) {

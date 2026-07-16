@@ -12,6 +12,13 @@ export interface NewsRow {
   author_discord_id: string;
 }
 
+export type PublicNewsRow = Omit<NewsRow, "author_discord_id">;
+
+export function toPublicNews(news: NewsRow): PublicNewsRow {
+  const { author_discord_id: _author_discord_id, ...publicNews } = news;
+  return publicNews;
+}
+
 export function isSlugConflictError(err: unknown): boolean {
   return (
     err instanceof Error && err.message.includes("UNIQUE constraint failed")
