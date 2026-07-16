@@ -118,6 +118,24 @@ export async function upsertPlayerByUsername(
   return player!.id;
 }
 
+export async function upsertPlayersByUsername(
+  db: D1Database,
+  usernames: string[],
+): Promise<void> {
+  const now = new Date().toISOString();
+  await db.batch(
+    usernames.map((username) =>
+      db
+        .prepare(
+          `INSERT INTO players (username, username_lower, created_at, updated_at)
+           VALUES (?, ?, ?, ?)
+           ON CONFLICT (username_lower) DO NOTHING`,
+        )
+        .bind(username, username.toLowerCase(), now, now),
+    ),
+  );
+}
+
 export async function setPlayerOwner(
   db: D1Database,
   id: number,
