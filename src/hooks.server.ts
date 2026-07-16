@@ -5,6 +5,8 @@ import {
   SESSION_COOKIE,
 } from "$lib/server/auth";
 
+const ADMIN_MUTATION_PREFIXES = ["/account/news", "/account/players"];
+
 export const handle: Handle = async ({ event, resolve }) => {
   const token = event.cookies.get(SESSION_COOKIE);
   if (token && event.platform) {
@@ -14,7 +16,9 @@ export const handle: Handle = async ({ event, resolve }) => {
 
   if (
     event.request.method !== "GET" &&
-    event.url.pathname.startsWith("/admin/") &&
+    ADMIN_MUTATION_PREFIXES.some((prefix) =>
+      event.url.pathname.startsWith(prefix),
+    ) &&
     !(
       event.locals.user &&
       event.platform &&

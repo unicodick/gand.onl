@@ -45,11 +45,11 @@ export const actions: Actions = {
       throw err;
     }
 
-    redirect(303, "/admin/players");
+    redirect(303, "/account/players");
   },
 
   delete: async ({ params, platform }) => {
     await deletePlayer(platform!.env.DB, parseId(params.id));
-    redirect(303, "/admin/players");
+    redirect(303, "/account/players");
   },
 };

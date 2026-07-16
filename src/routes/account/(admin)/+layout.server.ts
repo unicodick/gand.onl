@@ -3,9 +3,13 @@ import { isAllowedAdmin } from "$lib/server/auth";
 import type { LayoutServerLoad } from "./$types";
 
 export const load: LayoutServerLoad = async ({ locals, platform }) => {
-  if (!locals.user) redirect(303, "/admin/login");
-  if (!isAllowedAdmin(platform!.env, locals.user.discordId)) {
-    redirect(303, "/admin/login?error=forbidden");
+  if (!locals.user) {
+    redirect(
+      303,
+      `/auth/discord/login?redirect_to=${encodeURIComponent("/account")}`,
+    );
   }
-  return { user: locals.user };
+  if (!isAllowedAdmin(platform!.env, locals.user.discordId)) {
+    redirect(303, "/account");
+  }
 };

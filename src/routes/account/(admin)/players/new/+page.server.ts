@@ -19,6 +19,6 @@ export const actions: Actions = {
       throw err;
     }
 
-    redirect(303, "/admin/players");
+    redirect(303, "/account/players");
   },
 };

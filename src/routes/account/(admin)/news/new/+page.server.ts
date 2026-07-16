@@ -34,6 +34,6 @@ export const actions: Actions = {
       throw err;
     }
 
-    redirect(303, "/admin");
+    redirect(303, "/account/news");
   },
 };
