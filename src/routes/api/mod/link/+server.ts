@@ -16,7 +16,8 @@ export const POST: RequestHandler = async ({ request, platform }) => {
   }
 
   const body = (await request.json()) as { username?: unknown; key?: unknown };
-  const username = typeof body.username === "string" ? body.username.trim() : "";
+  const username =
+    typeof body.username === "string" ? body.username.trim() : "";
   const key = typeof body.key === "string" ? body.key.trim() : "";
   if (!username || !key) {
     error(400, "Invalid username or key");
