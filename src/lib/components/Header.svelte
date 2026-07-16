@@ -4,6 +4,17 @@
 
   let path = $derived(page.url.pathname);
 
+  let discordId = $state<string | null>(null);
+
+  $effect(() => {
+    fetch("/api/me")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        discordId = data?.user?.discordId ?? null;
+      })
+      .catch(() => {});
+  });
+
   const NAV = [
     { href: "/players", label: "ИГРОКИ" },
     { href: "/news", label: "НОВОСТИ" },
@@ -31,5 +42,21 @@
         aria-current={path === item.href ? "page" : undefined}>{item.label}</a
       >
     {/each}
+
+    <span class="mc-divider" aria-hidden="true"></span>
+
+    {#if discordId}
+      <a
+        href="/account"
+        class="mc-tab px-2.5 py-1.5"
+        class:mc-tab-active={path === "/account"}
+        aria-current={path === "/account" ? "page" : undefined}>КАБИНЕТ</a
+      >
+    {:else}
+      <a
+        href="/auth/discord/login?redirect_to=/account"
+        class="mc-tab px-2.5 py-1.5">ВОЙТИ</a
+      >
+    {/if}
   </nav>
 </header>
