@@ -28,9 +28,62 @@
 
     <div class="flex flex-col gap-6">
       <div class="flex items-center justify-between gap-4">
-        <h1 class="text-xl text-neutral-100 sm:text-2xl">
-          {data.player.username}
-        </h1>
+        <div class="flex items-center gap-2">
+          <h1
+            class={`text-xl sm:text-2xl ${data.isAdmin ? "text-gold" : "text-neutral-100"}`}
+          >
+            {data.player.username}
+          </h1>
+          {#if data.isLinked}
+            <span
+              class="text-grass"
+              title="Привязан на сайте"
+              aria-label="Привязан на сайте"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                aria-hidden="true"
+              >
+                <circle
+                  cx="8"
+                  cy="8"
+                  r="7"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                />
+                <path
+                  d="M5 8.2l2 2 4-4.4"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+          {/if}
+          {#if data.isAdmin}
+            <span
+              class="text-gold"
+              title={`Администратор ${BRAND}`}
+              aria-label={`Администратор ${BRAND}`}
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  d="M8 0l1.9 4.6L15 5l-3.6 3.3L12.4 13 8 10.6 3.6 13l1-4.7L1 5l5.1-.4L8 0z"
+                />
+              </svg>
+            </span>
+          {/if}
+        </div>
         {#if data.showEditLink}
           <a
             href={`/u/${data.player.username}/edit`}
