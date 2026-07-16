@@ -11,6 +11,13 @@ export interface PlayerRow {
   updated_at: string;
 }
 
+export type PublicPlayerRow = Omit<PlayerRow, "owner_discord_id">;
+
+export function toPublicPlayer(player: PlayerRow): PublicPlayerRow {
+  const { owner_discord_id: _owner_discord_id, ...publicPlayer } = player;
+  return publicPlayer;
+}
+
 export interface PlayerSocialRow {
   id: number;
   player_id: number;
