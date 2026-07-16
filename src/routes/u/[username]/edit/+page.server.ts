@@ -6,7 +6,12 @@ import {
   updatePlayerBio,
   updatePlayerSkin,
 } from "$lib/server/players";
-import { isValidSocialUrl, SOCIAL_PLATFORMS } from "$lib/socials";
+import {
+  CUSTOM_LINK_LABEL_MAX_LENGTH,
+  CUSTOM_LINKS_MAX,
+  isValidSocialUrl,
+  SOCIAL_PLATFORMS,
+} from "$lib/socials";
 import type { Actions, PageServerLoad } from "./$types";
 
 const BIO_MAX_LENGTH = 2000;
@@ -64,6 +69,43 @@ export const actions: Actions = {
         });
       }
       socials.push({ platform: socialPlatform.id, url: value });
+    }
+
+    const customLabels = form
+      .getAll("custom_label")
+      .map((v) => String(v).trim());
+    const customUrls = form.getAll("custom_url").map((v) => String(v).trim());
+    if (customLabels.length > CUSTOM_LINKS_MAX) {
+      return fail(400, { errorMessage: "Слишком много своих ссылок" });
+    }
+    const reservedLabels = new Set(
+      SOCIAL_PLATFORMS.flatMap((p) => [p.id, p.label]).map((v) =>
+        v.toLowerCase(),
+      ),
+    );
+    for (let i = 0; i < customLabels.length; i++) {
+      const label = customLabels[i];
+      const url = customUrls[i] ?? "";
+      if (!label && !url) continue;
+      if (!label || !url) {
+        return fail(400, {
+          errorMessage: "Укажите и название, и ссылку для своей ссылки",
+        });
+      }
+      if (label.length > CUSTOM_LINK_LABEL_MAX_LENGTH) {
+        return fail(400, { errorMessage: "Слишком длинное название ссылки" });
+      }
+      if (reservedLabels.has(label.toLowerCase())) {
+        return fail(400, {
+          errorMessage: `"${label}" уже есть среди стандартных соцсетей`,
+        });
+      }
+      if (!isValidSocialUrl(url)) {
+        return fail(400, {
+          errorMessage: `Ссылка ${label} должна начинаться с http:// или https://`,
+        });
+      }
+      socials.push({ platform: label, url });
     }
 
     await updatePlayerBio(db, player.id, bio);
