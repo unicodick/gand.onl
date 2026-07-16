@@ -7,6 +7,7 @@
   let { data, form } = $props();
 
   let bio = $state(untrack(() => data.player.bio ?? ""));
+  let skinUrl = $state(untrack(() => data.player.skin_url ?? ""));
   let socialValues = $state(
     untrack(() =>
       Object.fromEntries(
@@ -63,6 +64,18 @@
           </div>
         </div>
       </div>
+
+      <label
+        class="flex flex-col gap-1 text-[10px] tracking-widest text-neutral-500"
+      >
+        СКИН (ССЫЛКА НА КАРТИНКУ)
+        <input
+          name="skin_url"
+          bind:value={skinUrl}
+          placeholder="https://"
+          class="mc-panel bg-transparent px-3 py-2 text-sm text-neutral-100 outline-none"
+        />
+      </label>
 
       <div class="flex flex-col gap-3">
         <p class="text-[10px] tracking-widest text-neutral-500">СОЦСЕТИ</p>

@@ -142,6 +142,17 @@ export async function updatePlayerBio(
     .run();
 }
 
+export async function updatePlayerSkin(
+  db: D1Database,
+  id: number,
+  skinUrl: string,
+): Promise<void> {
+  await db
+    .prepare("UPDATE players SET skin_url = ?, updated_at = ? WHERE id = ?")
+    .bind(skinUrl || null, new Date().toISOString(), id)
+    .run();
+}
+
 export async function replacePlayerSocials(
   db: D1Database,
   playerId: number,

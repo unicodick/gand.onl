@@ -4,6 +4,7 @@ import {
   getPlayerSocials,
   replacePlayerSocials,
   updatePlayerBio,
+  updatePlayerSkin,
 } from "$lib/server/players";
 import { isValidSocialUrl, SOCIAL_PLATFORMS } from "$lib/socials";
 import type { Actions, PageServerLoad } from "./$types";
@@ -44,6 +45,13 @@ export const actions: Actions = {
       return fail(400, { errorMessage: "Слишком длинное описание" });
     }
 
+    const skinUrl = String(form.get("skin_url") ?? "").trim();
+    if (skinUrl && !isValidSocialUrl(skinUrl)) {
+      return fail(400, {
+        errorMessage: "Ссылка на скин должна начинаться с http:// или https://",
+      });
+    }
+
     const socials: { platform: string; url: string }[] = [];
     for (const socialPlatform of SOCIAL_PLATFORMS) {
       const value = String(
@@ -59,6 +67,7 @@ export const actions: Actions = {
     }
 
     await updatePlayerBio(db, player.id, bio);
+    await updatePlayerSkin(db, player.id, skinUrl);
     await replacePlayerSocials(db, player.id, socials);
 
     redirect(303, `/u/${player.username}`);
