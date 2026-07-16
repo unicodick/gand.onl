@@ -2,11 +2,11 @@ import type { D1Database } from "@cloudflare/workers-types";
 
 export interface PlayerRow {
   id: number;
-  uuid: string;
   username: string;
   username_lower: string;
   owner_discord_id: string | null;
   bio: string | null;
+  skin_url: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -23,8 +23,7 @@ export function isUsernameConflictError(err: unknown): boolean {
   return (
     err instanceof Error &&
     err.message.includes("UNIQUE constraint failed") &&
-    (err.message.includes("players.username_lower") ||
-      err.message.includes("players.uuid"))
+    err.message.includes("players.username_lower")
   );
 }
 
@@ -63,6 +62,16 @@ export async function getPlayerById(
     .first<PlayerRow>();
 }
 
+export async function getPlayerByOwnerDiscordId(
+  db: D1Database,
+  discordId: string,
+): Promise<PlayerRow | null> {
+  return db
+    .prepare("SELECT * FROM players WHERE owner_discord_id = ?")
+    .bind(discordId)
+    .first<PlayerRow>();
+}
+
 export async function getPlayerSocials(
   db: D1Database,
   playerId: number,
@@ -78,17 +87,35 @@ export async function getPlayerSocials(
 
 export async function createPlayer(
   db: D1Database,
-  input: { uuid: string; username: string },
+  username: string,
 ): Promise<number> {
   const now = new Date().toISOString();
   const result = await db
     .prepare(
-      `INSERT INTO players (uuid, username, username_lower, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?)`,
+      `INSERT INTO players (username, username_lower, created_at, updated_at)
+       VALUES (?, ?, ?, ?)`,
     )
-    .bind(input.uuid, input.username, input.username.toLowerCase(), now, now)
+    .bind(username, username.toLowerCase(), now, now)
     .run();
   return result.meta.last_row_id as number;
+}
+
+export async function upsertPlayerByUsername(
+  db: D1Database,
+  username: string,
+): Promise<number> {
+  const usernameLower = username.toLowerCase();
+  const now = new Date().toISOString();
+  await db
+    .prepare(
+      `INSERT INTO players (username, username_lower, created_at, updated_at)
+       VALUES (?, ?, ?, ?)
+       ON CONFLICT (username_lower) DO NOTHING`,
+    )
+    .bind(username, usernameLower, now, now)
+    .run();
+  const player = await getPlayerByUsername(db, usernameLower);
+  return player!.id;
 }
 
 export async function setPlayerOwner(

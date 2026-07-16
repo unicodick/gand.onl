@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { BRAND } from "$lib/creators";
+  import { BRAND, skinRender } from "$lib/creators";
   import Skin from "$lib/components/Skin.svelte";
   import { PROSE_CLASS } from "$lib/markdown";
   import { SOCIAL_PLATFORMS } from "$lib/socials";
@@ -20,7 +20,10 @@
 >
   <section class="grid w-full max-w-3xl gap-8 md:grid-cols-[auto_1fr]">
     <div class="flex justify-center md:justify-start">
-      <Skin name={data.player.username} uuid={data.player.uuid} />
+      <Skin
+        name={data.player.username}
+        src={data.player.skin_url ?? skinRender(data.player.username)}
+      />
     </div>
 
     <div class="flex flex-col gap-6">

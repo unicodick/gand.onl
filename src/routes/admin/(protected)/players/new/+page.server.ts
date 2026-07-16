@@ -1,5 +1,4 @@
 import { fail, redirect } from "@sveltejs/kit";
-import { resolveMojangProfile } from "$lib/server/mojang";
 import { createPlayer, isUsernameConflictError } from "$lib/server/players";
 import type { Actions } from "./$types";
 
@@ -11,13 +10,8 @@ export const actions: Actions = {
       return fail(400, { errorMessage: "Введите ник" });
     }
 
-    const profile = await resolveMojangProfile(username);
-    if (!profile) {
-      return fail(400, { errorMessage: "Такого игрока нет в Mojang" });
-    }
-
     try {
-      await createPlayer(platform!.env.DB, profile);
+      await createPlayer(platform!.env.DB, username);
     } catch (err) {
       if (isUsernameConflictError(err)) {
         return fail(400, { errorMessage: "Этот игрок уже в пуле" });
