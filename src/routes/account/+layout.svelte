@@ -3,10 +3,15 @@
 
   let { data, children } = $props();
 
-  const TABS = [
-    { href: "/admin", label: "НОВОСТИ" },
-    { href: "/admin/players", label: "ИГРОКИ" },
-  ];
+  let TABS = $derived([
+    { href: "/account", label: "ПРОФИЛЬ" },
+    ...(data.isAdmin
+      ? [
+          { href: "/account/news", label: "НОВОСТИ" },
+          { href: "/account/players", label: "ИГРОКИ" },
+        ]
+      : []),
+  ]);
 
   let path = $derived(page.url.pathname);
 </script>
@@ -18,10 +23,10 @@
     <div
       class="mc-panel panel-in flex items-center justify-between px-4 py-3 text-[10px] tracking-widest"
     >
-      <a href="/admin" class="text-neutral-300 hover:text-white">АДМИНКА</a>
+      <span class="text-neutral-300">КАБИНЕТ</span>
       <div class="flex items-center gap-3">
         <span class="text-neutral-500">{data.user.username}</span>
-        <form method="POST" action="/admin/logout">
+        <form method="POST" action="/account/logout">
           <button type="submit" class="text-neutral-400 hover:text-white"
             >ВЫЙТИ</button
           >
@@ -35,7 +40,7 @@
           href={tab.href}
           class="mc-panel mc-tab px-3 py-2 text-neutral-300 hover:text-white"
           class:mc-tab-active={path === tab.href ||
-            (tab.href !== "/admin" && path.startsWith(tab.href))}
+            (tab.href !== "/account" && path.startsWith(tab.href))}
         >
           {tab.label}
         </a>

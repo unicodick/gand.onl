@@ -25,7 +25,7 @@ export const GET: RequestHandler = async ({ url, cookies, platform }) => {
   const code = url.searchParams.get("code");
 
   if (!code || !state || !savedState || state !== savedState) {
-    redirect(303, "/admin/login?error=state");
+    redirect(303, redirectTo ?? "/");
   }
 
   const accessToken = await exchangeCodeForToken(platform.env, code);
