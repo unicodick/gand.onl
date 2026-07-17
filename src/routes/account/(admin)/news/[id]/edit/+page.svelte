@@ -1,5 +1,6 @@
 <script lang="ts">
   import NewsForm from "$lib/components/admin/NewsForm.svelte";
+  import PixelIcon from "$lib/components/PixelIcon.svelte";
 
   let { data, form } = $props();
 </script>
@@ -30,8 +31,9 @@
 >
   <button
     type="submit"
-    class="mc-panel mc-tab w-full px-4 py-3 text-[10px] tracking-widest text-red-400 hover:text-red-300"
+    class="mc-panel mc-tab flex w-full items-center justify-center gap-2 px-4 py-3 text-[10px] tracking-widest text-red-400 hover:text-red-300"
   >
+    <PixelIcon name="trash" size={11} />
     УДАЛИТЬ НОВОСТЬ
   </button>
 </form>

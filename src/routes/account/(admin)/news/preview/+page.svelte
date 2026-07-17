@@ -1,4 +1,5 @@
 <script lang="ts">
+  import PixelIcon from "$lib/components/PixelIcon.svelte";
   import NewsArticle from "$lib/components/news/NewsArticle.svelte";
 
   let { form } = $props();
@@ -31,8 +32,9 @@
       </p>
       <a
         href="/account/news"
-        class="mc-tab mt-5 inline-block px-3 py-2 text-[9px] tracking-widest"
+        class="mc-tab mt-5 inline-flex items-center gap-2 px-3 py-2 text-[9px] tracking-widest"
       >
+        <PixelIcon name="arrow-left" size={10} />
         В КАБИНЕТ
       </a>
     </div>

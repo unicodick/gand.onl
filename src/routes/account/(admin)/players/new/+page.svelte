@@ -1,4 +1,6 @@
 <script lang="ts">
+  import PixelIcon from "$lib/components/PixelIcon.svelte";
+
   let { form } = $props();
 </script>
 
@@ -22,8 +24,9 @@
 
   <button
     type="submit"
-    class="mc-panel mc-tab px-4 py-3 text-[10px] tracking-widest text-neutral-200 hover:text-white"
+    class="mc-panel mc-tab inline-flex items-center justify-center gap-2 px-4 py-3 text-[10px] tracking-widest text-neutral-200 hover:text-white"
   >
+    <PixelIcon name="plus" size={10} />
     Добавить
   </button>
 </form>

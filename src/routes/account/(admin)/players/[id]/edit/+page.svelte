@@ -1,5 +1,6 @@
 <script lang="ts">
   import { untrack } from "svelte";
+  import PixelIcon from "$lib/components/PixelIcon.svelte";
   import { canPreserveDiscordVisibility } from "$lib/discord";
   import { playerProfilePath } from "$lib/player-paths";
   import {
@@ -65,9 +66,10 @@
   <div class="space-y-2">
     <a
       href="/account/players"
-      class="text-[9px] tracking-widest text-neutral-500 hover:text-neutral-200"
+      class="inline-flex items-center gap-2 text-[9px] tracking-widest text-neutral-500 hover:text-neutral-200"
     >
-      ← ИГРОКИ
+      <PixelIcon name="arrow-left" size={10} />
+      ИГРОКИ
     </a>
     <h1 class="text-sm leading-relaxed text-neutral-100">
       Игрок — @{data.player.username}
@@ -75,8 +77,9 @@
   </div>
   <a
     href={playerProfilePath(data.player.username)}
-    class="mc-tab px-3 py-2 text-[9px] tracking-widest"
+    class="mc-tab inline-flex items-center gap-2 px-3 py-2 text-[9px] tracking-widest"
   >
+    <PixelIcon name="preview" size={10} />
     ПРОФИЛЬ
   </a>
 </div>
@@ -162,9 +165,11 @@
           class="peer sr-only"
         />
         <span
-          class="grid size-4 shrink-0 place-items-center bg-neutral-800 text-[9px] text-transparent shadow-[inset_1px_1px_0_#000,inset_-1px_-1px_0_#52525b] peer-checked:bg-grass peer-checked:text-black peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-grass"
-          aria-hidden="true">✓</span
+          class="grid size-4 shrink-0 place-items-center bg-neutral-800 text-transparent shadow-[inset_1px_1px_0_#000,inset_-1px_-1px_0_#52525b] peer-checked:bg-grass peer-checked:text-black peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-grass"
+          aria-hidden="true"
         >
+          <PixelIcon name="check" size={9} />
+        </span>
         <span class="space-y-1">
           <span class="block text-[9px] tracking-widest text-neutral-300">
             СОХРАНИТЬ DISCORD-КАРТОЧКУ
@@ -227,10 +232,11 @@
           <button
             type="button"
             onclick={() => removeCustomLink(link.key)}
-            class="mc-tab px-3 py-2 text-[9px] text-red-400 hover:text-red-300"
+            class="mc-tab grid min-h-9 place-items-center px-3 py-2 text-red-400 hover:text-red-300"
             aria-label={`Удалить ссылку ${link.label || "без названия"}`}
-            >×</button
           >
+            <PixelIcon name="close" size={10} />
+          </button>
         </div>
       {/each}
 
@@ -238,9 +244,10 @@
         <button
           type="button"
           onclick={addCustomLink}
-          class="mc-tab px-3 py-2 text-[9px] tracking-widest"
+          class="mc-tab inline-flex items-center gap-2 px-3 py-2 text-[9px] tracking-widest"
         >
-          + ДОБАВИТЬ ССЫЛКУ
+          <PixelIcon name="plus" size={10} />
+          ДОБАВИТЬ ССЫЛКУ
         </button>
       {/if}
     </div>
@@ -249,8 +256,9 @@
   <div class="flex justify-end border-t border-white/5 pt-5">
     <button
       type="submit"
-      class="mc-tab px-4 py-3 text-[9px] tracking-widest text-neutral-200 hover:text-white"
+      class="mc-tab inline-flex items-center gap-2 px-4 py-3 text-[9px] tracking-widest text-neutral-200 hover:text-white"
     >
+      <PixelIcon name="save" size={11} />
       СОХРАНИТЬ
     </button>
   </div>
@@ -266,7 +274,10 @@
 
   {#if data.player.blocked_at}
     <div class="space-y-2 text-[9px] leading-relaxed">
-      <p class="text-red-400">ПРОФИЛЬ ЗАБЛОКИРОВАН</p>
+      <p class="inline-flex items-center gap-2 text-red-400">
+        <PixelIcon name="lock" size={10} />
+        ПРОФИЛЬ ЗАБЛОКИРОВАН
+      </p>
       {#if data.player.block_reason}
         <p class="text-neutral-500">{data.player.block_reason}</p>
       {/if}
@@ -274,8 +285,9 @@
     <form method="POST" action="?/unblock">
       <button
         type="submit"
-        class="mc-tab px-4 py-3 text-[9px] tracking-widest text-grass hover:text-white"
+        class="mc-tab inline-flex items-center gap-2 px-4 py-3 text-[9px] tracking-widest text-grass hover:text-white"
       >
+        <PixelIcon name="unlock" size={11} />
         РАЗБЛОКИРОВАТЬ
       </button>
     </form>
@@ -295,8 +307,9 @@
       </label>
       <button
         type="submit"
-        class="mc-tab px-4 py-3 text-[9px] tracking-widest text-red-400 hover:text-red-300"
+        class="mc-tab inline-flex items-center gap-2 px-4 py-3 text-[9px] tracking-widest text-red-400 hover:text-red-300"
       >
+        <PixelIcon name="lock" size={11} />
         ЗАБЛОКИРОВАТЬ
       </button>
     </form>
@@ -321,8 +334,9 @@
     <button
       type="submit"
       disabled={deleteConfirmation !== data.player.username}
-      class="mc-tab px-4 py-3 text-[9px] tracking-widest text-red-400 hover:text-red-300 disabled:cursor-not-allowed disabled:opacity-30"
+      class="mc-tab inline-flex items-center justify-center gap-2 px-4 py-3 text-[9px] tracking-widest text-red-400 hover:text-red-300 disabled:cursor-not-allowed disabled:opacity-30"
     >
+      <PixelIcon name="trash" size={11} />
       УДАЛИТЬ
     </button>
   </form>

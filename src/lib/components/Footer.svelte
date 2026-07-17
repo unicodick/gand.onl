@@ -52,7 +52,7 @@
         {link.label}
         {#if link.href === SERVER_LINK.href}
           <span
-            class="size-1.5 shrink-0 rounded-full"
+            class="size-1.5 shrink-0"
             class:bg-grass={status?.state === "online"}
             class:bg-offline={status?.state === "offline"}
             class:bg-neutral-600={!status || status.state === "unavailable"}

@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from "$app/state";
+  import PixelIcon from "$lib/components/PixelIcon.svelte";
 
   let { data, children } = $props();
 
@@ -26,9 +27,13 @@
       <div class="flex items-center gap-3">
         <span class="text-neutral-500">{data.user.username}</span>
         <form method="POST" action="/account/logout">
-          <button type="submit" class="text-neutral-400 hover:text-white"
-            >ВЫЙТИ</button
+          <button
+            type="submit"
+            class="inline-flex items-center gap-2 text-neutral-400 hover:text-white"
           >
+            <PixelIcon name="logout" size={10} />
+            ВЫЙТИ
+          </button>
         </form>
       </div>
     </div>

@@ -64,7 +64,7 @@
       </div>
       <div class="flex items-center gap-2 text-[9px] tracking-widest">
         <span
-          class="size-1.5 rounded-full"
+          class="size-1.5"
           class:bg-grass={data.serverStatus.state === "online"}
           class:bg-offline={data.serverStatus.state === "offline"}
           class:bg-neutral-600={data.serverStatus.state === "unavailable"}
