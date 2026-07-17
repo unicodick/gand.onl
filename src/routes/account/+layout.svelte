@@ -7,6 +7,7 @@
     { href: "/account", label: "ПРОФИЛЬ" },
     ...(data.isAdmin
       ? [
+          { href: "/account/admin", label: "ОБЗОР" },
           { href: "/account/news", label: "НОВОСТИ" },
           { href: "/account/players", label: "ИГРОКИ" },
         ]
@@ -32,11 +33,13 @@
       </div>
     </div>
 
-    <div class="flex gap-1.5 text-[10px] tracking-widest">
+    <div
+      class="flex max-w-full gap-1.5 overflow-x-auto pb-1 text-[10px] tracking-widest"
+    >
       {#each TABS as tab (tab.href)}
         <a
           href={tab.href}
-          class="mc-panel mc-tab px-3 py-2 text-neutral-300 hover:text-white"
+          class="mc-panel mc-tab shrink-0 px-3 py-2 text-neutral-300 hover:text-white"
           class:mc-tab-active={path === tab.href ||
             (tab.href !== "/account" && path.startsWith(tab.href))}
         >

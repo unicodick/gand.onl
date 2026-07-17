@@ -7,15 +7,27 @@ export interface PlayerRow {
   owner_discord_id: string | null;
   bio: string | null;
   skin_url: string | null;
+  blocked_at: string | null;
+  blocked_by_discord_id: string | null;
+  block_reason: string | null;
   created_at: string;
   updated_at: string;
 }
 
-export type PublicPlayerRow = Omit<PlayerRow, "owner_discord_id">;
+export type PublicPlayerRow = Omit<
+  PlayerRow,
+  "owner_discord_id" | "blocked_by_discord_id" | "block_reason"
+>;
 
 export function toPublicPlayer(player: PlayerRow): PublicPlayerRow {
-  const { owner_discord_id: _owner_discord_id, ...publicPlayer } = player;
-  return publicPlayer;
+  const {
+    owner_discord_id: _owner_discord_id,
+    blocked_by_discord_id: _blocked_by_discord_id,
+    block_reason: _block_reason,
+    ...publicPlayer
+  } = player;
+  if (!player.blocked_at) return publicPlayer;
+  return { ...publicPlayer, bio: null, skin_url: null };
 }
 
 export interface PlayerSocialRow {
@@ -110,9 +122,10 @@ export async function createPlayer(
 export async function upsertPlayersByUsername(
   db: D1Database,
   usernames: string[],
-): Promise<void> {
+): Promise<number> {
+  if (usernames.length === 0) return 0;
   const now = new Date().toISOString();
-  await db.batch(
+  const results = await db.batch(
     usernames.map((username) =>
       db
         .prepare(
@@ -123,6 +136,7 @@ export async function upsertPlayersByUsername(
         .bind(username, username.toLowerCase(), now, now),
     ),
   );
+  return results.reduce((total, result) => total + result.meta.changes, 0);
 }
 
 export async function setPlayerOwner(

@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { filterPlayers, normalizePlayerQuery } from "../src/lib/players";
+import {
+  filterAdminPlayers,
+  filterPlayers,
+  normalizePlayerQuery,
+} from "../src/lib/players";
 
 const PLAYERS = [
   { id: 1, username: "Royalty72", username_lower: "royalty72" },
@@ -27,5 +31,25 @@ describe("player search", () => {
 
   it("returns an empty list when no username matches", () => {
     expect(filterPlayers(PLAYERS, "missing")).toEqual([]);
+  });
+});
+
+describe("admin player filters", () => {
+  const players = [
+    { ...PLAYERS[0], owner_discord_id: "discord-1", blocked_at: null },
+    { ...PLAYERS[1], owner_discord_id: null, blocked_at: null },
+    {
+      ...PLAYERS[2],
+      owner_discord_id: "discord-2",
+      blocked_at: "2026-07-17T00:00:00.000Z",
+    },
+  ];
+
+  it("combines username search with status filters", () => {
+    expect(filterAdminPlayers(players, "royal", "linked")).toEqual([
+      players[0],
+    ]);
+    expect(filterAdminPlayers(players, "", "unlinked")).toEqual([players[1]]);
+    expect(filterAdminPlayers(players, "", "blocked")).toEqual([players[2]]);
   });
 });

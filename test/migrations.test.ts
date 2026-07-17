@@ -50,3 +50,32 @@ it("adds empty news metadata without changing existing posts", async () => {
 
   expect(news).toEqual({ cover_key: null, tags: "[]" });
 });
+
+it("adds moderation fields without blocking existing players", async () => {
+  await applyD1Migrations(env.DB, env.TEST_MIGRATIONS.slice(0, 5));
+
+  await env.DB.prepare(
+    "INSERT INTO players (username, username_lower) VALUES (?, ?)",
+  )
+    .bind("Existing", "existing")
+    .run();
+
+  await applyD1Migrations(env.DB, env.TEST_MIGRATIONS.slice(5));
+
+  const player = await env.DB.prepare(
+    `SELECT blocked_at, blocked_by_discord_id, block_reason
+     FROM players WHERE username_lower = ?`,
+  )
+    .bind("existing")
+    .first<{
+      blocked_at: string | null;
+      blocked_by_discord_id: string | null;
+      block_reason: string | null;
+    }>();
+
+  expect(player).toEqual({
+    blocked_at: null,
+    blocked_by_discord_id: null,
+    block_reason: null,
+  });
+});

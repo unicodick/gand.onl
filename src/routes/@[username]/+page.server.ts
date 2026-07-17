@@ -19,6 +19,17 @@ export const load: PageServerLoad = async ({ params, platform, locals }) => {
   const player = await getPlayerByUsername(db, params.username.toLowerCase());
   if (!player) error(404, "Игрок не найден");
 
+  if (player.blocked_at) {
+    return {
+      player: toPublicPlayer(player),
+      socials: [],
+      discordProfile: null,
+      showEditLink: false,
+      isLinked: false,
+      isAdmin: false,
+    };
+  }
+
   const allSocials = await getPlayerSocials(db, player.id);
   const showDiscord = allSocials.some(
     (social) => social.platform === DISCORD_PLATFORM_ID,

@@ -1,5 +1,5 @@
 import { error, json } from "@sveltejs/kit";
-import { upsertPlayersByUsername } from "$lib/server/players";
+import { syncRoster } from "$lib/server/roster";
 import type { RequestHandler } from "./$types";
 
 export const prerender = false;
@@ -23,10 +23,10 @@ export const POST: RequestHandler = async ({ request, platform }) => {
     error(400, "Invalid usernames");
   }
 
-  await upsertPlayersByUsername(
+  const status = await syncRoster(
     platform!.env.DB,
     (usernames as string[]).map((u) => u.trim()),
   );
 
-  return json({ ok: true });
+  return json({ ok: true, added: status.added_count });
 };

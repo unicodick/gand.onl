@@ -20,3 +20,23 @@ export function filterPlayers<T extends SearchablePlayer>(
     ).includes(normalizedQuery),
   );
 }
+
+export type AdminPlayerFilter = "all" | "linked" | "unlinked" | "blocked";
+
+export interface ManageablePlayer extends SearchablePlayer {
+  owner_discord_id: string | null;
+  blocked_at: string | null;
+}
+
+export function filterAdminPlayers<T extends ManageablePlayer>(
+  players: T[],
+  query: string,
+  filter: AdminPlayerFilter,
+): T[] {
+  return filterPlayers(players, query).filter((player) => {
+    if (filter === "linked") return Boolean(player.owner_discord_id);
+    if (filter === "unlinked") return !player.owner_discord_id;
+    if (filter === "blocked") return Boolean(player.blocked_at);
+    return true;
+  });
+}
