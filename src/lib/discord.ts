@@ -21,3 +21,12 @@ export function discordAvatarUrl(
 export function discordProfileUrl(discordId: string): string {
   return `https://discord.com/users/${discordId}`;
 }
+
+export function canPreserveDiscordVisibility(
+  currentOwnerDiscordId: string | null,
+  nextOwnerDiscordId: string | null,
+): boolean {
+  return Boolean(
+    currentOwnerDiscordId && currentOwnerDiscordId === nextOwnerDiscordId,
+  );
+}

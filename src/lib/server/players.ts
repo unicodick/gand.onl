@@ -26,7 +26,8 @@ export function toPublicPlayer(player: PlayerRow): PublicPlayerRow {
     block_reason: _block_reason,
     ...publicPlayer
   } = player;
-  return publicPlayer;
+  if (!player.blocked_at) return publicPlayer;
+  return { ...publicPlayer, bio: null, skin_url: null };
 }
 
 export interface PlayerSocialRow {

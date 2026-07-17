@@ -61,6 +61,7 @@ describe("player moderation", () => {
 
   it("keeps moderation details private and records actions", async () => {
     const playerId = await createPlayer(env.DB, "Player");
+    await updatePlayerBio(env.DB, playerId, "Private bio");
     const player = (await getPlayerById(env.DB, playerId))!;
 
     await setPlayerBlocked(env.DB, {
@@ -71,8 +72,10 @@ describe("player moderation", () => {
     });
 
     const blocked = (await getPlayerById(env.DB, playerId))!;
-    expect(toPublicPlayer(blocked)).not.toHaveProperty("block_reason");
-    expect(toPublicPlayer(blocked)).not.toHaveProperty("blocked_by_discord_id");
+    const publicPlayer = toPublicPlayer(blocked);
+    expect(publicPlayer).not.toHaveProperty("block_reason");
+    expect(publicPlayer).not.toHaveProperty("blocked_by_discord_id");
+    expect(publicPlayer).toMatchObject({ bio: null, skin_url: null });
     await expect(listRecentAdminActions(env.DB)).resolves.toMatchObject([
       {
         actor_discord_id: "admin-1",

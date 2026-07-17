@@ -1,4 +1,5 @@
 import { error, fail, redirect } from "@sveltejs/kit";
+import { canPreserveDiscordVisibility } from "$lib/discord";
 import { parsePlayerProfileForm } from "$lib/player-profile-form";
 import {
   deletePlayerAsAdmin,
@@ -49,7 +50,11 @@ export const actions: Actions = {
     const existingDiscord = existingSocials.find(
       (social) => social.platform === DISCORD_PLATFORM_ID,
     );
-    if (existingDiscord && form.get("keep_discord_profile") === "on") {
+    if (
+      existingDiscord &&
+      form.get("keep_discord_profile") === "on" &&
+      canPreserveDiscordVisibility(player.owner_discord_id, discordId || null)
+    ) {
       socials.push({
         platform: existingDiscord.platform,
         url: existingDiscord.url,
@@ -82,6 +87,9 @@ export const actions: Actions = {
   block: async ({ request, params, platform, locals }) => {
     const player = await getPlayerById(platform!.env.DB, parseId(params.id));
     if (!player) error(404, "Игрок не найден");
+    if (player.blocked_at) {
+      return fail(400, { errorMessage: "Профиль уже заблокирован" });
+    }
     const form = await request.formData();
     const reason = String(form.get("block_reason") ?? "").trim();
     if (reason.length > BLOCK_REASON_MAX_LENGTH) {
@@ -99,6 +107,9 @@ export const actions: Actions = {
   unblock: async ({ params, platform, locals }) => {
     const player = await getPlayerById(platform!.env.DB, parseId(params.id));
     if (!player) error(404, "Игрок не найден");
+    if (!player.blocked_at) {
+      return fail(400, { errorMessage: "Профиль не заблокирован" });
+    }
     await setPlayerBlocked(platform!.env.DB, {
       player,
       actorDiscordId: locals.user!.discordId,

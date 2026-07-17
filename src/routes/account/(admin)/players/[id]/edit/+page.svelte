@@ -1,5 +1,6 @@
 <script lang="ts">
   import { untrack } from "svelte";
+  import { canPreserveDiscordVisibility } from "$lib/discord";
   import { playerProfilePath } from "$lib/player-paths";
   import {
     CUSTOM_LINKS_MAX,
@@ -10,9 +11,10 @@
 
   let { data, form } = $props();
 
-  let ownerDiscordId = $state(
-    untrack(() => data.player.owner_discord_id ?? ""),
+  const originalOwnerDiscordId = untrack(
+    () => data.player.owner_discord_id ?? "",
   );
+  let ownerDiscordId = $state(originalOwnerDiscordId);
   let bio = $state(untrack(() => data.player.bio ?? ""));
   let skinUrl = $state(untrack(() => data.player.skin_url ?? ""));
   let socialValues = $state(
@@ -30,6 +32,12 @@
     data.socials.find((social) => social.platform === DISCORD_PLATFORM_ID),
   );
   let keepDiscordProfile = $state(Boolean(existingDiscord));
+  let canKeepDiscordProfile = $derived(
+    canPreserveDiscordVisibility(
+      originalOwnerDiscordId || null,
+      ownerDiscordId.trim() || null,
+    ),
+  );
   let blockReason = $state(untrack(() => data.player.block_reason ?? ""));
   let deleteConfirmation = $state("");
   let customLinks = $state(
@@ -142,11 +150,15 @@
     <p class="text-[9px] tracking-widest text-neutral-500">ССЫЛКИ</p>
 
     {#if existingDiscord}
-      <label class="flex cursor-pointer items-start gap-3">
+      <label
+        class="flex cursor-pointer items-start gap-3"
+        class:opacity-50={!canKeepDiscordProfile}
+      >
         <input
           type="checkbox"
           name="keep_discord_profile"
           bind:checked={keepDiscordProfile}
+          disabled={!canKeepDiscordProfile}
           class="peer sr-only"
         />
         <span
@@ -159,6 +171,7 @@
           </span>
           <span class="block text-[8px] leading-relaxed text-neutral-600">
             Администратор может скрыть карточку, но не включить её за владельца.
+            Смена владельца автоматически скрывает карточку.
           </span>
         </span>
       </label>

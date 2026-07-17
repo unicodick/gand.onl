@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { discordAvatarUrl, discordProfileUrl } from "../src/lib/discord";
+import {
+  canPreserveDiscordVisibility,
+  discordAvatarUrl,
+  discordProfileUrl,
+} from "../src/lib/discord";
 
 describe("Discord profile presentation", () => {
   it("builds custom and default avatar URLs", () => {
@@ -15,5 +19,12 @@ describe("Discord profile presentation", () => {
     expect(discordProfileUrl("123456789")).toBe(
       "https://discord.com/users/123456789",
     );
+  });
+
+  it("does not transfer profile visibility between owners", () => {
+    expect(canPreserveDiscordVisibility("owner-1", "owner-1")).toBe(true);
+    expect(canPreserveDiscordVisibility("owner-1", "owner-2")).toBe(false);
+    expect(canPreserveDiscordVisibility("owner-1", null)).toBe(false);
+    expect(canPreserveDiscordVisibility(null, null)).toBe(false);
   });
 });
