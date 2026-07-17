@@ -45,18 +45,15 @@ export async function listAllNews(db: D1Database): Promise<NewsRow[]> {
 
 export async function listPublishedNews(
   db: D1Database,
-  { limit, offset }: { limit: number; offset: number },
-): Promise<{ items: NewsRow[]; hasMore: boolean }> {
+  { limit }: { limit: number },
+): Promise<NewsRow[]> {
   const { results } = await db
     .prepare(
-      "SELECT * FROM news WHERE published = 1 ORDER BY published_at DESC LIMIT ? OFFSET ?",
+      "SELECT * FROM news WHERE published = 1 ORDER BY published_at DESC LIMIT ?",
     )
-    .bind(limit + 1, offset)
+    .bind(limit)
     .all<NewsDbRow>();
-  return {
-    items: results.slice(0, limit).map(fromDbNews),
-    hasMore: results.length > limit,
-  };
+  return results.map(fromDbNews);
 }
 
 export async function getPublishedNewsBySlug(
