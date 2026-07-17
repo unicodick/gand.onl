@@ -13,7 +13,7 @@
 </svelte:head>
 
 <main
-  class="flex min-h-screen w-full flex-col items-center justify-center gap-6 px-4 pt-24 pb-40 sm:pt-28"
+  class="flex w-full flex-1 flex-col items-center justify-center gap-6 px-4 py-12 sm:py-16"
 >
   {#if notFound}
     <div class="mc-panel panel-in p-1.5">

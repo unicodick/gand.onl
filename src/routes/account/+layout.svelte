@@ -16,9 +16,7 @@
   let path = $derived(page.url.pathname);
 </script>
 
-<main
-  class="flex min-h-screen w-full flex-col items-center px-4 pt-24 pb-40 sm:pt-28"
->
+<main class="flex w-full flex-1 flex-col items-center px-4 py-12 sm:py-16">
   <div class="flex w-full max-w-3xl flex-col gap-6">
     <div
       class="mc-panel panel-in flex items-center justify-between px-4 py-3 text-[10px] tracking-widest"

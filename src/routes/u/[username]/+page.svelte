@@ -14,9 +14,7 @@
   <title>{data.player.username} — {BRAND}</title>
 </svelte:head>
 
-<main
-  class="flex min-h-screen w-full flex-col items-center px-4 pt-24 pb-40 sm:pt-28"
->
+<main class="flex w-full flex-1 flex-col items-center px-4 py-12 sm:py-16">
   <section class="grid w-full max-w-3xl gap-8 md:grid-cols-[auto_1fr]">
     <div class="flex justify-center md:justify-start">
       <Skin

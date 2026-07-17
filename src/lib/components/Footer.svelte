@@ -2,9 +2,7 @@
   import { LINKS } from "$lib/creators";
 </script>
 
-<footer
-  class="fixed bottom-5 left-1/2 z-30 flex -translate-x-1/2 flex-col items-center gap-2.5"
->
+<footer class="flex w-full flex-col items-center gap-2.5 px-4 pt-10 pb-5">
   <div
     class="mc-panel panel-in flex items-center gap-1.5 p-1.5 text-[10px] tracking-widest sm:gap-2 sm:text-xs"
   >

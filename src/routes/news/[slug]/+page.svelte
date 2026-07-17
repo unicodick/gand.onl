@@ -15,8 +15,6 @@
   {/if}
 </svelte:head>
 
-<main
-  class="flex min-h-screen w-full flex-col items-center px-4 pt-24 pb-40 sm:pt-28"
->
+<main class="flex w-full flex-1 flex-col items-center px-4 py-12 sm:py-16">
   <NewsArticle news={data.news} html={data.html} />
 </main>

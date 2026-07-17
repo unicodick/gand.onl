@@ -5,6 +5,22 @@
   let path = $derived(page.url.pathname);
 
   let discordId = $state<string | null>(null);
+  let hidden = $state(false);
+  let focused = $state(false);
+  let scrollAnchor = 0;
+
+  function handleScroll(): void {
+    const current = window.scrollY;
+    if (current < 64) {
+      hidden = false;
+      scrollAnchor = current;
+      return;
+    }
+
+    if (Math.abs(current - scrollAnchor) < 10) return;
+    hidden = current > scrollAnchor;
+    scrollAnchor = current;
+  }
 
   $effect(() => {
     fetch("/api/me")
@@ -22,9 +38,17 @@
   ];
 </script>
 
-<header class="fixed top-5 left-1/2 z-30 -translate-x-1/2">
+<svelte:window onscroll={handleScroll} />
+
+<header
+  class="sticky top-0 z-30 flex justify-center px-2 pt-5 pb-3 transition-transform duration-200 motion-reduce:transition-none"
+  class:-translate-y-full={hidden && !focused}
+  onfocusin={() => (focused = true)}
+  onfocusout={() => (focused = false)}
+>
   <nav
-    class="mc-panel panel-in flex items-center gap-1.5 p-1.5 text-[10px] tracking-widest sm:gap-2 sm:text-xs"
+    class="mc-panel panel-in flex max-w-full items-center gap-1.5 overflow-x-auto p-1.5 text-[10px] tracking-widest sm:gap-2 sm:text-xs"
+    aria-label="Основная навигация"
   >
     <a
       href="/"
