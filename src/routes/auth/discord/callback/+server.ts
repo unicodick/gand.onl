@@ -18,7 +18,10 @@ export const GET: RequestHandler = async ({ url, cookies, platform }) => {
   const savedState = cookies.get(STATE_COOKIE);
   cookies.delete(STATE_COOKIE, { path: "/" });
 
-  const redirectTo = safeRedirectTarget(cookies.get(REDIRECT_COOKIE) ?? null);
+  const redirectTo = safeRedirectTarget(
+    cookies.get(REDIRECT_COOKIE) ?? null,
+    url.origin,
+  );
   cookies.delete(REDIRECT_COOKIE, { path: "/" });
 
   const state = url.searchParams.get("state");
