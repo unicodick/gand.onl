@@ -1,11 +1,14 @@
+import { error } from "@sveltejs/kit";
+import { parsePage } from "$lib/pagination";
 import { listPublishedNews, toPublicNews } from "$lib/server/news";
 import type { PageServerLoad } from "./$types";
 
 const PAGE_SIZE = 10;
 
 export const load: PageServerLoad = async ({ platform, url }) => {
-  const rawPage = Number(url.searchParams.get("page"));
-  const page = Number.isInteger(rawPage) && rawPage > 0 ? rawPage : 1;
+  const page = parsePage(url.searchParams.get("page"));
+  if (page === null) error(404, "Страница не найдена");
+
   const { items, hasMore } = await listPublishedNews(platform!.env.DB, {
     limit: PAGE_SIZE,
     offset: (page - 1) * PAGE_SIZE,

@@ -8,9 +8,19 @@ export const REDIRECT_COOKIE = "discord_oauth_redirect";
 export const SESSION_TTL_SECONDS = 60 * 60 * 24 * 7;
 export const STATE_TTL_SECONDS = 60 * 5;
 
-export function safeRedirectTarget(raw: string | null): string | null {
-  if (!raw || !raw.startsWith("/") || raw.startsWith("//")) return null;
-  return raw;
+export function safeRedirectTarget(
+  raw: string | null,
+  trustedOrigin: string,
+): string | null {
+  if (!raw || !raw.startsWith("/")) return null;
+
+  try {
+    const target = new URL(raw, trustedOrigin);
+    if (target.origin !== trustedOrigin) return null;
+    return `${target.pathname}${target.search}${target.hash}`;
+  } catch {
+    return null;
+  }
 }
 
 interface DiscordUser {

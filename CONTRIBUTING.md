@@ -24,5 +24,6 @@ type(scope): text
 ```sh
 pnpm format:check
 pnpm check
+pnpm test
 pnpm build
 ```

@@ -22,7 +22,10 @@ export const GET: RequestHandler = async ({ cookies, platform, url }) => {
     maxAge: STATE_TTL_SECONDS,
   });
 
-  const redirectTo = safeRedirectTarget(url.searchParams.get("redirect_to"));
+  const redirectTo = safeRedirectTarget(
+    url.searchParams.get("redirect_to"),
+    url.origin,
+  );
   if (redirectTo) {
     cookies.set(REDIRECT_COOKIE, redirectTo, {
       path: "/",

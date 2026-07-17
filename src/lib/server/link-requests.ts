@@ -76,17 +76,81 @@ export async function getOrCreateLinkRequest(
   return createLinkRequest(db, discordId);
 }
 
-export async function consumeLinkRequest(
+export type LinkPlayerResult = "linked" | "invalid_key" | "player_owned";
+
+export async function linkPlayerByUsername(
   db: D1Database,
+  username: string,
   key: string,
-): Promise<string | null> {
-  const row = await db
-    .prepare(
-      `UPDATE link_requests SET used_at = ?
-       WHERE key = ? AND used_at IS NULL AND expires_at > ?
-       RETURNING discord_id`,
-    )
-    .bind(new Date().toISOString(), key, new Date().toISOString())
-    .first<{ discord_id: string }>();
-  return row?.discord_id ?? null;
+): Promise<LinkPlayerResult> {
+  const usernameLower = username.toLowerCase();
+  const now = new Date().toISOString();
+  const results = await db.batch([
+    db
+      .prepare(
+        `INSERT INTO players (username, username_lower, created_at, updated_at)
+         SELECT ?, ?, ?, ?
+         WHERE EXISTS (
+           SELECT 1 FROM link_requests
+           WHERE key = ? AND used_at IS NULL AND expires_at > ?
+         )
+         ON CONFLICT (username_lower) DO NOTHING`,
+      )
+      .bind(username, usernameLower, now, now, key, now),
+    db
+      .prepare(
+        `UPDATE players
+         SET owner_discord_id = (
+           SELECT discord_id FROM link_requests
+           WHERE key = ? AND used_at IS NULL AND expires_at > ?
+         ), updated_at = ?
+         WHERE username_lower = ?
+           AND EXISTS (
+             SELECT 1 FROM link_requests
+             WHERE key = ? AND used_at IS NULL AND expires_at > ?
+           )
+           AND (
+             owner_discord_id IS NULL OR owner_discord_id = (
+               SELECT discord_id FROM link_requests
+               WHERE key = ? AND used_at IS NULL AND expires_at > ?
+             )
+           )`,
+      )
+      .bind(key, now, now, usernameLower, key, now, key, now),
+    db
+      .prepare(
+        `UPDATE link_requests SET used_at = ?
+         WHERE key = ? AND used_at IS NULL AND expires_at > ?
+           AND EXISTS (
+             SELECT 1 FROM players
+             WHERE username_lower = ?
+               AND owner_discord_id = link_requests.discord_id
+           )
+         RETURNING discord_id`,
+      )
+      .bind(now, key, now, usernameLower),
+  ]);
+
+  if (results[2].results.length > 0) return "linked";
+
+  const [requestResult, playerResult] = await db.batch([
+    db
+      .prepare(
+        `SELECT discord_id FROM link_requests
+         WHERE key = ? AND used_at IS NULL AND expires_at > ?`,
+      )
+      .bind(key, now),
+    db
+      .prepare("SELECT owner_discord_id FROM players WHERE username_lower = ?")
+      .bind(usernameLower),
+  ]);
+  const request = requestResult.results[0] as
+    { discord_id: string } | undefined;
+  if (!request) return "invalid_key";
+
+  const player = playerResult.results[0] as
+    { owner_discord_id: string | null } | undefined;
+  if (player?.owner_discord_id !== request.discord_id) return "player_owned";
+
+  throw new Error("link transaction completed without consuming the key");
 }

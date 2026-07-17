@@ -1,5 +1,4 @@
 import { error } from "@sveltejs/kit";
-import { renderMarkdown } from "$lib/markdown";
 import { isAllowedAdmin } from "$lib/server/auth";
 import {
   getPlayerByUsername,
@@ -28,6 +27,5 @@ export const load: PageServerLoad = async ({ params, platform, locals }) => {
     showEditLink,
     isLinked,
     isAdmin,
-    bioHtml: player.bio ? renderMarkdown(player.bio) : null,
   };
 };

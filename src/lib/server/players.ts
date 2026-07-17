@@ -107,24 +107,6 @@ export async function createPlayer(
   return result.meta.last_row_id as number;
 }
 
-export async function upsertPlayerByUsername(
-  db: D1Database,
-  username: string,
-): Promise<number> {
-  const usernameLower = username.toLowerCase();
-  const now = new Date().toISOString();
-  await db
-    .prepare(
-      `INSERT INTO players (username, username_lower, created_at, updated_at)
-       VALUES (?, ?, ?, ?)
-       ON CONFLICT (username_lower) DO NOTHING`,
-    )
-    .bind(username, usernameLower, now, now)
-    .run();
-  const player = await getPlayerByUsername(db, usernameLower);
-  return player!.id;
-}
-
 export async function upsertPlayersByUsername(
   db: D1Database,
   usernames: string[],

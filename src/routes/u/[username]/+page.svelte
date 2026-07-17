@@ -1,7 +1,6 @@
 <script lang="ts">
   import { BRAND, skinRender } from "$lib/creators";
   import Skin from "$lib/components/Skin.svelte";
-  import { PROSE_CLASS } from "$lib/markdown";
   import { SOCIAL_PLATFORMS } from "$lib/socials";
 
   let { data } = $props();
@@ -94,11 +93,11 @@
         {/if}
       </div>
 
-      {#if data.bioHtml}
+      {#if data.player.bio}
         <div
-          class={`mc-panel panel-in p-5 text-xs text-neutral-200 ${PROSE_CLASS}`}
+          class="mc-panel panel-in p-5 text-xs leading-relaxed break-words whitespace-pre-wrap text-neutral-200"
         >
-          {@html data.bioHtml}
+          {data.player.bio}
         </div>
       {/if}
 
