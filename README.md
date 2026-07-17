@@ -19,5 +19,6 @@ pnpm dev
 
 ```sh
 pnpm check   # typecheck
+pnpm test    # тесты
 pnpm build   # прод-сборка
 ```
