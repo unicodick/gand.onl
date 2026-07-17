@@ -11,11 +11,18 @@
 
 <div class="mc-panel panel-in flex flex-col gap-4 p-6">
   {#if data.player}
-    <p class="text-xs text-neutral-300">
-      Твой профиль привязан к нику <span class="text-neutral-100"
-        >{data.player.username}</span
-      >.
-    </p>
+    {#if data.player.blocked_at}
+      <p class="text-xs leading-relaxed text-neutral-300">
+        Профиль <span class="text-neutral-100">@{data.player.username}</span>
+        временно недоступен. Редактирование отключено.
+      </p>
+    {:else}
+      <p class="text-xs text-neutral-300">
+        Твой профиль привязан к нику <span class="text-neutral-100"
+          >{data.player.username}</span
+        >.
+      </p>
+    {/if}
     <div class="flex gap-2">
       <a
         href={playerProfilePath(data.player.username)}
@@ -23,12 +30,14 @@
       >
         ПРОФИЛЬ
       </a>
-      <a
-        href={playerEditPath(data.player.username)}
-        class="mc-panel mc-tab px-4 py-3 text-[10px] tracking-widest text-neutral-200 hover:text-white"
-      >
-        РЕДАКТИРОВАТЬ
-      </a>
+      {#if !data.player.blocked_at}
+        <a
+          href={playerEditPath(data.player.username)}
+          class="mc-panel mc-tab px-4 py-3 text-[10px] tracking-widest text-neutral-200 hover:text-white"
+        >
+          РЕДАКТИРОВАТЬ
+        </a>
+      {/if}
     </div>
   {:else}
     <p class="text-xs text-neutral-300">

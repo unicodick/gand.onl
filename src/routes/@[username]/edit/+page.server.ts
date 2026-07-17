@@ -25,6 +25,7 @@ export const load: PageServerLoad = async ({ params, platform, locals }) => {
   const db = platform!.env.DB;
   const player = await getPlayerByUsername(db, params.username.toLowerCase());
   if (!player) error(404, "Игрок не найден");
+  if (player.blocked_at) error(403, "Профиль заблокирован");
 
   if (!locals.user) {
     redirect(
@@ -45,6 +46,7 @@ export const actions: Actions = {
     const db = platform!.env.DB;
     const player = await getPlayerByUsername(db, params.username.toLowerCase());
     if (!player) error(404, "Игрок не найден");
+    if (player.blocked_at) error(403, "Профиль заблокирован");
     if (!locals.user || locals.user.discordId !== player.owner_discord_id) {
       error(403, "Это не твой профиль");
     }
