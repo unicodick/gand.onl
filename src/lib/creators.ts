@@ -28,6 +28,7 @@ export const CONTACT_LINKS = [
 
 export const API_LINKS = [
   { label: "NMSR", href: "https://nmsr.nickac.dev" },
+  { label: "MCSRVSTAT.US", href: "https://mcsrvstat.us" },
 ] satisfies Link[];
 
 export function skinRender(username: string): string {
