@@ -22,6 +22,9 @@ export const load: PageServerLoad = async ({ params, platform }) => {
 
 export const actions: Actions = {
   update: async ({ request, params, platform }) => {
+    const news = await getNewsById(platform!.env.DB, parseId(params.id));
+    if (!news) error(404, "Новость не найдена");
+
     const form = await request.formData();
     const title = String(form.get("title") ?? "").trim();
     const slugInput = String(form.get("slug") ?? "").trim();
@@ -41,6 +44,8 @@ export const actions: Actions = {
         slug,
         title,
         body,
+        coverKey: news.cover_key,
+        tags: news.tags,
         published,
       });
     } catch (err) {

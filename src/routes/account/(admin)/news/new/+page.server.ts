@@ -24,6 +24,8 @@ export const actions: Actions = {
         slug,
         title,
         body,
+        coverKey: null,
+        tags: [],
         published,
         authorDiscordId: locals.user!.discordId,
       });
