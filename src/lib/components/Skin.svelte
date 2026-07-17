@@ -1,9 +1,5 @@
 <script lang="ts">
-  let {
-    name,
-    src,
-    compact = false,
-  }: { name: string; src: string; compact?: boolean } = $props();
+  let { name, src }: { name: string; src: string } = $props();
 </script>
 
 <div class="group relative flex flex-col items-center">
@@ -19,6 +15,6 @@
     width="512"
     height="869"
     loading="eager"
-    class={`pixelated w-auto drop-shadow-[0_20px_35px_rgba(0,0,0,0.6)] transition-transform duration-200 group-hover:-translate-y-2 ${compact ? "h-64 sm:h-80 lg:h-96" : "h-[42vh] sm:h-[56vh]"}`}
+    class="pixelated h-[42vh] w-auto drop-shadow-[0_20px_35px_rgba(0,0,0,0.6)] transition-transform duration-200 group-hover:-translate-y-2 sm:h-[56vh]"
   />
 </div>

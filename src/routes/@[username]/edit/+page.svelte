@@ -53,88 +53,69 @@
   <title>Редактирование @{data.player.username} — {BRAND}</title>
 </svelte:head>
 
-<main class="flex w-full flex-1 flex-col items-center px-4 py-10 sm:py-16">
-  <div class="w-full max-w-4xl space-y-6">
-    <header class="space-y-4">
+<main class="flex w-full flex-1 flex-col items-center px-4 py-12 sm:py-16">
+  <div class="w-full max-w-2xl space-y-6">
+    <header class="space-y-3">
       <a
         href={playerProfilePath(data.player.username)}
-        class="inline-block text-[8px] tracking-widest text-neutral-600 hover:text-neutral-300"
+        class="inline-block text-[9px] tracking-widest text-neutral-500 hover:text-neutral-200"
       >
-        ← ВЕРНУТЬСЯ В ПРОФИЛЬ
+        ← ПРОФИЛЬ
       </a>
-      <div class="space-y-2">
-        <p class="text-[8px] tracking-[0.22em] text-neutral-600">
-          РЕДАКТОР ПРОФИЛЯ
-        </p>
-        <h1 class="break-all text-lg text-neutral-100 sm:text-2xl">
-          <span class="text-neutral-600">@</span>{data.player.username}
-        </h1>
-      </div>
+      <h1 class="text-sm leading-relaxed text-neutral-100 sm:text-base">
+        Редактирование @{data.player.username}
+      </h1>
     </header>
 
-    {#if form?.errorMessage}
-      <p
-        class="mc-panel border-l-2 border-l-red-500 p-4 text-[9px] leading-relaxed text-red-300"
-        role="alert"
+    <form
+      method="POST"
+      class="mc-panel panel-in flex flex-col gap-5 p-5 sm:p-6"
+    >
+      {#if form?.errorMessage}
+        <p
+          class="border-l-2 border-l-red-500 bg-red-500/5 p-3 text-[9px] leading-relaxed text-red-300"
+          role="alert"
+        >
+          {form.errorMessage}
+        </p>
+      {/if}
+
+      <label
+        class="flex flex-col gap-2 text-[9px] tracking-widest text-neutral-500"
       >
-        {form.errorMessage}
-      </p>
-    {/if}
+        О СЕБЕ
+        <textarea
+          name="bio"
+          bind:value={bio}
+          rows="8"
+          maxlength="2000"
+          placeholder="Расскажи немного о себе"
+          class="min-h-40 resize-y border border-white/10 bg-black/20 px-3 py-3 text-[10px] leading-loose tracking-normal text-neutral-100 outline-none placeholder:text-neutral-700 focus:border-grass-dim sm:text-xs"
+        ></textarea>
+        <span class="text-right text-[8px] text-neutral-600">
+          {bio.length}/2000
+        </span>
+      </label>
 
-    <form method="POST" class="space-y-4">
-      <section class="mc-panel panel-in space-y-5 p-5 sm:p-6">
-        <div class="space-y-1">
-          <p class="text-[9px] tracking-widest text-neutral-200">О ПРОФИЛЕ</p>
-          <p class="text-[8px] leading-relaxed text-neutral-600">
-            Описание и изображение, которые видны на публичной странице.
-          </p>
-        </div>
+      <label
+        class="flex flex-col gap-2 text-[9px] tracking-widest text-neutral-500"
+      >
+        СКИН — ССЫЛКА НА ИЗОБРАЖЕНИЕ
+        <input
+          name="skin_url"
+          bind:value={skinUrl}
+          type="url"
+          placeholder="https://"
+          class="border border-white/10 bg-black/20 px-3 py-3 text-[10px] tracking-normal text-neutral-100 outline-none placeholder:text-neutral-700 focus:border-grass-dim sm:text-xs"
+        />
+        <span class="text-[8px] leading-relaxed text-neutral-600">
+          Пустое поле — актуальный скин по нику.
+        </span>
+      </label>
 
-        <label
-          class="flex flex-col gap-2 text-[8px] tracking-widest text-neutral-500"
-        >
-          О СЕБЕ
-          <textarea
-            name="bio"
-            bind:value={bio}
-            rows="8"
-            maxlength="2000"
-            placeholder="Расскажи немного о себе"
-            class="mc-panel min-h-40 resize-y bg-transparent px-4 py-3 text-[10px] leading-loose tracking-normal text-neutral-100 outline-none placeholder:text-neutral-700 focus:shadow-[inset_0_0_0_1px_var(--color-grass-dim),0_0_0_3px_#000] sm:text-xs"
-          ></textarea>
-          <span class="text-right text-[7px] text-neutral-700">
-            {bio.length} / 2000
-          </span>
-        </label>
-
-        <label
-          class="flex flex-col gap-2 text-[8px] tracking-widest text-neutral-500"
-        >
-          СКИН — ССЫЛКА НА ИЗОБРАЖЕНИЕ
-          <input
-            name="skin_url"
-            bind:value={skinUrl}
-            type="url"
-            placeholder="https://"
-            class="mc-panel bg-transparent px-4 py-3 text-[10px] tracking-normal text-neutral-100 outline-none placeholder:text-neutral-700 focus:shadow-[inset_0_0_0_1px_var(--color-grass-dim),0_0_0_3px_#000] sm:text-xs"
-          />
-          <span class="text-[7px] leading-relaxed text-neutral-700">
-            Оставь поле пустым, чтобы использовать актуальный скин по нику.
-          </span>
-        </label>
-      </section>
-
-      <section class="mc-panel space-y-5 p-5 sm:p-6">
-        <div class="space-y-1">
-          <p class="text-[9px] tracking-widest text-neutral-200">DISCORD</p>
-          <p class="text-[8px] leading-relaxed text-neutral-600">
-            Можно показать мини-карточку привязанного аккаунта без RPC.
-          </p>
-        </div>
-
-        <label
-          class="flex cursor-pointer items-start gap-4 border border-white/8 bg-white/2 p-4"
-        >
+      <div class="space-y-3 border-t border-white/5 pt-5">
+        <p class="text-[9px] tracking-widest text-neutral-500">DISCORD</p>
+        <label class="flex cursor-pointer items-start gap-3">
           <input
             type="checkbox"
             name="show_discord_profile"
@@ -142,35 +123,29 @@
             class="peer sr-only"
           />
           <span
-            class="grid size-5 shrink-0 place-items-center bg-neutral-800 text-[10px] text-transparent shadow-[inset_2px_2px_0_#000,inset_-1px_-1px_0_#52525b] peer-checked:bg-grass peer-checked:text-black peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-grass"
+            class="grid size-4 shrink-0 place-items-center bg-neutral-800 text-[9px] text-transparent shadow-[inset_1px_1px_0_#000,inset_-1px_-1px_0_#52525b] peer-checked:bg-grass peer-checked:text-black peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-grass"
             aria-hidden="true"
           >
             ✓
           </span>
-          <span class="min-w-0 space-y-2">
-            <span class="block text-[8px] tracking-widest text-neutral-300">
-              ПОКАЗЫВАТЬ DISCORD-ПРОФИЛЬ
+          <span class="space-y-1">
+            <span class="block text-[9px] tracking-widest text-neutral-300">
+              ПОКАЗЫВАТЬ ПРОФИЛЬ
             </span>
-            <span class="block text-[7px] leading-loose text-neutral-600">
-              Публикуются только аватар, отображаемое имя и ссылка на профиль.
-              Онлайн-статус и активность не запрашиваются.
+            <span class="block text-[8px] leading-relaxed text-neutral-600">
+              Только аватар, имя и ссылка. Без статуса и активности.
             </span>
           </span>
         </label>
-      </section>
+      </div>
 
-      <section class="mc-panel space-y-5 p-5 sm:p-6">
-        <div class="space-y-1">
-          <p class="text-[9px] tracking-widest text-neutral-200">ССЫЛКИ</p>
-          <p class="text-[8px] leading-relaxed text-neutral-600">
-            Соцсети и до {CUSTOM_LINKS_MAX} произвольных ссылок.
-          </p>
-        </div>
+      <div class="space-y-4 border-t border-white/5 pt-5">
+        <p class="text-[9px] tracking-widest text-neutral-500">ССЫЛКИ</p>
 
         <div class="grid gap-4 sm:grid-cols-2">
           {#each LINK_SOCIAL_PLATFORMS as platform (platform.id)}
             <label
-              class="flex min-w-0 flex-col gap-2 text-[8px] tracking-widest text-neutral-500"
+              class="flex min-w-0 flex-col gap-2 text-[9px] tracking-widest text-neutral-500"
             >
               {platform.label.toUpperCase()}
               <input
@@ -178,31 +153,31 @@
                 bind:value={socialValues[platform.id]}
                 type="url"
                 placeholder="https://"
-                class="mc-panel min-w-0 bg-transparent px-4 py-3 text-[10px] tracking-normal text-neutral-100 outline-none placeholder:text-neutral-700 focus:shadow-[inset_0_0_0_1px_var(--color-grass-dim),0_0_0_3px_#000]"
+                class="min-w-0 border border-white/10 bg-black/20 px-3 py-3 text-[10px] tracking-normal text-neutral-100 outline-none placeholder:text-neutral-700 focus:border-grass-dim"
               />
             </label>
           {/each}
         </div>
 
-        <div class="space-y-3 border-t border-white/8 pt-5">
+        <div class="space-y-3">
           <div class="flex items-center justify-between gap-4">
-            <p class="text-[8px] tracking-widest text-neutral-500">
+            <p class="text-[9px] tracking-widest text-neutral-500">
               СВОИ ССЫЛКИ
             </p>
-            <p class="text-[7px] text-neutral-700">
-              {customLinks.length} / {CUSTOM_LINKS_MAX}
-            </p>
+            <span class="text-[8px] text-neutral-600">
+              {customLinks.length}/{CUSTOM_LINKS_MAX}
+            </span>
           </div>
 
           {#each customLinks as link (link.key)}
-            <div class="grid gap-2 sm:grid-cols-[10rem_minmax(0,1fr)_auto]">
+            <div class="grid gap-2 sm:grid-cols-[8rem_minmax(0,1fr)_auto]">
               <input
                 name="custom_label"
                 bind:value={link.label}
                 placeholder="Название"
                 maxlength="30"
                 aria-label="Название ссылки"
-                class="mc-panel min-w-0 bg-transparent px-3 py-3 text-[10px] text-neutral-100 outline-none placeholder:text-neutral-700"
+                class="min-w-0 border border-white/10 bg-black/20 px-3 py-3 text-[10px] text-neutral-100 outline-none placeholder:text-neutral-700 focus:border-grass-dim"
               />
               <input
                 name="custom_url"
@@ -210,15 +185,15 @@
                 type="url"
                 placeholder="https://"
                 aria-label="Адрес ссылки"
-                class="mc-panel min-w-0 bg-transparent px-3 py-3 text-[10px] text-neutral-100 outline-none placeholder:text-neutral-700"
+                class="min-w-0 border border-white/10 bg-black/20 px-3 py-3 text-[10px] text-neutral-100 outline-none placeholder:text-neutral-700 focus:border-grass-dim"
               />
               <button
                 type="button"
                 onclick={() => removeCustomLink(link.key)}
-                class="mc-tab px-3 py-2 text-[8px] tracking-widest text-red-500 hover:text-red-300"
+                class="mc-tab px-3 py-2 text-[9px] text-red-400 hover:text-red-300"
                 aria-label={`Удалить ссылку ${link.label || "без названия"}`}
               >
-                УДАЛИТЬ
+                ×
               </button>
             </div>
           {/each}
@@ -227,30 +202,30 @@
             <button
               type="button"
               onclick={addCustomLink}
-              class="mc-tab border border-white/8 px-3 py-3 text-[8px] tracking-widest text-neutral-500 hover:text-white"
+              class="mc-tab px-3 py-2 text-[9px] tracking-widest text-neutral-500 hover:text-white"
             >
               + ДОБАВИТЬ ССЫЛКУ
             </button>
           {/if}
         </div>
-      </section>
+      </div>
 
-      <footer
-        class="mc-panel flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between"
+      <div
+        class="flex flex-col gap-2 border-t border-white/5 pt-5 sm:flex-row sm:justify-end"
       >
         <a
           href={playerProfilePath(data.player.username)}
-          class="mc-tab px-4 py-3 text-center text-[8px] tracking-widest text-neutral-500 hover:text-white"
+          class="mc-tab px-4 py-3 text-center text-[9px] tracking-widest"
         >
           ОТМЕНА
         </a>
         <button
           type="submit"
-          class="mc-tab border border-grass-dim/50 bg-grass-dim/10 px-5 py-3 text-[8px] tracking-widest text-grass hover:text-white"
+          class="mc-tab px-4 py-3 text-[9px] tracking-widest text-neutral-200 hover:text-white"
         >
-          СОХРАНИТЬ ПРОФИЛЬ
+          СОХРАНИТЬ
         </button>
-      </footer>
+      </div>
     </form>
   </div>
 </main>
