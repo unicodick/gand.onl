@@ -23,9 +23,11 @@ export function safeRedirectTarget(
   }
 }
 
-interface DiscordUser {
+export interface DiscordUser {
   id: string;
   username: string;
+  global_name: string | null;
+  avatar: string | null;
 }
 
 export interface SessionUser {
