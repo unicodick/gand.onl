@@ -1,4 +1,5 @@
 import { error, fail, redirect } from "@sveltejs/kit";
+import { discordProfileUrl } from "$lib/discord";
 import {
   getPlayerByUsername,
   getPlayerSocials,
@@ -7,10 +8,13 @@ import {
   updatePlayerSkin,
 } from "$lib/server/players";
 import { playerEditPath, playerProfilePath } from "$lib/player-paths";
+import { ensureDiscordProfile } from "$lib/server/discord-profiles";
 import {
   CUSTOM_LINK_LABEL_MAX_LENGTH,
   CUSTOM_LINKS_MAX,
+  DISCORD_PLATFORM_ID,
   isValidSocialUrl,
+  LINK_SOCIAL_PLATFORMS,
   SOCIAL_PLATFORMS,
 } from "$lib/socials";
 import type { Actions, PageServerLoad } from "./$types";
@@ -59,7 +63,19 @@ export const actions: Actions = {
     }
 
     const socials: { platform: string; url: string }[] = [];
-    for (const socialPlatform of SOCIAL_PLATFORMS) {
+    if (form.get("show_discord_profile") === "on") {
+      await ensureDiscordProfile(
+        db,
+        locals.user.discordId,
+        locals.user.username,
+      );
+      socials.push({
+        platform: DISCORD_PLATFORM_ID,
+        url: discordProfileUrl(locals.user.discordId),
+      });
+    }
+
+    for (const socialPlatform of LINK_SOCIAL_PLATFORMS) {
       const value = String(
         form.get(`social_${socialPlatform.id}`) ?? "",
       ).trim();

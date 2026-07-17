@@ -64,3 +64,29 @@ export async function getDiscordProfile(
     .bind(discordId)
     .first<DiscordProfileRow>();
 }
+
+export async function getDiscordProfileWithSessionFallback(
+  db: D1Database,
+  discordId: string,
+): Promise<DiscordProfileRow | null> {
+  const profile = await getDiscordProfile(db, discordId);
+  if (profile) return profile;
+
+  const session = await db
+    .prepare(
+      `SELECT discord_username, created_at
+       FROM sessions WHERE discord_id = ?
+       ORDER BY created_at DESC LIMIT 1`,
+    )
+    .bind(discordId)
+    .first<{ discord_username: string; created_at: string }>();
+  if (!session) return null;
+
+  return {
+    discord_id: discordId,
+    username: session.discord_username,
+    global_name: null,
+    avatar_hash: null,
+    updated_at: session.created_at,
+  };
+}

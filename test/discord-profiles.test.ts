@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import {
   ensureDiscordProfile,
   getDiscordProfile,
+  getDiscordProfileWithSessionFallback,
   upsertDiscordProfile,
 } from "../src/lib/server/discord-profiles";
 
@@ -50,6 +51,30 @@ describe("Discord profiles", () => {
       username: "oauth_name",
       global_name: "OAuth Name",
       avatar_hash: "oauth-avatar",
+    });
+  });
+
+  it("uses the latest session name before the next OAuth refresh", async () => {
+    await env.DB.prepare(
+      `INSERT INTO sessions
+         (token_hash, discord_id, discord_username, expires_at, created_at)
+       VALUES (?, ?, ?, ?, ?)`,
+    )
+      .bind(
+        "fallback-session",
+        "333333333333333333",
+        "session_name",
+        "2099-01-01T00:00:00.000Z",
+        "2026-07-17T00:00:00.000Z",
+      )
+      .run();
+
+    await expect(
+      getDiscordProfileWithSessionFallback(env.DB, "333333333333333333"),
+    ).resolves.toMatchObject({
+      username: "session_name",
+      global_name: null,
+      avatar_hash: null,
     });
   });
 });

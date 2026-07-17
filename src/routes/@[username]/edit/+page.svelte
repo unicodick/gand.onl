@@ -3,8 +3,9 @@
   import { BRAND } from "$lib/creators";
   import {
     CUSTOM_LINKS_MAX,
+    DISCORD_PLATFORM_ID,
+    LINK_SOCIAL_PLATFORMS,
     SOCIAL_PLATFORM_IDS,
-    SOCIAL_PLATFORMS,
   } from "$lib/socials";
 
   let { data, form } = $props();
@@ -14,11 +15,16 @@
   let socialValues = $state(
     untrack(() =>
       Object.fromEntries(
-        SOCIAL_PLATFORMS.map((platform) => [
+        LINK_SOCIAL_PLATFORMS.map((platform) => [
           platform.id,
           data.socials.find((s) => s.platform === platform.id)?.url ?? "",
         ]),
       ),
+    ),
+  );
+  let showDiscordProfile = $state(
+    untrack(() =>
+      data.socials.some((social) => social.platform === DISCORD_PLATFORM_ID),
     ),
   );
   let customLinks = $state(
@@ -84,7 +90,31 @@
 
       <div class="flex flex-col gap-3">
         <p class="text-[10px] tracking-widest text-neutral-500">СОЦСЕТИ</p>
-        {#each SOCIAL_PLATFORMS as platform (platform.id)}
+        <label
+          class="mc-panel flex cursor-pointer items-start gap-3 p-4 text-[9px] leading-relaxed text-neutral-500"
+        >
+          <input
+            type="checkbox"
+            name="show_discord_profile"
+            bind:checked={showDiscordProfile}
+            class="peer sr-only"
+          />
+          <span
+            class="mt-0.5 size-4 shrink-0 bg-neutral-700 shadow-[inset_1px_1px_0_#000,inset_-1px_-1px_0_#3f3f46] peer-checked:bg-grass peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-grass"
+            aria-hidden="true"
+          ></span>
+          <span class="space-y-1">
+            <span class="block tracking-widest text-neutral-300">
+              ПОКАЗЫВАТЬ DISCORD-ПРОФИЛЬ
+            </span>
+            <span class="block text-[8px] leading-relaxed text-neutral-600">
+              Аватар и имя берутся из привязанного Discord-аккаунта. Статус и
+              активность не публикуются.
+            </span>
+          </span>
+        </label>
+
+        {#each LINK_SOCIAL_PLATFORMS as platform (platform.id)}
           <label
             class="flex flex-col gap-1 text-[10px] tracking-widest text-neutral-500"
           >
