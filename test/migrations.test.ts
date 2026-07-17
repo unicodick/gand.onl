@@ -29,3 +29,24 @@ it("preserves player socials during the username identity migration", async () =
     url: "https://t.me/player",
   });
 });
+
+it("adds empty news metadata without changing existing posts", async () => {
+  await applyD1Migrations(env.DB, env.TEST_MIGRATIONS.slice(0, 3));
+
+  await env.DB.prepare(
+    `INSERT INTO news (slug, title, body, published, author_discord_id)
+     VALUES (?, ?, ?, ?, ?)`,
+  )
+    .bind("existing-post", "Existing post", "Body", 1, "author")
+    .run();
+
+  await applyD1Migrations(env.DB, env.TEST_MIGRATIONS.slice(3));
+
+  const news = await env.DB.prepare(
+    "SELECT cover_key, tags FROM news WHERE slug = ?",
+  )
+    .bind("existing-post")
+    .first<{ cover_key: string | null; tags: string }>();
+
+  expect(news).toEqual({ cover_key: null, tags: "[]" });
+});

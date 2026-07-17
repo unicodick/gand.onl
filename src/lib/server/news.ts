@@ -1,10 +1,13 @@
 import type { D1Database } from "@cloudflare/workers-types";
+import { parseNewsTags, serializeNewsTags } from "../news";
 
-export interface NewsRow {
+interface NewsDbRow {
   id: number;
   slug: string;
   title: string;
   body: string;
+  cover_key: string | null;
+  tags: string;
   published: number;
   published_at: string | null;
   created_at: string;
@@ -12,7 +15,15 @@ export interface NewsRow {
   author_discord_id: string;
 }
 
+export interface NewsRow extends Omit<NewsDbRow, "tags"> {
+  tags: string[];
+}
+
 export type PublicNewsRow = Omit<NewsRow, "author_discord_id">;
+
+function fromDbNews(news: NewsDbRow): NewsRow {
+  return { ...news, tags: parseNewsTags(news.tags) };
+}
 
 export function toPublicNews(news: NewsRow): PublicNewsRow {
   const { author_discord_id: _author_discord_id, ...publicNews } = news;
@@ -28,41 +39,43 @@ export function isSlugConflictError(err: unknown): boolean {
 export async function listAllNews(db: D1Database): Promise<NewsRow[]> {
   const { results } = await db
     .prepare("SELECT * FROM news ORDER BY created_at DESC")
-    .all<NewsRow>();
-  return results;
+    .all<NewsDbRow>();
+  return results.map(fromDbNews);
 }
 
 export async function listPublishedNews(
   db: D1Database,
-  { limit, offset }: { limit: number; offset: number },
-): Promise<{ items: NewsRow[]; hasMore: boolean }> {
+  { limit }: { limit: number },
+): Promise<NewsRow[]> {
   const { results } = await db
     .prepare(
-      "SELECT * FROM news WHERE published = 1 ORDER BY published_at DESC LIMIT ? OFFSET ?",
+      "SELECT * FROM news WHERE published = 1 ORDER BY published_at DESC LIMIT ?",
     )
-    .bind(limit + 1, offset)
-    .all<NewsRow>();
-  return { items: results.slice(0, limit), hasMore: results.length > limit };
+    .bind(limit)
+    .all<NewsDbRow>();
+  return results.map(fromDbNews);
 }
 
 export async function getPublishedNewsBySlug(
   db: D1Database,
   slug: string,
 ): Promise<NewsRow | null> {
-  return db
+  const news = await db
     .prepare("SELECT * FROM news WHERE slug = ? AND published = 1")
     .bind(slug)
-    .first<NewsRow>();
+    .first<NewsDbRow>();
+  return news ? fromDbNews(news) : null;
 }
 
 export async function getNewsById(
   db: D1Database,
   id: number,
 ): Promise<NewsRow | null> {
-  return db
+  const news = await db
     .prepare("SELECT * FROM news WHERE id = ?")
     .bind(id)
-    .first<NewsRow>();
+    .first<NewsDbRow>();
+  return news ? fromDbNews(news) : null;
 }
 
 export async function createNews(
@@ -71,6 +84,8 @@ export async function createNews(
     slug: string;
     title: string;
     body: string;
+    coverKey: string | null;
+    tags: string[];
     published: boolean;
     authorDiscordId: string;
   },
@@ -78,13 +93,15 @@ export async function createNews(
   const now = new Date().toISOString();
   const result = await db
     .prepare(
-      `INSERT INTO news (slug, title, body, published, published_at, created_at, updated_at, author_discord_id)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO news (slug, title, body, cover_key, tags, published, published_at, created_at, updated_at, author_discord_id)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     )
     .bind(
       input.slug,
       input.title,
       input.body,
+      input.coverKey,
+      serializeNewsTags(input.tags),
       input.published ? 1 : 0,
       input.published ? now : null,
       now,
@@ -98,7 +115,14 @@ export async function createNews(
 export async function updateNews(
   db: D1Database,
   id: number,
-  input: { slug: string; title: string; body: string; published: boolean },
+  input: {
+    slug: string;
+    title: string;
+    body: string;
+    coverKey: string | null;
+    tags: string[];
+    published: boolean;
+  },
 ): Promise<void> {
   const existing = await getNewsById(db, id);
   if (!existing) throw new Error("news not found");
@@ -110,13 +134,15 @@ export async function updateNews(
 
   await db
     .prepare(
-      `UPDATE news SET slug = ?, title = ?, body = ?, published = ?, published_at = ?, updated_at = ?
+      `UPDATE news SET slug = ?, title = ?, body = ?, cover_key = ?, tags = ?, published = ?, published_at = ?, updated_at = ?
        WHERE id = ?`,
     )
     .bind(
       input.slug,
       input.title,
       input.body,
+      input.coverKey,
+      serializeNewsTags(input.tags),
       input.published ? 1 : 0,
       publishedAt,
       now,
@@ -127,4 +153,15 @@ export async function updateNews(
 
 export async function deleteNews(db: D1Database, id: number): Promise<void> {
   await db.prepare("DELETE FROM news WHERE id = ?").bind(id).run();
+}
+
+export async function isNewsCoverInUse(
+  db: D1Database,
+  coverKey: string,
+): Promise<boolean> {
+  const row = await db
+    .prepare("SELECT 1 AS found FROM news WHERE cover_key = ? LIMIT 1")
+    .bind(coverKey)
+    .first<{ found: number }>();
+  return Boolean(row);
 }
