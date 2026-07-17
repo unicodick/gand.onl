@@ -20,6 +20,10 @@
   });
 </script>
 
-<Header />
-{@render children()}
-<Footer />
+<div class="flex min-h-dvh flex-col">
+  <Header />
+  <div class="flex flex-1 flex-col">
+    {@render children()}
+  </div>
+  <Footer />
+</div>

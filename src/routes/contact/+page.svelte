@@ -1,5 +1,6 @@
 <script lang="ts">
   import { API_LINKS, BRAND, CONTACT_LINKS } from "$lib/creators";
+  import RosterDialog from "$lib/components/RosterDialog.svelte";
 </script>
 
 <svelte:head>
@@ -7,9 +8,7 @@
   <meta name="description" content="контакты детей спавна" />
 </svelte:head>
 
-<main
-  class="flex min-h-screen w-full flex-col items-center px-4 pt-24 pb-40 sm:pt-28"
->
+<main class="flex w-full flex-1 flex-col items-center px-4 py-12 sm:py-16">
   <section
     class="grid w-full max-w-4xl gap-8 md:grid-cols-[minmax(0,1fr)_320px]"
   >
@@ -55,6 +54,7 @@
               {api.label}
             </a>
           {/each}
+          <RosterDialog />
         </div>
       </div>
     </div>

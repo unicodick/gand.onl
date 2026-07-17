@@ -18,9 +18,7 @@
   <meta name="description" content="игроки zlp.onl" />
 </svelte:head>
 
-<main
-  class="flex min-h-screen w-full flex-col items-center px-4 pt-24 pb-40 sm:pt-28"
->
+<main class="flex w-full flex-1 flex-col items-center px-4 py-12 sm:py-16">
   <section class="w-full max-w-5xl space-y-8">
     <div class="space-y-4">
       <p class="text-[10px] tracking-widest text-neutral-500">ИГРОКИ</p>

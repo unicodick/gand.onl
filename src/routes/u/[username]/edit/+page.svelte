@@ -46,9 +46,7 @@
   <title>Редактирование — {data.player.username} — {BRAND}</title>
 </svelte:head>
 
-<main
-  class="flex min-h-screen w-full flex-col items-center px-4 pt-24 pb-40 sm:pt-28"
->
+<main class="flex w-full flex-1 flex-col items-center px-4 py-12 sm:py-16">
   <div class="flex w-full max-w-2xl flex-col gap-6">
     <h1 class="text-sm text-neutral-100">
       Редактирование профиля — {data.player.username}
