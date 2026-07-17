@@ -9,6 +9,11 @@ import { defineConfig } from "vitest/config";
 const projectRoot = fileURLToPath(new URL(".", import.meta.url));
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      $lib: path.join(projectRoot, "src/lib"),
+    },
+  },
   plugins: [
     cloudflareTest(async () => ({
       miniflare: {

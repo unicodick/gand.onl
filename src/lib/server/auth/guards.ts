@@ -25,6 +25,9 @@ export function requireModAuthorization(
   request: Request,
   secret: string,
 ): void {
+  if (!secret?.trim()) {
+    error(503, "Mod API is not configured");
+  }
   if (request.headers.get("authorization") !== `Bearer ${secret}`) {
     error(401, "Unauthorized");
   }

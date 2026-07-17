@@ -1,4 +1,5 @@
 import { error, fail, redirect } from "@sveltejs/kit";
+import { requireAdmin } from "$lib/server/auth/guards";
 import {
   deleteNews,
   getNewsById,
@@ -19,7 +20,8 @@ function parseId(raw: string): number {
   return id;
 }
 
-export const load: PageServerLoad = async ({ params, platform }) => {
+export const load: PageServerLoad = async ({ params, platform, locals }) => {
+  requireAdmin(platform!.env, locals.user);
   const news = await getNewsById(platform!.env.DB, parseId(params.id));
   if (!news) error(404, "Новость не найдена");
   return { news };

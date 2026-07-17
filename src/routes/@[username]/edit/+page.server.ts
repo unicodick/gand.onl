@@ -4,9 +4,7 @@ import { parsePlayerProfileForm } from "$lib/players/profile-form";
 import {
   getPlayerByUsername,
   getPlayerSocials,
-  replacePlayerSocials,
-  updatePlayerBio,
-  updatePlayerSkin,
+  updatePlayerProfile,
 } from "$lib/server/players/repository";
 import { playerEditPath, playerProfilePath } from "$lib/players/paths";
 import { ensureDiscordProfile } from "$lib/server/discord/profiles";
@@ -61,9 +59,12 @@ export const actions: Actions = {
     }
     socials.push(...parsed.profile.socials);
 
-    await updatePlayerBio(db, player.id, parsed.profile.bio);
-    await updatePlayerSkin(db, player.id, parsed.profile.skinUrl);
-    await replacePlayerSocials(db, player.id, socials);
+    await updatePlayerProfile(db, {
+      playerId: player.id,
+      bio: parsed.profile.bio,
+      skinUrl: parsed.profile.skinUrl,
+      socials,
+    });
 
     redirect(303, playerProfilePath(player.username));
   },
