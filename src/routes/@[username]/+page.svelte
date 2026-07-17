@@ -1,6 +1,7 @@
 <script lang="ts">
   import { BRAND, skinRender } from "$lib/creators";
   import DiscordProfileCard from "$lib/components/DiscordProfileCard.svelte";
+  import ProfileBadge from "$lib/components/ProfileBadge.svelte";
   import Skin from "$lib/components/Skin.svelte";
   import { playerEditPath, playerProfilePath } from "$lib/player-paths";
   import { SOCIAL_PLATFORMS } from "$lib/socials";
@@ -40,11 +41,18 @@
         <p class="text-[9px] tracking-widest text-neutral-500">
           ПРОФИЛЬ ИГРОКА
         </p>
-        <h1
-          class="break-all text-xl leading-relaxed text-neutral-100 sm:text-2xl"
-        >
-          <span class="text-neutral-600">@</span>{data.player.username}
-        </h1>
+        <div class="flex flex-wrap items-center gap-3">
+          <h1
+            class="break-all text-xl leading-relaxed text-neutral-100 sm:text-2xl"
+          >
+            <span class="text-neutral-600">@</span>{data.player.username}
+          </h1>
+          <ProfileBadge
+            icon="lock"
+            label="Профиль заблокирован"
+            class="text-red-400"
+          />
+        </div>
       </div>
 
       <div class="mc-panel panel-in space-y-3 p-6">
@@ -77,11 +85,29 @@
               <p class="text-[9px] tracking-widest text-neutral-500">
                 ПРОФИЛЬ ИГРОКА
               </p>
-              <h1
-                class={`break-all text-xl leading-relaxed sm:text-2xl ${data.isAdmin ? "text-gold" : "text-neutral-100"}`}
-              >
-                <span class="text-neutral-600">@</span>{data.player.username}
-              </h1>
+              <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
+                <h1
+                  class={`break-all text-xl leading-relaxed sm:text-2xl ${data.isAdmin ? "text-gold" : "text-neutral-100"}`}
+                >
+                  <span class="text-neutral-600">@</span>{data.player.username}
+                </h1>
+                <div class="flex items-center gap-1">
+                  <ProfileBadge
+                    icon={data.isLinked ? "link" : "unlink"}
+                    label={data.isLinked
+                      ? "Привязанный профиль"
+                      : "Профиль не привязан"}
+                    class={data.isLinked ? "text-grass" : "text-neutral-600"}
+                  />
+                  {#if data.isAdmin}
+                    <ProfileBadge
+                      icon="admin"
+                      label={`Администратор ${BRAND}`}
+                      class="text-gold"
+                    />
+                  {/if}
+                </div>
+              </div>
             </div>
 
             {#if data.showEditLink}
@@ -91,17 +117,6 @@
               >
                 ИЗМЕНИТЬ
               </a>
-            {/if}
-          </div>
-
-          <div
-            class="flex flex-wrap gap-x-4 gap-y-2 text-[8px] tracking-widest"
-          >
-            <span class={data.isLinked ? "text-grass" : "text-neutral-600"}>
-              {data.isLinked ? "✓ ПРИВЯЗАН" : "НЕ ПРИВЯЗАН"}
-            </span>
-            {#if data.isAdmin}
-              <span class="text-gold">★ АДМИН {BRAND.toUpperCase()}</span>
             {/if}
           </div>
         </header>
