@@ -1,6 +1,6 @@
 import { fail } from "@sveltejs/kit";
-import { renderMarkdown } from "$lib/markdown";
-import { parseNewsForm, prepareNewsFormCover } from "$lib/server/news-form";
+import { renderMarkdown } from "$lib/news/markdown";
+import { parseNewsForm, prepareNewsFormCover } from "$lib/server/news/form";
 import type { Actions } from "./$types";
 
 export const actions: Actions = {

@@ -1,16 +1,16 @@
 import { error, fail, redirect } from "@sveltejs/kit";
-import { discordProfileUrl } from "$lib/discord";
-import { parsePlayerProfileForm } from "$lib/player-profile-form";
+import { discordProfileUrl } from "$lib/discord/model";
+import { parsePlayerProfileForm } from "$lib/players/profile-form";
 import {
   getPlayerByUsername,
   getPlayerSocials,
   replacePlayerSocials,
   updatePlayerBio,
   updatePlayerSkin,
-} from "$lib/server/players";
-import { playerEditPath, playerProfilePath } from "$lib/player-paths";
-import { ensureDiscordProfile } from "$lib/server/discord-profiles";
-import { DISCORD_PLATFORM_ID } from "$lib/socials";
+} from "$lib/server/players/repository";
+import { playerEditPath, playerProfilePath } from "$lib/players/paths";
+import { ensureDiscordProfile } from "$lib/server/discord/profiles";
+import { DISCORD_PLATFORM_ID } from "$lib/players/socials";
 import type { Actions, PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ params, platform, locals }) => {

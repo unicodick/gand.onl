@@ -1,11 +1,11 @@
 import { applyD1Migrations, env } from "cloudflare:test";
 import { beforeEach, describe, expect, it } from "vitest";
-import { linkPlayerByUsername } from "../src/lib/server/link-requests";
+import { linkPlayerByUsername } from "../src/lib/server/players/linking";
 import {
   getPlayerByOwnerDiscordId,
   getPlayerByUsername,
   isOwnerConflictError,
-} from "../src/lib/server/players";
+} from "../src/lib/server/players/repository";
 
 const FUTURE = "2999-01-01T00:00:00.000Z";
 

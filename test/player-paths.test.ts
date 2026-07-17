@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { playerEditPath, playerProfilePath } from "../src/lib/player-paths";
+import { playerEditPath, playerProfilePath } from "../src/lib/players/paths";
 
 describe("player paths", () => {
   it("builds canonical profile and edit paths", () => {

@@ -4,13 +4,13 @@ import {
   getNewsById,
   isSlugConflictError,
   updateNews,
-} from "$lib/server/news";
+} from "$lib/server/news/repository";
 import {
   parseNewsForm,
   prepareNewsFormCover,
   readNewsFormValues,
-} from "$lib/server/news-form";
-import { deleteNewsCover } from "$lib/server/news-media";
+} from "$lib/server/news/form";
+import { deleteNewsCover } from "$lib/server/news/media";
 import type { Actions, PageServerLoad } from "./$types";
 
 function parseId(raw: string): number {

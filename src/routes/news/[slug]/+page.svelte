@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { BRAND } from "$lib/creators";
-  import NewsArticle from "$lib/components/news/NewsArticle.svelte";
-  import { newsCoverUrl } from "$lib/news";
+  import { BRAND } from "$lib/site";
+  import NewsArticle from "$lib/news/components/NewsArticle.svelte";
+  import { newsCoverUrl } from "$lib/news/model";
 
   let { data } = $props();
   let coverUrl = $derived(newsCoverUrl(data.news.cover_key));

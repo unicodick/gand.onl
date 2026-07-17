@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { safeRedirectTarget } from "../src/lib/server/auth";
+import { safeRedirectTarget } from "../src/lib/server/auth/oauth";
 
 const ORIGIN = "https://gand.onl";
 

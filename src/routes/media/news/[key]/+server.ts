@@ -1,5 +1,5 @@
 import { error } from "@sveltejs/kit";
-import { getNewsCover } from "$lib/server/news-media";
+import { getNewsCover } from "$lib/server/news/media";
 import type { RequestHandler } from "./$types";
 
 export const GET: RequestHandler = async ({ params, platform, request }) => {

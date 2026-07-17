@@ -1,9 +1,6 @@
 import type { Handle } from "@sveltejs/kit";
-import {
-  getSessionUser,
-  isAllowedAdmin,
-  SESSION_COOKIE,
-} from "$lib/server/auth";
+import { isAllowedAdmin } from "$lib/server/auth/guards";
+import { getSessionUser, SESSION_COOKIE } from "$lib/server/auth/sessions";
 
 const ADMIN_MUTATION_PREFIXES = ["/account/news", "/account/players"];
 

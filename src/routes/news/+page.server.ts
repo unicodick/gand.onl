@@ -1,4 +1,4 @@
-import { listPublishedNews, toPublicNews } from "$lib/server/news";
+import { listPublishedNews, toPublicNews } from "$lib/server/news/repository";
 import type { PageServerLoad } from "./$types";
 
 const NEWS_LIMIT = 3;

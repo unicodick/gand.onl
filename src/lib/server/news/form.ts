@@ -1,7 +1,7 @@
-import { isNewsCoverKey, parseNewsTags } from "../news";
-import { slugify } from "../slug";
+import { isNewsCoverKey, parseNewsTags } from "../../news/model";
+import { slugify } from "../../news/slug";
 import type { R2Bucket } from "@cloudflare/workers-types";
-import { hasNewsCover, uploadNewsCover } from "./news-media";
+import { hasNewsCover, uploadNewsCover } from "./media";
 
 export interface NewsFormInput {
   title: string;

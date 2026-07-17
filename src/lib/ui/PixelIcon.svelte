@@ -1,6 +1,6 @@
 <script lang="ts">
   import { asset } from "$app/paths";
-  import type { PixelIconName } from "$lib/icons";
+  import type { PixelIconName } from "$lib/ui/icons";
 
   let {
     name,

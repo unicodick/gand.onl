@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { newsCoverUrl } from "$lib/news";
+  import { newsCoverUrl } from "$lib/news/model";
 
   let {
     coverKey,

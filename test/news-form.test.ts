@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseNewsForm, readNewsFormValues } from "../src/lib/server/news-form";
+import { parseNewsForm, readNewsFormValues } from "../src/lib/server/news/form";
 
 const COVER_KEY = "2d931510-d99f-494a-8c67-87feb05e1594.webp";
 

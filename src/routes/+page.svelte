@@ -1,12 +1,13 @@
 <script lang="ts">
-  import Skin from "$lib/components/Skin.svelte";
-  import { CREATORS, BRAND, skinRender } from "$lib/creators";
-  import { playerProfilePath } from "$lib/player-paths";
+  import Skin from "$lib/players/components/Skin.svelte";
+  import { skinRender } from "$lib/minecraft/skins";
+  import { BRAND, CREATORS } from "$lib/site";
+  import { playerProfilePath } from "$lib/players/paths";
 </script>
 
 <svelte:head>
   <title>{BRAND}</title>
-  <meta name="description" content="Новостное сообщество спавна" />
+  <meta name="description" content="Новостное сообщество спавна zlp.onl" />
 </svelte:head>
 
 <main
@@ -22,9 +23,6 @@
           >нёй.
         </span>
         <span class="block">Поэтому существует {BRAND}.</span>
-      </span>
-      <span class="sr-only">
-        Эти люди занимаются хуйнёй. Поэтому существует {BRAND}.
       </span>
     </h1>
 

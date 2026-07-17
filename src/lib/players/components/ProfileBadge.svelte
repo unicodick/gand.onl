@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { PixelIconName } from "$lib/icons";
-  import PixelIcon from "./PixelIcon.svelte";
+  import type { PixelIconName } from "$lib/ui/icons";
+  import PixelIcon from "$lib/ui/PixelIcon.svelte";
 
   let {
     icon,

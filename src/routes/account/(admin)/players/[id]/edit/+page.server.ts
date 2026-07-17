@@ -1,17 +1,17 @@
 import { error, fail, redirect } from "@sveltejs/kit";
-import { canPreserveDiscordVisibility } from "$lib/discord";
-import { parsePlayerProfileForm } from "$lib/player-profile-form";
+import { canPreserveDiscordVisibility } from "$lib/discord/model";
+import { parsePlayerProfileForm } from "$lib/players/profile-form";
 import {
   deletePlayerAsAdmin,
   setPlayerBlocked,
   updatePlayerAsAdmin,
-} from "$lib/server/admin";
+} from "$lib/server/players/moderation";
 import {
   getPlayerById,
   getPlayerSocials,
   isOwnerConflictError,
-} from "$lib/server/players";
-import { DISCORD_PLATFORM_ID } from "$lib/socials";
+} from "$lib/server/players/repository";
+import { DISCORD_PLATFORM_ID } from "$lib/players/socials";
 import type { Actions, PageServerLoad } from "./$types";
 
 const DISCORD_ID_PATTERN = /^\d{17,20}$/;

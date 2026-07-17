@@ -3,7 +3,7 @@ import {
   canPreserveDiscordVisibility,
   discordAvatarUrl,
   discordProfileUrl,
-} from "../src/lib/discord";
+} from "../src/lib/discord/model";
 
 describe("Discord profile presentation", () => {
   it("builds custom and default avatar URLs", () => {

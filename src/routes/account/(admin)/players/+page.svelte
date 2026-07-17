@@ -1,7 +1,10 @@
 <script lang="ts">
-  import PixelIcon from "$lib/components/PixelIcon.svelte";
-  import { playerProfilePath } from "$lib/player-paths";
-  import { filterAdminPlayers, type AdminPlayerFilter } from "$lib/players";
+  import PixelIcon from "$lib/ui/PixelIcon.svelte";
+  import { playerProfilePath } from "$lib/players/paths";
+  import {
+    filterAdminPlayers,
+    type AdminPlayerFilter,
+  } from "$lib/players/search";
 
   let { data } = $props();
   let query = $state("");

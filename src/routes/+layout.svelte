@@ -1,8 +1,8 @@
 <script lang="ts">
   import "../app.css";
   import { asset } from "$app/paths";
-  import Header from "$lib/components/Header.svelte";
-  import Footer from "$lib/components/Footer.svelte";
+  import Header from "$lib/ui/Header.svelte";
+  import Footer from "$lib/ui/Footer.svelte";
 
   let { children } = $props();
 

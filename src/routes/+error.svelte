@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import { BRAND } from "$lib/creators";
+  import { BRAND } from "$lib/site";
 
   let status = $derived(page.status);
   let message = $derived(page.error?.message ?? "");

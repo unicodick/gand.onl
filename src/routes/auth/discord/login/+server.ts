@@ -2,12 +2,12 @@ import { dev } from "$app/environment";
 import { error, redirect } from "@sveltejs/kit";
 import {
   buildDiscordAuthorizeUrl,
-  randomToken,
   REDIRECT_COOKIE,
   safeRedirectTarget,
   STATE_COOKIE,
   STATE_TTL_SECONDS,
-} from "$lib/server/auth";
+} from "$lib/server/auth/oauth";
+import { randomToken } from "$lib/server/auth/sessions";
 import type { RequestHandler } from "./$types";
 
 export const GET: RequestHandler = async ({ cookies, platform, url }) => {

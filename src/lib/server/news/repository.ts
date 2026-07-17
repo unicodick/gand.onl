@@ -1,5 +1,5 @@
 import type { D1Database } from "@cloudflare/workers-types";
-import { parseNewsTags, serializeNewsTags } from "../news";
+import { parseNewsTags, serializeNewsTags } from "../../news/model";
 
 interface NewsDbRow {
   id: number;

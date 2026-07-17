@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { BRAND } from "$lib/creators";
-  import PixelIcon from "$lib/components/PixelIcon.svelte";
-  import { playerEditPath, playerProfilePath } from "$lib/player-paths";
+  import { BRAND } from "$lib/site";
+  import PixelIcon from "$lib/ui/PixelIcon.svelte";
+  import { playerEditPath, playerProfilePath } from "$lib/players/paths";
 
   let { data } = $props();
 </script>

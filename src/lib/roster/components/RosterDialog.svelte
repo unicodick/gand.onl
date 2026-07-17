@@ -1,5 +1,5 @@
 <script lang="ts">
-  import PixelIcon from "./PixelIcon.svelte";
+  import PixelIcon from "$lib/ui/PixelIcon.svelte";
 
   let dialog = $state<HTMLDialogElement>();
 
@@ -64,11 +64,7 @@
         > — каталог игроков, которых мод когда-либо видел. Это не текущий онлайн:
         статус и число игроков в footer поступают отдельно через mcsrvstat.us.
       </p>
-      <p>
-        Закрытый канал также предназначен для подтверждения связи
-        Minecraft-аккаунта с Discord. Мод и API сейчас не предоставляются
-        публично.
-      </p>
+      <p>Мод и API сейчас не предоставляются публично.</p>
     </div>
 
     <p

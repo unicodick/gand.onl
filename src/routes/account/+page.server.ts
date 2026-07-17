@@ -1,5 +1,8 @@
-import { getOrCreateLinkRequest } from "$lib/server/link-requests";
-import { getPlayerByOwnerDiscordId, toPublicPlayer } from "$lib/server/players";
+import { getOrCreateLinkRequest } from "$lib/server/players/linking";
+import {
+  getPlayerByOwnerDiscordId,
+  toPublicPlayer,
+} from "$lib/server/players/repository";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ platform, locals }) => {

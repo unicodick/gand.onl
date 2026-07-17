@@ -1,5 +1,6 @@
 import { error, json } from "@sveltejs/kit";
-import { syncRoster } from "$lib/server/roster";
+import { requireModAuthorization } from "$lib/server/auth/guards";
+import { syncRoster } from "$lib/server/roster/repository";
 import type { RequestHandler } from "./$types";
 
 export const prerender = false;
@@ -7,10 +8,7 @@ export const prerender = false;
 const MAX_USERNAMES = 200;
 
 export const POST: RequestHandler = async ({ request, platform }) => {
-  const auth = request.headers.get("authorization");
-  if (auth !== `Bearer ${platform!.env.MOD_SECRET}`) {
-    error(401, "Unauthorized");
-  }
+  requireModAuthorization(request, platform!.env.MOD_SECRET);
 
   const body = (await request.json()) as { usernames?: unknown };
   const usernames = body.usernames;

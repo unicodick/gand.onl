@@ -1,10 +1,10 @@
 import { fail, redirect } from "@sveltejs/kit";
-import { createNews, isSlugConflictError } from "$lib/server/news";
+import { createNews, isSlugConflictError } from "$lib/server/news/repository";
 import {
   parseNewsForm,
   prepareNewsFormCover,
   readNewsFormValues,
-} from "$lib/server/news-form";
+} from "$lib/server/news/form";
 import type { Actions } from "./$types";
 
 export const actions: Actions = {

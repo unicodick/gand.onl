@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getRosterFreshness } from "$lib/roster-status";
+  import { getRosterFreshness } from "$lib/roster/status";
 
   let { data } = $props();
 
@@ -114,10 +114,6 @@
       {/if}
     </div>
   </div>
-  <p class="text-[8px] leading-relaxed text-neutral-600">
-    Клиентский мод отправляет Roster раз в 10 минут, только пока подключён к
-    серверу. Отсутствие новых данных не означает ошибку API.
-  </p>
 </section>
 
 <section class="space-y-3">

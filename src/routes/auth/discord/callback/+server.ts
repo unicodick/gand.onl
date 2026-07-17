@@ -1,16 +1,18 @@
 import { dev } from "$app/environment";
 import { error, redirect } from "@sveltejs/kit";
 import {
-  createSession,
   exchangeCodeForToken,
   fetchDiscordUser,
   REDIRECT_COOKIE,
   safeRedirectTarget,
+  STATE_COOKIE,
+} from "$lib/server/auth/oauth";
+import {
+  createSession,
   SESSION_COOKIE,
   SESSION_TTL_SECONDS,
-  STATE_COOKIE,
-} from "$lib/server/auth";
-import { upsertDiscordProfile } from "$lib/server/discord-profiles";
+} from "$lib/server/auth/sessions";
+import { upsertDiscordProfile } from "$lib/server/discord/profiles";
 import type { RequestHandler } from "./$types";
 
 export const GET: RequestHandler = async ({ url, cookies, platform }) => {

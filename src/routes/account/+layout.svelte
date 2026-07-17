@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import PixelIcon from "$lib/components/PixelIcon.svelte";
+  import PixelIcon from "$lib/ui/PixelIcon.svelte";
 
   let { data, children } = $props();
 
