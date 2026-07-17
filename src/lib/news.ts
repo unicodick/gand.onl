@@ -50,3 +50,15 @@ export function isNewsCoverKey(value: string): boolean {
 export function newsCoverUrl(key: string | null): string | null {
   return key && isNewsCoverKey(key) ? `/media/news/${key}` : null;
 }
+
+export function validateNewsCover(file: File): string | null {
+  if (file.size === 0) return "Выберите изображение";
+  if (file.size > NEWS_COVER_MAX_BYTES)
+    return "Изображение должно быть не больше 5 МБ";
+  if (
+    !NEWS_COVER_TYPES.includes(file.type as (typeof NEWS_COVER_TYPES)[number])
+  ) {
+    return "Поддерживаются JPEG, PNG и WebP";
+  }
+  return null;
+}

@@ -1,32 +1,24 @@
 import { fail, redirect } from "@sveltejs/kit";
 import { createNews, isSlugConflictError } from "$lib/server/news";
-import { slugify } from "$lib/slug";
+import { parseNewsForm, prepareNewsFormCover } from "$lib/server/news-form";
 import type { Actions } from "./$types";
 
 export const actions: Actions = {
   default: async ({ request, platform, locals }) => {
     const form = await request.formData();
-    const title = String(form.get("title") ?? "").trim();
-    const slugInput = String(form.get("slug") ?? "").trim();
-    const body = String(form.get("body") ?? "").trim();
-    const published = form.get("published") === "on";
+    const coverError = await prepareNewsFormCover(
+      form,
+      platform!.env.NEWS_MEDIA,
+    );
+    if (coverError) return fail(400, { errorMessage: coverError });
 
-    if (!title || !body) {
-      return fail(400, { errorMessage: "Заполните заголовок и текст" });
-    }
-
-    const slug = slugify(slugInput || title);
-    if (!slug)
-      return fail(400, { errorMessage: "Не удалось сформировать slug" });
+    const parsed = parseNewsForm(form);
+    if (!parsed.value) return fail(400, { errorMessage: parsed.error });
+    const input = parsed.value;
 
     try {
       await createNews(platform!.env.DB, {
-        slug,
-        title,
-        body,
-        coverKey: null,
-        tags: [],
-        published,
+        ...input,
         authorDiscordId: locals.user!.discordId,
       });
     } catch (err) {

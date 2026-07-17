@@ -5,8 +5,8 @@ import {
   newsCoverUrl,
   normalizeNewsTags,
   parseNewsTags,
+  validateNewsCover,
 } from "../src/lib/news";
-import { validateNewsCover } from "../src/lib/server/news-media";
 
 describe("news tags", () => {
   it("normalizes whitespace and removes case-insensitive duplicates", () => {

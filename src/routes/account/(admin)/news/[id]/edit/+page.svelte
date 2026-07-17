@@ -13,6 +13,8 @@
     title={data.news.title}
     slug={data.news.slug}
     body={data.news.body}
+    coverKey={data.news.cover_key}
+    tags={data.news.tags}
     published={Boolean(data.news.published)}
     errorMessage={form?.errorMessage ?? null}
   />

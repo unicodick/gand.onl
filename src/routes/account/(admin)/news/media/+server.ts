@@ -1,7 +1,7 @@
 import { error, json } from "@sveltejs/kit";
 import { isAllowedAdmin } from "$lib/server/auth";
-import { uploadNewsCover, validateNewsCover } from "$lib/server/news-media";
-import { newsCoverUrl } from "$lib/news";
+import { uploadNewsCover } from "$lib/server/news-media";
+import { newsCoverUrl, validateNewsCover } from "$lib/news";
 import type { RequestHandler } from "./$types";
 
 export const POST: RequestHandler = async ({ request, platform, locals }) => {
