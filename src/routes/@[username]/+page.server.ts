@@ -4,13 +4,13 @@ import {
   discordProfileUrl,
   type PublicDiscordProfile,
 } from "$lib/discord/model";
-import { isAllowedAdmin } from "$lib/server/auth";
-import { getDiscordProfileWithSessionFallback } from "$lib/server/discord-profiles";
+import { isAllowedAdmin } from "$lib/server/auth/guards";
+import { getDiscordProfileWithSessionFallback } from "$lib/server/discord/profiles";
 import {
   getPlayerByUsername,
   getPlayerSocials,
   toPublicPlayer,
-} from "$lib/server/players";
+} from "$lib/server/players/repository";
 import { DISCORD_PLATFORM_ID } from "$lib/players/socials";
 import type { PageServerLoad } from "./$types";
 

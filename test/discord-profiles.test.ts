@@ -5,7 +5,7 @@ import {
   getDiscordProfile,
   getDiscordProfileWithSessionFallback,
   upsertDiscordProfile,
-} from "../src/lib/server/discord-profiles";
+} from "../src/lib/server/discord/profiles";
 
 describe("Discord profiles", () => {
   beforeEach(async () => {

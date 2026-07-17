@@ -1,5 +1,8 @@
 import { fail, redirect } from "@sveltejs/kit";
-import { createPlayer, isUsernameConflictError } from "$lib/server/players";
+import {
+  createPlayer,
+  isUsernameConflictError,
+} from "$lib/server/players/repository";
 import type { Actions } from "./$types";
 
 export const actions: Actions = {

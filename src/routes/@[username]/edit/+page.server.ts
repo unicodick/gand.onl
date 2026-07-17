@@ -7,9 +7,9 @@ import {
   replacePlayerSocials,
   updatePlayerBio,
   updatePlayerSkin,
-} from "$lib/server/players";
+} from "$lib/server/players/repository";
 import { playerEditPath, playerProfilePath } from "$lib/players/paths";
-import { ensureDiscordProfile } from "$lib/server/discord-profiles";
+import { ensureDiscordProfile } from "$lib/server/discord/profiles";
 import { DISCORD_PLATFORM_ID } from "$lib/players/socials";
 import type { Actions, PageServerLoad } from "./$types";
 

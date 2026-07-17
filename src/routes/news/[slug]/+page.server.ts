@@ -1,6 +1,9 @@
 import { error } from "@sveltejs/kit";
 import { renderMarkdown } from "$lib/news/markdown";
-import { getPublishedNewsBySlug, toPublicNews } from "$lib/server/news";
+import {
+  getPublishedNewsBySlug,
+  toPublicNews,
+} from "$lib/server/news/repository";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ params, platform }) => {

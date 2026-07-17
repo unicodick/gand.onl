@@ -1,5 +1,8 @@
-import { getAdminStats, listRecentAdminActions } from "$lib/server/admin";
-import { getRosterStatus } from "$lib/server/roster";
+import {
+  getAdminStats,
+  listRecentAdminActions,
+} from "$lib/server/admin/overview";
+import { getRosterStatus } from "$lib/server/roster/repository";
 import { fetchServerStatus } from "$lib/minecraft/server-status";
 import type { PageServerLoad } from "./$types";
 

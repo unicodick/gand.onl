@@ -1,33 +1,11 @@
 import type { D1Database } from "@cloudflare/workers-types";
 
-const DISCORD_API = "https://discord.com/api/v10";
-
 export const SESSION_COOKIE = "session";
-export const STATE_COOKIE = "discord_oauth_state";
-export const REDIRECT_COOKIE = "discord_oauth_redirect";
 export const SESSION_TTL_SECONDS = 60 * 60 * 24 * 7;
-export const STATE_TTL_SECONDS = 60 * 5;
 
-export function safeRedirectTarget(
-  raw: string | null,
-  trustedOrigin: string,
-): string | null {
-  if (!raw || !raw.startsWith("/")) return null;
-
-  try {
-    const target = new URL(raw, trustedOrigin);
-    if (target.origin !== trustedOrigin) return null;
-    return `${target.pathname}${target.search}${target.hash}`;
-  } catch {
-    return null;
-  }
-}
-
-export interface DiscordUser {
+export interface SessionIdentity {
   id: string;
   username: string;
-  global_name: string | null;
-  avatar: string | null;
 }
 
 export interface SessionUser {
@@ -55,62 +33,9 @@ export async function hashToken(token: string): Promise<string> {
   return base64UrlEncode(digest);
 }
 
-export function buildDiscordAuthorizeUrl(
-  env: App.Platform["env"],
-  state: string,
-): string {
-  const url = new URL("https://discord.com/oauth2/authorize");
-  url.searchParams.set("response_type", "code");
-  url.searchParams.set("client_id", env.DISCORD_CLIENT_ID);
-  url.searchParams.set("scope", "identify");
-  url.searchParams.set("state", state);
-  url.searchParams.set("redirect_uri", env.DISCORD_REDIRECT_URI);
-  return url.toString();
-}
-
-export async function exchangeCodeForToken(
-  env: App.Platform["env"],
-  code: string,
-): Promise<string> {
-  const res = await fetch(`${DISCORD_API}/oauth2/token`, {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({
-      client_id: env.DISCORD_CLIENT_ID,
-      client_secret: env.DISCORD_CLIENT_SECRET,
-      grant_type: "authorization_code",
-      code,
-      redirect_uri: env.DISCORD_REDIRECT_URI,
-    }),
-  });
-  if (!res.ok) throw new Error(`discord token exchange failed: ${res.status}`);
-  const data = (await res.json()) as { access_token: string };
-  return data.access_token;
-}
-
-export async function fetchDiscordUser(
-  accessToken: string,
-): Promise<DiscordUser> {
-  const res = await fetch(`${DISCORD_API}/users/@me`, {
-    headers: { Authorization: `Bearer ${accessToken}` },
-  });
-  if (!res.ok) throw new Error(`discord user fetch failed: ${res.status}`);
-  return res.json();
-}
-
-export function isAllowedAdmin(
-  env: App.Platform["env"],
-  discordId: string,
-): boolean {
-  return env.ADMIN_DISCORD_IDS.split(",")
-    .map((id) => id.trim())
-    .filter(Boolean)
-    .includes(discordId);
-}
-
 export async function createSession(
   db: D1Database,
-  user: DiscordUser,
+  user: SessionIdentity,
 ): Promise<{ token: string; expiresAt: Date }> {
   const token = randomToken();
   const tokenHash = await hashToken(token);

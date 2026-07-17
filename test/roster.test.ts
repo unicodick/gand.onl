@@ -1,6 +1,9 @@
 import { applyD1Migrations, env } from "cloudflare:test";
 import { beforeEach, describe, expect, it } from "vitest";
-import { getRosterStatus, syncRoster } from "../src/lib/server/roster";
+import {
+  getRosterStatus,
+  syncRoster,
+} from "../src/lib/server/roster/repository";
 
 beforeEach(async () => {
   await applyD1Migrations(env.DB, env.TEST_MIGRATIONS);

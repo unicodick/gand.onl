@@ -5,7 +5,7 @@ import {
   getNewsById,
   listPublishedNews,
   updateNews,
-} from "../src/lib/server/news";
+} from "../src/lib/server/news/repository";
 
 describe("news storage", () => {
   it("returns only the requested latest published posts", async () => {

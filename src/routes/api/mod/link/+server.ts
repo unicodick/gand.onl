@@ -1,15 +1,13 @@
 import { error, json } from "@sveltejs/kit";
-import { linkPlayerByUsername } from "$lib/server/link-requests";
-import { isOwnerConflictError } from "$lib/server/players";
+import { requireModAuthorization } from "$lib/server/auth/guards";
+import { linkPlayerByUsername } from "$lib/server/players/linking";
+import { isOwnerConflictError } from "$lib/server/players/repository";
 import type { RequestHandler } from "./$types";
 
 export const prerender = false;
 
 export const POST: RequestHandler = async ({ request, platform }) => {
-  const auth = request.headers.get("authorization");
-  if (auth !== `Bearer ${platform!.env.MOD_SECRET}`) {
-    error(401, "Unauthorized");
-  }
+  requireModAuthorization(request, platform!.env.MOD_SECRET);
 
   const body = (await request.json()) as { username?: unknown; key?: unknown };
   const username =

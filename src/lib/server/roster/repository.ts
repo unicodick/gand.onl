@@ -1,5 +1,5 @@
 import type { D1Database } from "@cloudflare/workers-types";
-import { upsertPlayersByUsername } from "./players";
+import { upsertPlayersByUsername } from "../players/repository";
 
 export interface RosterStatusRow {
   last_seen_at: string;

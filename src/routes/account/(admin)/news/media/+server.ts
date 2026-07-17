@@ -1,13 +1,11 @@
 import { error, json } from "@sveltejs/kit";
-import { isAllowedAdmin } from "$lib/server/auth";
-import { uploadNewsCover } from "$lib/server/news-media";
+import { requireAdmin } from "$lib/server/auth/guards";
+import { uploadNewsCover } from "$lib/server/news/media";
 import { newsCoverUrl, validateNewsCover } from "$lib/news/model";
 import type { RequestHandler } from "./$types";
 
 export const POST: RequestHandler = async ({ request, platform, locals }) => {
-  if (!locals.user || !isAllowedAdmin(platform!.env, locals.user.discordId)) {
-    error(403, "Недостаточно прав");
-  }
+  requireAdmin(platform!.env, locals.user);
 
   const form = await request.formData();
   const file = form.get("cover");

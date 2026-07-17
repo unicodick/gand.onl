@@ -5,12 +5,12 @@ import {
   deletePlayerAsAdmin,
   setPlayerBlocked,
   updatePlayerAsAdmin,
-} from "$lib/server/admin";
+} from "$lib/server/players/moderation";
 import {
   getPlayerById,
   getPlayerSocials,
   isOwnerConflictError,
-} from "$lib/server/players";
+} from "$lib/server/players/repository";
 import { DISCORD_PLATFORM_ID } from "$lib/players/socials";
 import type { Actions, PageServerLoad } from "./$types";
 

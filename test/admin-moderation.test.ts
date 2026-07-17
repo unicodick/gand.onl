@@ -1,12 +1,14 @@
 import { applyD1Migrations, env } from "cloudflare:test";
 import { beforeEach, describe, expect, it } from "vitest";
 import {
-  deletePlayerAsAdmin,
   getAdminStats,
   listRecentAdminActions,
+} from "../src/lib/server/admin/overview";
+import {
+  deletePlayerAsAdmin,
   setPlayerBlocked,
   updatePlayerAsAdmin,
-} from "../src/lib/server/admin";
+} from "../src/lib/server/players/moderation";
 import {
   createPlayer,
   getPlayerById,
@@ -14,7 +16,7 @@ import {
   replacePlayerSocials,
   toPublicPlayer,
   updatePlayerBio,
-} from "../src/lib/server/players";
+} from "../src/lib/server/players/repository";
 
 beforeEach(async () => {
   await applyD1Migrations(env.DB, env.TEST_MIGRATIONS);

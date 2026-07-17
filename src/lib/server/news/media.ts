@@ -3,7 +3,7 @@ import {
   isNewsCoverKey,
   NEWS_COVER_TYPES,
   validateNewsCover,
-} from "../news/model";
+} from "../../news/model";
 
 const NEWS_COVER_PREFIX = "news/";
 

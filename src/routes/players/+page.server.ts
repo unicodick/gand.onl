@@ -1,4 +1,4 @@
-import { listAllPlayers, toPublicPlayer } from "$lib/server/players";
+import { listAllPlayers, toPublicPlayer } from "$lib/server/players/repository";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ platform }) => {
