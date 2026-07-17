@@ -42,13 +42,7 @@
       </div>
 
       <div class="space-y-3">
-        <h2 class="text-xs tracking-widest text-neutral-300">
-          ИСТОЧНИКИ ДАННЫХ
-        </h2>
-        <p class="max-w-xl text-[9px] leading-relaxed text-neutral-600">
-          Статус и текущий онлайн получаем через mcsrvstat.us, изображения
-          скинов — через NMSR.
-        </p>
+        <h2 class="text-xs tracking-widest text-neutral-300">ИСПОЛЬЗУЕМ API</h2>
         <div class="flex flex-wrap gap-2">
           {#each API_LINKS as api (api.href)}
             <a

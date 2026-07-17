@@ -12,15 +12,12 @@
 
 <button
   type="button"
-  class="mc-tab flex items-center gap-2 bg-white/3 px-3 py-2 text-[9px] tracking-wide text-neutral-500 hover:text-neutral-200"
+  class="mc-tab bg-white/3 px-3 py-2 text-[9px] tracking-wide text-neutral-500 hover:text-neutral-200"
   aria-haspopup="dialog"
   aria-controls="roster-dialog"
   onclick={openDialog}
 >
   ROSTER
-  <span class="border border-gold/40 px-1.5 py-1 text-[7px] text-gold">
-    ЗАКРЫТ
-  </span>
 </button>
 
 <dialog
