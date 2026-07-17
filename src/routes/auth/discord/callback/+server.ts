@@ -10,6 +10,7 @@ import {
   SESSION_TTL_SECONDS,
   STATE_COOKIE,
 } from "$lib/server/auth";
+import { upsertDiscordProfile } from "$lib/server/discord-profiles";
 import type { RequestHandler } from "./$types";
 
 export const GET: RequestHandler = async ({ url, cookies, platform }) => {
@@ -34,6 +35,7 @@ export const GET: RequestHandler = async ({ url, cookies, platform }) => {
   const accessToken = await exchangeCodeForToken(platform.env, code);
   const discordUser = await fetchDiscordUser(accessToken);
 
+  await upsertDiscordProfile(platform.env.DB, discordUser);
   const session = await createSession(platform.env.DB, discordUser);
   cookies.set(SESSION_COOKIE, session.token, {
     path: "/",

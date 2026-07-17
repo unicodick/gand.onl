@@ -1,4 +1,5 @@
 import { error, fail, redirect } from "@sveltejs/kit";
+import { discordProfileUrl } from "$lib/discord";
 import {
   getPlayerByUsername,
   getPlayerSocials,
@@ -6,10 +7,14 @@ import {
   updatePlayerBio,
   updatePlayerSkin,
 } from "$lib/server/players";
+import { playerEditPath, playerProfilePath } from "$lib/player-paths";
+import { ensureDiscordProfile } from "$lib/server/discord-profiles";
 import {
   CUSTOM_LINK_LABEL_MAX_LENGTH,
   CUSTOM_LINKS_MAX,
+  DISCORD_PLATFORM_ID,
   isValidSocialUrl,
+  LINK_SOCIAL_PLATFORMS,
   SOCIAL_PLATFORMS,
 } from "$lib/socials";
 import type { Actions, PageServerLoad } from "./$types";
@@ -24,7 +29,7 @@ export const load: PageServerLoad = async ({ params, platform, locals }) => {
   if (!locals.user) {
     redirect(
       303,
-      `/auth/discord/login?redirect_to=${encodeURIComponent(`/u/${params.username}/edit`)}`,
+      `/auth/discord/login?redirect_to=${encodeURIComponent(playerEditPath(params.username))}`,
     );
   }
   if (locals.user.discordId !== player.owner_discord_id) {
@@ -58,7 +63,19 @@ export const actions: Actions = {
     }
 
     const socials: { platform: string; url: string }[] = [];
-    for (const socialPlatform of SOCIAL_PLATFORMS) {
+    if (form.get("show_discord_profile") === "on") {
+      await ensureDiscordProfile(
+        db,
+        locals.user.discordId,
+        locals.user.username,
+      );
+      socials.push({
+        platform: DISCORD_PLATFORM_ID,
+        url: discordProfileUrl(locals.user.discordId),
+      });
+    }
+
+    for (const socialPlatform of LINK_SOCIAL_PLATFORMS) {
       const value = String(
         form.get(`social_${socialPlatform.id}`) ?? "",
       ).trim();
@@ -112,6 +129,6 @@ export const actions: Actions = {
     await updatePlayerSkin(db, player.id, skinUrl);
     await replacePlayerSocials(db, player.id, socials);
 
-    redirect(303, `/u/${player.username}`);
+    redirect(303, playerProfilePath(player.username));
   },
 };

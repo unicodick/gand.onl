@@ -18,7 +18,7 @@
       <div class="min-w-0 flex-1 space-y-1">
         <p class="truncate text-xs text-neutral-100">{player.username}</p>
         <p class="text-[9px] tracking-widest text-neutral-500">
-          {player.owner_discord_id ? "ПРИВЯЗАН" : "НЕ ПРИВЯЗАН"} · /u/{player.username}
+          {player.owner_discord_id ? "ПРИВЯЗАН" : "НЕ ПРИВЯЗАН"} · /@{player.username}
         </p>
       </div>
       <a

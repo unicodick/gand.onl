@@ -1,9 +1,11 @@
 <script lang="ts">
+  import { playerProfilePath } from "$lib/player-paths";
+
   let { username, src }: { username: string; src: string } = $props();
 </script>
 
 <a
-  href={`/u/${username}`}
+  href={playerProfilePath(username)}
   class="group relative block size-16 outline-none"
   aria-label={`Профиль игрока ${username}`}
   title={username}

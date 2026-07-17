@@ -1,5 +1,6 @@
 <script lang="ts">
   import { BRAND } from "$lib/creators";
+  import { playerEditPath, playerProfilePath } from "$lib/player-paths";
 
   let { data } = $props();
 </script>
@@ -17,13 +18,13 @@
     </p>
     <div class="flex gap-2">
       <a
-        href={`/u/${data.player.username}`}
+        href={playerProfilePath(data.player.username)}
         class="mc-panel mc-tab px-4 py-3 text-[10px] tracking-widest text-neutral-200 hover:text-white"
       >
         ПРОФИЛЬ
       </a>
       <a
-        href={`/u/${data.player.username}/edit`}
+        href={playerEditPath(data.player.username)}
         class="mc-panel mc-tab px-4 py-3 text-[10px] tracking-widest text-neutral-200 hover:text-white"
       >
         РЕДАКТИРОВАТЬ
