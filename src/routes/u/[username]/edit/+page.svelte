@@ -1,7 +1,6 @@
 <script lang="ts">
   import { untrack } from "svelte";
   import { BRAND } from "$lib/creators";
-  import { PROSE_CLASS, renderMarkdown } from "$lib/markdown";
   import {
     CUSTOM_LINKS_MAX,
     SOCIAL_PLATFORM_IDS,
@@ -41,8 +40,6 @@
   function removeCustomLink(key: string) {
     customLinks = customLinks.filter((link) => link.key !== key);
   }
-
-  let previewHtml = $derived(bio ? renderMarkdown(bio) : "");
 </script>
 
 <svelte:head>
@@ -62,31 +59,18 @@
         <p class="text-[10px] text-red-400">{form.errorMessage}</p>
       {/if}
 
-      <div class="grid gap-4 md:grid-cols-2">
-        <label
-          class="flex flex-col gap-1 text-[10px] tracking-widest text-neutral-500"
-        >
-          О СЕБЕ (MARKDOWN)
-          <textarea
-            name="bio"
-            bind:value={bio}
-            rows="10"
-            maxlength="2000"
-            class="mc-panel bg-transparent px-3 py-2 text-xs leading-relaxed text-neutral-100 outline-none"
-          ></textarea>
-        </label>
-
-        <div
-          class="flex flex-col gap-1 text-[10px] tracking-widest text-neutral-500"
-        >
-          ПРЕВЬЮ
-          <div
-            class={`mc-panel min-h-40 flex-1 overflow-auto px-3 py-2 text-xs text-neutral-200 ${PROSE_CLASS}`}
-          >
-            {@html previewHtml}
-          </div>
-        </div>
-      </div>
+      <label
+        class="flex flex-col gap-1 text-[10px] tracking-widest text-neutral-500"
+      >
+        О СЕБЕ
+        <textarea
+          name="bio"
+          bind:value={bio}
+          rows="10"
+          maxlength="2000"
+          class="mc-panel bg-transparent px-3 py-2 text-xs leading-relaxed text-neutral-100 outline-none"
+        ></textarea>
+      </label>
 
       <label
         class="flex flex-col gap-1 text-[10px] tracking-widest text-neutral-500"
