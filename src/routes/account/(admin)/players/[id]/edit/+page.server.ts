@@ -1,6 +1,7 @@
 import { error, fail, redirect } from "@sveltejs/kit";
 import { canPreserveDiscordVisibility } from "$lib/discord/model";
 import { parsePlayerProfileForm } from "$lib/players/profile-form";
+import { requireAdmin } from "$lib/server/auth/guards";
 import {
   deletePlayerAsAdmin,
   setPlayerBlocked,
@@ -23,7 +24,8 @@ function parseId(raw: string): number {
   return id;
 }
 
-export const load: PageServerLoad = async ({ params, platform }) => {
+export const load: PageServerLoad = async ({ params, platform, locals }) => {
+  requireAdmin(platform!.env, locals.user);
   const db = platform!.env.DB;
   const player = await getPlayerById(db, parseId(params.id));
   if (!player) error(404, "Игрок не найден");
