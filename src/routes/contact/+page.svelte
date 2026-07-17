@@ -1,5 +1,6 @@
 <script lang="ts">
   import { API_LINKS, BRAND, CONTACT_LINKS } from "$lib/creators";
+  import RosterDialog from "$lib/components/RosterDialog.svelte";
 </script>
 
 <svelte:head>
@@ -59,6 +60,7 @@
               {api.label}
             </a>
           {/each}
+          <RosterDialog />
         </div>
       </div>
     </div>
