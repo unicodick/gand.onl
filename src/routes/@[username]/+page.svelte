@@ -1,6 +1,7 @@
 <script lang="ts">
   import { BRAND, skinRender } from "$lib/creators";
   import DiscordProfileCard from "$lib/components/DiscordProfileCard.svelte";
+  import PixelIcon from "$lib/components/PixelIcon.svelte";
   import ProfileBadge from "$lib/components/ProfileBadge.svelte";
   import Skin from "$lib/components/Skin.svelte";
   import { playerEditPath, playerProfilePath } from "$lib/player-paths";
@@ -64,9 +65,10 @@
 
       <a
         href="/players"
-        class="mc-tab inline-block px-3 py-2 text-[9px] tracking-widest"
+        class="mc-tab inline-flex items-center gap-2 px-3 py-2 text-[9px] tracking-widest"
       >
-        ← ВСЕ ИГРОКИ
+        <PixelIcon name="arrow-left" size={11} />
+        ВСЕ ИГРОКИ
       </a>
     </section>
   {:else}
@@ -113,8 +115,9 @@
             {#if data.showEditLink}
               <a
                 href={playerEditPath(data.player.username)}
-                class="mc-tab shrink-0 px-3 py-2 text-[9px] tracking-widest"
+                class="mc-tab inline-flex shrink-0 items-center gap-2 px-3 py-2 text-[9px] tracking-widest"
               >
+                <PixelIcon name="edit" size={11} />
                 ИЗМЕНИТЬ
               </a>
             {/if}
@@ -142,9 +145,10 @@
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="mc-panel px-4 py-3 text-[9px] tracking-widest text-neutral-300 transition-colors hover:text-white"
+                    class="mc-panel inline-flex items-center gap-2 px-4 py-3 text-[9px] tracking-widest text-neutral-300 transition-colors hover:text-white"
                   >
                     {platformLabel(social.platform)}
+                    <PixelIcon name="external-link" size={10} />
                   </a>
                 {/each}
               </div>

@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { PublicDiscordProfile } from "$lib/discord";
+  import PixelIcon from "./PixelIcon.svelte";
 
   let { profile }: { profile: PublicDiscordProfile } = $props();
 </script>
@@ -31,14 +32,9 @@
     </span>
   </span>
 
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
-    class="shrink-0 text-neutral-600 transition-colors group-hover:text-neutral-300"
-    aria-hidden="true"
-  >
-    <path d="M3 13 13 3M6 3h7v7" stroke="currentColor" stroke-width="1.5" />
-  </svg>
+  <PixelIcon
+    name="external-link"
+    size={13}
+    class="text-neutral-600 transition-colors group-hover:text-neutral-300"
+  />
 </a>

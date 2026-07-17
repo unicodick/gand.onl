@@ -1,5 +1,6 @@
 <script lang="ts">
   import { BRAND, skinFace } from "$lib/creators";
+  import PixelIcon from "$lib/components/PixelIcon.svelte";
   import PlayerHead from "$lib/components/PlayerHead.svelte";
   import { filterPlayers, normalizePlayerQuery } from "$lib/players";
 
@@ -35,17 +36,7 @@
       <div
         class="mc-panel flex items-center gap-3 px-4 py-3 focus-within:shadow-[inset_0_0_0_1px_var(--color-grass-dim),0_0_0_3px_#000]"
       >
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 14 14"
-          fill="none"
-          class="shrink-0 text-neutral-600"
-          aria-hidden="true"
-        >
-          <circle cx="6" cy="6" r="4.5" stroke="currentColor" />
-          <path d="m9.5 9.5 3 3" stroke="currentColor" />
-        </svg>
+        <PixelIcon name="search" size={14} class="text-neutral-600" />
         <input
           id="player-search"
           type="search"
@@ -60,9 +51,10 @@
           <button
             type="button"
             onclick={() => (query = "")}
-            class="mc-tab px-2 py-1 text-[9px] tracking-widest"
+            class="mc-tab inline-flex items-center gap-2 px-2 py-1 text-[9px] tracking-widest"
             aria-label="Очистить поиск"
           >
+            <PixelIcon name="close" size={9} />
             СБРОСИТЬ
           </button>
         {/if}

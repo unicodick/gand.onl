@@ -1,4 +1,6 @@
 <script lang="ts">
+  import PixelIcon from "./PixelIcon.svelte";
+
   let dialog = $state<HTMLDialogElement>();
 
   function openDialog(): void {
@@ -37,10 +39,10 @@
       <form method="dialog">
         <button
           type="submit"
-          class="mc-tab px-2.5 py-2 text-[9px] tracking-widest"
+          class="mc-tab grid size-8 place-items-center"
           aria-label="Закрыть информацию о Roster API"
         >
-          ×
+          <PixelIcon name="close" size={10} />
         </button>
       </form>
     </header>
