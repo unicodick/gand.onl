@@ -1,11 +1,6 @@
 import { error, json } from "@sveltejs/kit";
-import { consumeLinkRequest } from "$lib/server/link-requests";
-import {
-  getPlayerById,
-  isOwnerConflictError,
-  setPlayerOwner,
-  upsertPlayerByUsername,
-} from "$lib/server/players";
+import { linkPlayerByUsername } from "$lib/server/link-requests";
+import { isOwnerConflictError } from "$lib/server/players";
 import type { RequestHandler } from "./$types";
 
 export const prerender = false;
@@ -25,19 +20,14 @@ export const POST: RequestHandler = async ({ request, platform }) => {
   }
 
   const db = platform!.env.DB;
-  const discordId = await consumeLinkRequest(db, key);
-  if (!discordId) {
-    error(400, "Invalid or expired key");
-  }
-
-  const playerId = await upsertPlayerByUsername(db, username);
-  const player = await getPlayerById(db, playerId);
-  if (player?.owner_discord_id && player.owner_discord_id !== discordId) {
-    error(409, "This player is already linked to another Discord account");
-  }
-
   try {
-    await setPlayerOwner(db, playerId, discordId);
+    const result = await linkPlayerByUsername(db, username, key);
+    if (result === "invalid_key") {
+      error(400, "Invalid or expired key");
+    }
+    if (result === "player_owned") {
+      error(409, "This player is already linked to another Discord account");
+    }
   } catch (err) {
     if (isOwnerConflictError(err)) {
       error(409, "This Discord account is already linked to another player");
