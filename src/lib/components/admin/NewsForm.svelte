@@ -15,6 +15,7 @@
     body: initialBody = "",
     coverKey: initialCoverKey = null,
     tags: initialTags = [],
+    publishedAt: initialPublishedAt = null,
     published: initialPublished = false,
     submitLabel = "Сохранить",
     errorMessage = null,
@@ -25,6 +26,7 @@
     body?: string;
     coverKey?: string | null;
     tags?: string[];
+    publishedAt?: string | null;
     published?: boolean;
     submitLabel?: string;
     errorMessage?: string | null;
@@ -146,6 +148,7 @@
 >
   <input type="hidden" name="cover_key" value={coverKey ?? ""} />
   <input type="hidden" name="tags" value={serializedTags} />
+  <input type="hidden" name="published_at" value={initialPublishedAt ?? ""} />
 
   {#if errorMessage}
     <p
@@ -358,14 +361,27 @@
       </span>
     </label>
 
-    <button
-      type="submit"
-      disabled={uploadingCover}
-      aria-disabled={!coverKey || uploadingCover}
-      class="mc-panel mc-tab px-5 py-3 text-[9px] tracking-widest text-neutral-200 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
-      class:opacity-40={!coverKey}
-    >
-      {submitLabel.toUpperCase()}
-    </button>
+    <div class="flex gap-2">
+      <button
+        type="submit"
+        formaction="/account/news/preview"
+        formtarget="_blank"
+        disabled={uploadingCover}
+        aria-disabled={!coverKey || uploadingCover}
+        class="mc-panel mc-tab px-4 py-3 text-[9px] tracking-widest text-neutral-300 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+        class:opacity-40={!coverKey}
+      >
+        ПРЕДПРОСМОТР
+      </button>
+      <button
+        type="submit"
+        disabled={uploadingCover}
+        aria-disabled={!coverKey || uploadingCover}
+        class="mc-panel mc-tab px-5 py-3 text-[9px] tracking-widest text-neutral-200 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+        class:opacity-40={!coverKey}
+      >
+        {submitLabel.toUpperCase()}
+      </button>
+    </div>
   </section>
 </form>

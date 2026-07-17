@@ -15,6 +15,7 @@
     body={data.news.body}
     coverKey={data.news.cover_key}
     tags={data.news.tags}
+    publishedAt={data.news.published_at}
     published={Boolean(data.news.published)}
     errorMessage={form?.errorMessage ?? null}
   />
