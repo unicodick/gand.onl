@@ -42,7 +42,7 @@
 
 <svelte:head>
   <title>Новости — {BRAND}</title>
-  <meta name="description" content="новости проекта и zlp.onl" />
+  <meta name="description" content="Новости проекта и zlp.onl" />
 </svelte:head>
 
 <main class="flex w-full flex-1 flex-col items-center px-4 py-12 sm:py-16">

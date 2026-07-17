@@ -5,7 +5,7 @@
 
 <svelte:head>
   <title>Связь — {BRAND}</title>
-  <meta name="description" content="контакты детей спавна" />
+  <meta name="description" content="Контакты детей спавна" />
 </svelte:head>
 
 <main class="flex w-full flex-1 flex-col items-center px-4 py-12 sm:py-16">

@@ -17,7 +17,7 @@
 
 <svelte:head>
   <title>Игроки — {BRAND}</title>
-  <meta name="description" content="игроки zlp.onl" />
+  <meta name="description" content="Игроки сервера zlp.onl" />
 </svelte:head>
 
 <main class="flex w-full flex-1 flex-col items-center px-4 py-12 sm:py-16">

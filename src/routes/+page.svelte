@@ -7,7 +7,7 @@
 
 <svelte:head>
   <title>{BRAND}</title>
-  <meta name="description" content="Новостное сообщество спавна" />
+  <meta name="description" content="Новостное сообщество спавна zlp.onl" />
 </svelte:head>
 
 <main
@@ -23,9 +23,6 @@
           >нёй.
         </span>
         <span class="block">Поэтому существует {BRAND}.</span>
-      </span>
-      <span class="sr-only">
-        Эти люди занимаются хуйнёй. Поэтому существует {BRAND}.
       </span>
     </h1>
 
