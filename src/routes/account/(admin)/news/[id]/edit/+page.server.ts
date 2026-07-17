@@ -5,7 +5,11 @@ import {
   isSlugConflictError,
   updateNews,
 } from "$lib/server/news";
-import { parseNewsForm, prepareNewsFormCover } from "$lib/server/news-form";
+import {
+  parseNewsForm,
+  prepareNewsFormCover,
+  readNewsFormValues,
+} from "$lib/server/news-form";
 import { deleteNewsCover } from "$lib/server/news-media";
 import type { Actions, PageServerLoad } from "./$types";
 
@@ -31,10 +35,20 @@ export const actions: Actions = {
       form,
       platform!.env.NEWS_MEDIA,
     );
-    if (coverError) return fail(400, { errorMessage: coverError });
+    if (coverError) {
+      return fail(400, {
+        errorMessage: coverError,
+        values: readNewsFormValues(form),
+      });
+    }
 
     const parsed = parseNewsForm(form);
-    if (!parsed.value) return fail(400, { errorMessage: parsed.error });
+    if (!parsed.value) {
+      return fail(400, {
+        errorMessage: parsed.error,
+        values: readNewsFormValues(form),
+      });
+    }
     const input = parsed.value;
 
     try {
@@ -43,7 +57,10 @@ export const actions: Actions = {
       });
     } catch (err) {
       if (isSlugConflictError(err)) {
-        return fail(400, { errorMessage: "Такой slug уже занят" });
+        return fail(400, {
+          errorMessage: "Такой slug уже занят",
+          values: readNewsFormValues(form),
+        });
       }
       throw err;
     }

@@ -12,28 +12,47 @@ export interface NewsFormInput {
   published: boolean;
 }
 
+export interface NewsFormValues extends NewsFormInput {
+  publishedAt: string | null;
+}
+
+export function readNewsFormValues(form: FormData): NewsFormValues {
+  const publishedAt = String(form.get("published_at") ?? "").trim();
+  return {
+    title: String(form.get("title") ?? "").trim(),
+    slug: String(form.get("slug") ?? "").trim(),
+    body: String(form.get("body") ?? "").trim(),
+    coverKey: String(form.get("cover_key") ?? "").trim(),
+    tags: parseNewsTags(String(form.get("tags") ?? "[]")),
+    published: form.get("published") === "on",
+    publishedAt: publishedAt || null,
+  };
+}
+
 export function parseNewsForm(
   form: FormData,
 ): { value: NewsFormInput; error: null } | { value: null; error: string } {
-  const title = String(form.get("title") ?? "").trim();
-  const slugInput = String(form.get("slug") ?? "").trim();
-  const body = String(form.get("body") ?? "").trim();
-  const coverKey = String(form.get("cover_key") ?? "").trim();
-  const tags = parseNewsTags(String(form.get("tags") ?? "[]"));
-  const published = form.get("published") === "on";
+  const values = readNewsFormValues(form);
 
-  if (!title || !body) {
+  if (!values.title || !values.body) {
     return { value: null, error: "Заполните заголовок и текст" };
   }
 
-  const slug = slugify(slugInput || title);
+  const slug = slugify(values.slug || values.title);
   if (!slug) return { value: null, error: "Не удалось сформировать slug" };
-  if (!isNewsCoverKey(coverKey)) {
+  if (!isNewsCoverKey(values.coverKey)) {
     return { value: null, error: "Добавьте основное изображение" };
   }
 
   return {
-    value: { title, slug, body, coverKey, tags, published },
+    value: {
+      title: values.title,
+      slug,
+      body: values.body,
+      coverKey: values.coverKey,
+      tags: values.tags,
+      published: values.published,
+    },
     error: null,
   };
 }

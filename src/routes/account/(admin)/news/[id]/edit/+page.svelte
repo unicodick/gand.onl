@@ -10,13 +10,13 @@
   <NewsForm
     action="?/update"
     submitLabel="Сохранить"
-    title={data.news.title}
-    slug={data.news.slug}
-    body={data.news.body}
-    coverKey={data.news.cover_key}
-    tags={data.news.tags}
-    publishedAt={data.news.published_at}
-    published={Boolean(data.news.published)}
+    title={form?.values?.title ?? data.news.title}
+    slug={form?.values?.slug ?? data.news.slug}
+    body={form?.values?.body ?? data.news.body}
+    coverKey={form?.values?.coverKey ?? data.news.cover_key}
+    tags={form?.values?.tags ?? data.news.tags}
+    publishedAt={form?.values?.publishedAt ?? data.news.published_at}
+    published={form?.values?.published ?? Boolean(data.news.published)}
     errorMessage={form?.errorMessage ?? null}
   />
 {/key}

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseNewsForm } from "../src/lib/server/news-form";
+import { parseNewsForm, readNewsFormValues } from "../src/lib/server/news-form";
 
 const COVER_KEY = "2d931510-d99f-494a-8c67-87feb05e1594.webp";
 
@@ -26,6 +26,21 @@ describe("news form", () => {
         published: true,
       },
       error: null,
+    });
+  });
+
+  it("keeps editor values for a failed submission", () => {
+    const form = validForm();
+    form.set("published_at", "2026-07-17T12:00:00.000Z");
+
+    expect(readNewsFormValues(form)).toEqual({
+      title: "Большое обновление",
+      slug: "",
+      body: "Текст новости",
+      coverKey: COVER_KEY,
+      tags: ["Обновление", "Сервер"],
+      published: true,
+      publishedAt: "2026-07-17T12:00:00.000Z",
     });
   });
 
