@@ -191,6 +191,35 @@ export async function replacePlayerSocials(
   ]);
 }
 
+export async function updatePlayerProfile(
+  db: D1Database,
+  input: {
+    playerId: number;
+    bio: string;
+    skinUrl: string;
+    socials: { platform: string; url: string }[];
+  },
+): Promise<void> {
+  const now = new Date().toISOString();
+  await db.batch([
+    db
+      .prepare(
+        "UPDATE players SET bio = ?, skin_url = ?, updated_at = ? WHERE id = ?",
+      )
+      .bind(input.bio || null, input.skinUrl || null, now, input.playerId),
+    db
+      .prepare("DELETE FROM player_socials WHERE player_id = ?")
+      .bind(input.playerId),
+    ...input.socials.map((social, index) =>
+      db
+        .prepare(
+          "INSERT INTO player_socials (player_id, platform, url, sort_order) VALUES (?, ?, ?, ?)",
+        )
+        .bind(input.playerId, social.platform, social.url, index),
+    ),
+  ]);
+}
+
 export async function deletePlayer(db: D1Database, id: number): Promise<void> {
   await db.batch([
     db.prepare("DELETE FROM player_socials WHERE player_id = ?").bind(id),
