@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parsePlayerProfileForm } from "../src/lib/player-profile-form";
+import { parsePlayerProfileForm } from "../src/lib/players/profile-form";
 
 function form(entries: Record<string, string | string[]>): FormData {
   const data = new FormData();

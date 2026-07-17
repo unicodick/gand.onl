@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { PublicDiscordProfile } from "$lib/discord";
-  import PixelIcon from "./PixelIcon.svelte";
+  import type { PublicDiscordProfile } from "$lib/discord/model";
+  import PixelIcon from "$lib/ui/PixelIcon.svelte";
 
   let { profile }: { profile: PublicDiscordProfile } = $props();
 </script>

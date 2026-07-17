@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { BRAND } from "$lib/creators";
-  import PixelIcon from "$lib/components/PixelIcon.svelte";
-  import NewsCover from "$lib/components/news/NewsCover.svelte";
-  import NewsTags from "$lib/components/news/NewsTags.svelte";
+  import { BRAND } from "$lib/site";
+  import PixelIcon from "$lib/ui/PixelIcon.svelte";
+  import NewsCover from "$lib/news/components/NewsCover.svelte";
+  import NewsTags from "$lib/news/components/NewsTags.svelte";
 
   let { data } = $props();
   let rail = $state<HTMLDivElement>();

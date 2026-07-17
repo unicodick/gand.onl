@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import { BRAND } from "$lib/creators";
+  import { BRAND } from "$lib/site";
 
   let path = $derived(page.url.pathname);
 

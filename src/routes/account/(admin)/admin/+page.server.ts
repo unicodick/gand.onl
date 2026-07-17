@@ -1,6 +1,6 @@
 import { getAdminStats, listRecentAdminActions } from "$lib/server/admin";
 import { getRosterStatus } from "$lib/server/roster";
-import { fetchServerStatus } from "$lib/server-status";
+import { fetchServerStatus } from "$lib/minecraft/server-status";
 import type { PageServerLoad } from "./$types";
 
 const SERVER_ADDRESS = "zlp.onl";

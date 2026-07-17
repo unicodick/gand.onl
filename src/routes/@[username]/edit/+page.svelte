@@ -1,11 +1,11 @@
 <script lang="ts">
   import { untrack } from "svelte";
-  import PixelIcon from "$lib/components/PixelIcon.svelte";
-  import { BRAND } from "$lib/creators";
-  import { playerProfilePath } from "$lib/player-paths";
+  import PixelIcon from "$lib/ui/PixelIcon.svelte";
+  import { BRAND } from "$lib/site";
+  import { playerProfilePath } from "$lib/players/paths";
   import PlayerProfileFields from "$lib/players/components/PlayerProfileFields.svelte";
   import SocialLinksEditor from "$lib/players/components/SocialLinksEditor.svelte";
-  import { DISCORD_PLATFORM_ID } from "$lib/socials";
+  import { DISCORD_PLATFORM_ID } from "$lib/players/socials";
 
   let { data, form } = $props();
 

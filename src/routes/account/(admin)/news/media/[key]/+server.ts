@@ -1,5 +1,5 @@
 import { error } from "@sveltejs/kit";
-import { isNewsCoverKey } from "$lib/news";
+import { isNewsCoverKey } from "$lib/news/model";
 import { isAllowedAdmin } from "$lib/server/auth";
 import { deleteNewsCover } from "$lib/server/news-media";
 import { isNewsCoverInUse } from "$lib/server/news";

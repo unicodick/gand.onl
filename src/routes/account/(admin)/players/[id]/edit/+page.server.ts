@@ -1,6 +1,6 @@
 import { error, fail, redirect } from "@sveltejs/kit";
-import { canPreserveDiscordVisibility } from "$lib/discord";
-import { parsePlayerProfileForm } from "$lib/player-profile-form";
+import { canPreserveDiscordVisibility } from "$lib/discord/model";
+import { parsePlayerProfileForm } from "$lib/players/profile-form";
 import {
   deletePlayerAsAdmin,
   setPlayerBlocked,
@@ -11,7 +11,7 @@ import {
   getPlayerSocials,
   isOwnerConflictError,
 } from "$lib/server/players";
-import { DISCORD_PLATFORM_ID } from "$lib/socials";
+import { DISCORD_PLATFORM_ID } from "$lib/players/socials";
 import type { Actions, PageServerLoad } from "./$types";
 
 const DISCORD_ID_PATTERN = /^\d{17,20}$/;

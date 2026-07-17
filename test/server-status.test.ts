@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import {
   fetchServerStatus,
   parseMcsrvstatResponse,
-} from "../src/lib/server-status";
+} from "../src/lib/minecraft/server-status";
 
 describe("server status", () => {
   it("maps online, offline, and malformed responses", () => {

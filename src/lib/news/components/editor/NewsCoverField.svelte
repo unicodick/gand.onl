@@ -1,7 +1,7 @@
 <script lang="ts">
   import { untrack } from "svelte";
-  import PixelIcon from "$lib/components/PixelIcon.svelte";
-  import { newsCoverUrl, validateNewsCover } from "$lib/news";
+  import PixelIcon from "$lib/ui/PixelIcon.svelte";
+  import { newsCoverUrl, validateNewsCover } from "$lib/news/model";
 
   let {
     initialCoverKey = null,

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import PixelIcon from "./PixelIcon.svelte";
+  import PixelIcon from "$lib/ui/PixelIcon.svelte";
 
   let dialog = $state<HTMLDialogElement>();
 

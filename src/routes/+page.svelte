@@ -1,7 +1,8 @@
 <script lang="ts">
-  import Skin from "$lib/components/Skin.svelte";
-  import { CREATORS, BRAND, skinRender } from "$lib/creators";
-  import { playerProfilePath } from "$lib/player-paths";
+  import Skin from "$lib/players/components/Skin.svelte";
+  import { skinRender } from "$lib/minecraft/skins";
+  import { BRAND, CREATORS } from "$lib/site";
+  import { playerProfilePath } from "$lib/players/paths";
 </script>
 
 <svelte:head>

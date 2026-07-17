@@ -1,6 +1,6 @@
 <script lang="ts">
-  import NewsForm from "$lib/components/admin/NewsForm.svelte";
-  import PixelIcon from "$lib/components/PixelIcon.svelte";
+  import NewsForm from "$lib/news/components/editor/NewsForm.svelte";
+  import PixelIcon from "$lib/ui/PixelIcon.svelte";
 
   let { data, form } = $props();
 </script>

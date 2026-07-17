@@ -6,7 +6,7 @@ import {
   normalizeNewsTags,
   parseNewsTags,
   validateNewsCover,
-} from "../src/lib/news";
+} from "../src/lib/news/model";
 
 describe("news tags", () => {
   it("normalizes whitespace and removes case-insensitive duplicates", () => {

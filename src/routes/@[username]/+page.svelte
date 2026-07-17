@@ -1,11 +1,12 @@
 <script lang="ts">
-  import { BRAND, skinRender } from "$lib/creators";
-  import DiscordProfileCard from "$lib/components/DiscordProfileCard.svelte";
-  import PixelIcon from "$lib/components/PixelIcon.svelte";
-  import ProfileBadge from "$lib/components/ProfileBadge.svelte";
-  import Skin from "$lib/components/Skin.svelte";
-  import { playerEditPath, playerProfilePath } from "$lib/player-paths";
-  import { SOCIAL_PLATFORMS } from "$lib/socials";
+  import { skinRender } from "$lib/minecraft/skins";
+  import { BRAND } from "$lib/site";
+  import DiscordProfileCard from "$lib/discord/components/DiscordProfileCard.svelte";
+  import PixelIcon from "$lib/ui/PixelIcon.svelte";
+  import ProfileBadge from "$lib/players/components/ProfileBadge.svelte";
+  import Skin from "$lib/players/components/Skin.svelte";
+  import { playerEditPath, playerProfilePath } from "$lib/players/paths";
+  import { SOCIAL_PLATFORMS } from "$lib/players/socials";
 
   let { data } = $props();
 

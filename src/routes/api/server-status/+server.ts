@@ -1,5 +1,5 @@
 import { json } from "@sveltejs/kit";
-import { fetchServerStatus } from "$lib/server-status";
+import { fetchServerStatus } from "$lib/minecraft/server-status";
 import type { RequestHandler } from "./$types";
 
 export const prerender = false;

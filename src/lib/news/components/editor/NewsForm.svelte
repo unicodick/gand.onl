@@ -1,10 +1,10 @@
 <script lang="ts">
   import { untrack } from "svelte";
-  import PixelIcon from "$lib/components/PixelIcon.svelte";
+  import PixelIcon from "$lib/ui/PixelIcon.svelte";
   import MarkdownHelp from "$lib/news/components/editor/MarkdownHelp.svelte";
   import NewsCoverField from "$lib/news/components/editor/NewsCoverField.svelte";
   import NewsTagsField from "$lib/news/components/editor/NewsTagsField.svelte";
-  import { slugify } from "$lib/slug";
+  import { slugify } from "$lib/news/slug";
 
   let {
     title: initialTitle = "",

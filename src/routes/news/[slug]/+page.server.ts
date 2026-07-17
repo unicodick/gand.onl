@@ -1,5 +1,5 @@
 import { error } from "@sveltejs/kit";
-import { renderMarkdown } from "$lib/markdown";
+import { renderMarkdown } from "$lib/news/markdown";
 import { getPublishedNewsBySlug, toPublicNews } from "$lib/server/news";
 import type { PageServerLoad } from "./$types";
 

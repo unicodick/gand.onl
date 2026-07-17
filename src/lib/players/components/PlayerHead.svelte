@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { playerProfilePath } from "$lib/player-paths";
+  import { playerProfilePath } from "$lib/players/paths";
 
   let { username, src }: { username: string; src: string } = $props();
 </script>

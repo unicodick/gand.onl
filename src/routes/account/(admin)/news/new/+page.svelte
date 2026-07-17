@@ -1,5 +1,5 @@
 <script lang="ts">
-  import NewsForm from "$lib/components/admin/NewsForm.svelte";
+  import NewsForm from "$lib/news/components/editor/NewsForm.svelte";
 
   let { form } = $props();
 </script>

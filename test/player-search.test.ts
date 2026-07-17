@@ -3,7 +3,7 @@ import {
   filterAdminPlayers,
   filterPlayers,
   normalizePlayerQuery,
-} from "../src/lib/players";
+} from "../src/lib/players/search";
 
 const PLAYERS = [
   { id: 1, username: "Royalty72", username_lower: "royalty72" },

@@ -3,7 +3,7 @@ import {
   discordAvatarUrl,
   discordProfileUrl,
   type PublicDiscordProfile,
-} from "$lib/discord";
+} from "$lib/discord/model";
 import { isAllowedAdmin } from "$lib/server/auth";
 import { getDiscordProfileWithSessionFallback } from "$lib/server/discord-profiles";
 import {
@@ -11,7 +11,7 @@ import {
   getPlayerSocials,
   toPublicPlayer,
 } from "$lib/server/players";
-import { DISCORD_PLATFORM_ID } from "$lib/socials";
+import { DISCORD_PLATFORM_ID } from "$lib/players/socials";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ params, platform, locals }) => {

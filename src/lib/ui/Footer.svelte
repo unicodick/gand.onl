@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { LINKS } from "$lib/creators";
-  import type { ServerStatus } from "$lib/server-status";
+  import { LINKS } from "$lib/site";
+  import type { ServerStatus } from "$lib/minecraft/server-status";
 
   const SERVER_LINK = LINKS[0];
   let status = $state<ServerStatus | null>(null);

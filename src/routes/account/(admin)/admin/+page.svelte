@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getRosterFreshness } from "$lib/roster-status";
+  import { getRosterFreshness } from "$lib/roster/status";
 
   let { data } = $props();
 

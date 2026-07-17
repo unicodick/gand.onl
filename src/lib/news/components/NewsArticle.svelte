@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { PROSE_CLASS } from "$lib/markdown";
+  import { PROSE_CLASS } from "$lib/news/markdown";
   import type { PublicNewsRow } from "$lib/server/news";
-  import PixelIcon from "../PixelIcon.svelte";
+  import PixelIcon from "$lib/ui/PixelIcon.svelte";
   import NewsCover from "./NewsCover.svelte";
   import NewsTags from "./NewsTags.svelte";
 

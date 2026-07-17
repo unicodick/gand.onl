@@ -1,5 +1,5 @@
 <script lang="ts">
-  import PixelIcon from "$lib/components/PixelIcon.svelte";
+  import PixelIcon from "$lib/ui/PixelIcon.svelte";
 </script>
 
 <details class="mc-panel group p-4">

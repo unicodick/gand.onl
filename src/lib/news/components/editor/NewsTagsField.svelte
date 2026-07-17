@@ -1,11 +1,11 @@
 <script lang="ts">
   import { untrack } from "svelte";
-  import PixelIcon from "$lib/components/PixelIcon.svelte";
+  import PixelIcon from "$lib/ui/PixelIcon.svelte";
   import {
     MAX_NEWS_TAG_LENGTH,
     MAX_NEWS_TAGS,
     normalizeNewsTags,
-  } from "$lib/news";
+  } from "$lib/news/model";
 
   let { initialTags = [] }: { initialTags?: string[] } = $props();
 

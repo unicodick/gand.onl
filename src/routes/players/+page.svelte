@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { BRAND, skinFace } from "$lib/creators";
-  import PixelIcon from "$lib/components/PixelIcon.svelte";
-  import PlayerHead from "$lib/components/PlayerHead.svelte";
-  import { filterPlayers, normalizePlayerQuery } from "$lib/players";
+  import { skinFace } from "$lib/minecraft/skins";
+  import { BRAND } from "$lib/site";
+  import PixelIcon from "$lib/ui/PixelIcon.svelte";
+  import PlayerHead from "$lib/players/components/PlayerHead.svelte";
+  import { filterPlayers, normalizePlayerQuery } from "$lib/players/search";
 
   let { data } = $props();
   let query = $state("");

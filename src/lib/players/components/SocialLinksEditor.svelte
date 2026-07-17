@@ -1,11 +1,11 @@
 <script lang="ts">
   import { untrack, type Snippet } from "svelte";
-  import PixelIcon from "$lib/components/PixelIcon.svelte";
+  import PixelIcon from "$lib/ui/PixelIcon.svelte";
   import {
     CUSTOM_LINKS_MAX,
     LINK_SOCIAL_PLATFORMS,
     SOCIAL_PLATFORM_IDS,
-  } from "$lib/socials";
+  } from "$lib/players/socials";
 
   let {
     socials,
