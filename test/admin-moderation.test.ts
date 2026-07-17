@@ -2,6 +2,7 @@ import { applyD1Migrations, env } from "cloudflare:test";
 import { beforeEach, describe, expect, it } from "vitest";
 import {
   deletePlayerAsAdmin,
+  getAdminStats,
   listRecentAdminActions,
   setPlayerBlocked,
   updatePlayerAsAdmin,
@@ -135,5 +136,47 @@ describe("player moderation", () => {
         player_username: "Mistake",
       },
     ]);
+  });
+
+  it("summarizes player and news counts", async () => {
+    const firstId = await createPlayer(env.DB, "First");
+    const secondId = await createPlayer(env.DB, "Second");
+    const first = (await getPlayerById(env.DB, firstId))!;
+    await updatePlayerAsAdmin(env.DB, {
+      player: first,
+      existingSocials: [],
+      actorDiscordId: "admin-1",
+      ownerDiscordId: "12345678901234567",
+      bio: "",
+      skinUrl: "",
+      socials: [],
+    });
+    const second = (await getPlayerById(env.DB, secondId))!;
+    await setPlayerBlocked(env.DB, {
+      player: second,
+      actorDiscordId: "admin-1",
+      blocked: true,
+    });
+    await env.DB.batch([
+      env.DB.prepare(
+        `INSERT INTO news
+           (slug, title, body, published, author_discord_id)
+         VALUES ('published', 'Published', 'Body', 1, 'admin-1')`,
+      ),
+      env.DB.prepare(
+        `INSERT INTO news
+           (slug, title, body, published, author_discord_id)
+         VALUES ('draft', 'Draft', 'Body', 0, 'admin-1')`,
+      ),
+    ]);
+
+    await expect(getAdminStats(env.DB)).resolves.toEqual({
+      playersTotal: 2,
+      playersLinked: 1,
+      playersUnlinked: 1,
+      playersBlocked: 1,
+      newsPublished: 1,
+      newsDrafts: 1,
+    });
   });
 });
