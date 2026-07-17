@@ -1,5 +1,6 @@
 <script lang="ts">
   import { BRAND } from "$lib/creators";
+  import PixelIcon from "$lib/components/PixelIcon.svelte";
   import { playerEditPath, playerProfilePath } from "$lib/player-paths";
 
   let { data } = $props();
@@ -26,15 +27,17 @@
     <div class="flex gap-2">
       <a
         href={playerProfilePath(data.player.username)}
-        class="mc-panel mc-tab px-4 py-3 text-[10px] tracking-widest text-neutral-200 hover:text-white"
+        class="mc-panel mc-tab inline-flex items-center gap-2 px-4 py-3 text-[10px] tracking-widest text-neutral-200 hover:text-white"
       >
+        <PixelIcon name="preview" size={11} />
         ПРОФИЛЬ
       </a>
       {#if !data.player.blocked_at}
         <a
           href={playerEditPath(data.player.username)}
-          class="mc-panel mc-tab px-4 py-3 text-[10px] tracking-widest text-neutral-200 hover:text-white"
+          class="mc-panel mc-tab inline-flex items-center gap-2 px-4 py-3 text-[10px] tracking-widest text-neutral-200 hover:text-white"
         >
+          <PixelIcon name="edit" size={11} />
           РЕДАКТИРОВАТЬ
         </a>
       {/if}

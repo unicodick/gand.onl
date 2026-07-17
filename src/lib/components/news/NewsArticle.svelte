@@ -1,6 +1,7 @@
 <script lang="ts">
   import { PROSE_CLASS } from "$lib/markdown";
   import type { PublicNewsRow } from "$lib/server/news";
+  import PixelIcon from "../PixelIcon.svelte";
   import NewsCover from "./NewsCover.svelte";
   import NewsTags from "./NewsTags.svelte";
 
@@ -28,9 +29,10 @@
 <article class="w-full max-w-3xl space-y-6">
   <a
     href={backHref}
-    class="inline-flex text-[9px] tracking-widest text-neutral-500 transition-colors hover:text-neutral-200"
+    class="inline-flex items-center gap-2 text-[9px] tracking-widest text-neutral-500 transition-colors hover:text-neutral-200"
   >
-    ← {backLabel}
+    <PixelIcon name="arrow-left" size={11} />
+    {backLabel}
   </a>
 
   <header class="space-y-4">

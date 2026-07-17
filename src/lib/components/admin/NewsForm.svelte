@@ -1,5 +1,6 @@
 <script lang="ts">
   import { untrack } from "svelte";
+  import PixelIcon from "$lib/components/PixelIcon.svelte";
   import {
     MAX_NEWS_TAG_LENGTH,
     MAX_NEWS_TAGS,
@@ -210,8 +211,10 @@
               type="button"
               onclick={() => removeTag(index)}
               class="text-neutral-500 transition-colors hover:text-white"
-              aria-label={`Удалить тег ${tag}`}>×</button
+              aria-label={`Удалить тег ${tag}`}
             >
+              <PixelIcon name="close" size={8} />
+            </button>
           </span>
         {/each}
 
@@ -230,9 +233,11 @@
             <button
               type="button"
               onclick={addTag}
-              class="mc-tab border-l border-white/10 px-3 text-[9px]"
-              aria-label="Добавить тег">+</button
+              class="mc-tab grid min-w-9 place-items-center border-l border-white/10 px-3"
+              aria-label="Добавить тег"
             >
+              <PixelIcon name="plus" size={9} />
+            </button>
           </div>
         {/if}
       </div>
@@ -254,9 +259,11 @@
           type="button"
           onclick={removeCover}
           disabled={uploadingCover}
-          class="text-[8px] tracking-widest text-red-400 transition-colors hover:text-red-300 disabled:opacity-40"
-          >УБРАТЬ</button
+          class="inline-flex items-center gap-2 text-[8px] tracking-widest text-red-400 transition-colors hover:text-red-300 disabled:opacity-40"
         >
+          <PixelIcon name="trash" size={10} />
+          УБРАТЬ
+        </button>
       {/if}
     </div>
 
@@ -281,7 +288,7 @@
         <span
           class="flex h-full flex-col items-center justify-center gap-3 px-4 text-[9px] tracking-widest text-neutral-500"
         >
-          <span class="text-2xl text-neutral-700">＋</span>
+          <PixelIcon name="image" size={28} class="text-neutral-700" />
           {uploadingCover ? "ЗАГРУЗКА…" : "ВЫБРАТЬ ИЗОБРАЖЕНИЕ"}
         </span>
       {/if}
@@ -302,11 +309,13 @@
 
   <details class="mc-panel group p-4">
     <summary
-      class="cursor-pointer list-none text-[9px] tracking-widest text-neutral-400 transition-colors hover:text-white"
+      class="flex cursor-pointer list-none items-center gap-2 text-[9px] tracking-widest text-neutral-400 transition-colors hover:text-white"
     >
-      <span class="inline-block transition-transform group-open:rotate-90"
-        >▶</span
-      >
+      <PixelIcon
+        name="arrow-right"
+        size={9}
+        class="transition-transform group-open:rotate-90 motion-reduce:transition-none"
+      />
       ШПАРГАЛКА MARKDOWN
     </summary>
     <div
@@ -368,18 +377,20 @@
         formtarget="_blank"
         disabled={uploadingCover}
         aria-disabled={!coverKey || uploadingCover}
-        class="mc-panel mc-tab px-4 py-3 text-[9px] tracking-widest text-neutral-300 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+        class="mc-panel mc-tab inline-flex items-center gap-2 px-4 py-3 text-[9px] tracking-widest text-neutral-300 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
         class:opacity-40={!coverKey}
       >
+        <PixelIcon name="preview" size={11} />
         ПРЕДПРОСМОТР
       </button>
       <button
         type="submit"
         disabled={uploadingCover}
         aria-disabled={!coverKey || uploadingCover}
-        class="mc-panel mc-tab px-5 py-3 text-[9px] tracking-widest text-neutral-200 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+        class="mc-panel mc-tab inline-flex items-center gap-2 px-5 py-3 text-[9px] tracking-widest text-neutral-200 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
         class:opacity-40={!coverKey}
       >
+        <PixelIcon name="save" size={11} />
         {submitLabel.toUpperCase()}
       </button>
     </div>

@@ -1,5 +1,6 @@
 <script lang="ts">
   import { BRAND } from "$lib/creators";
+  import PixelIcon from "$lib/components/PixelIcon.svelte";
   import NewsCover from "$lib/components/news/NewsCover.svelte";
   import NewsTags from "$lib/components/news/NewsTags.svelte";
 
@@ -113,15 +114,19 @@
               type="button"
               onclick={() => scrollToCard(Math.max(0, activeIndex - 1))}
               class="mc-panel mc-tab grid h-9 w-10 place-items-center text-xs"
-              aria-label="Предыдущая новость">←</button
+              aria-label="Предыдущая новость"
             >
+              <PixelIcon name="arrow-left" size={12} />
+            </button>
             <button
               type="button"
               onclick={() =>
                 scrollToCard(Math.min(data.items.length - 1, activeIndex + 1))}
               class="mc-panel mc-tab grid h-9 w-10 place-items-center text-xs"
-              aria-label="Следующая новость">→</button
+              aria-label="Следующая новость"
             >
+              <PixelIcon name="arrow-right" size={12} />
+            </button>
           </div>
         </div>
       {/if}

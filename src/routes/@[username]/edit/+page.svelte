@@ -1,5 +1,6 @@
 <script lang="ts">
   import { untrack } from "svelte";
+  import PixelIcon from "$lib/components/PixelIcon.svelte";
   import { BRAND } from "$lib/creators";
   import { playerProfilePath } from "$lib/player-paths";
   import {
@@ -58,9 +59,10 @@
     <header class="space-y-3">
       <a
         href={playerProfilePath(data.player.username)}
-        class="inline-block text-[9px] tracking-widest text-neutral-500 hover:text-neutral-200"
+        class="inline-flex items-center gap-2 text-[9px] tracking-widest text-neutral-500 hover:text-neutral-200"
       >
-        ← ПРОФИЛЬ
+        <PixelIcon name="arrow-left" size={11} />
+        ПРОФИЛЬ
       </a>
       <h1 class="text-sm leading-relaxed text-neutral-100 sm:text-base">
         Редактирование @{data.player.username}
@@ -123,10 +125,10 @@
             class="peer sr-only"
           />
           <span
-            class="grid size-4 shrink-0 place-items-center bg-neutral-800 text-[9px] text-transparent shadow-[inset_1px_1px_0_#000,inset_-1px_-1px_0_#52525b] peer-checked:bg-grass peer-checked:text-black peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-grass"
+            class="grid size-4 shrink-0 place-items-center bg-neutral-800 text-transparent shadow-[inset_1px_1px_0_#000,inset_-1px_-1px_0_#52525b] peer-checked:bg-grass peer-checked:text-black peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-grass"
             aria-hidden="true"
           >
-            ✓
+            <PixelIcon name="check" size={9} />
           </span>
           <span class="space-y-1">
             <span class="block text-[9px] tracking-widest text-neutral-300">
@@ -190,10 +192,10 @@
               <button
                 type="button"
                 onclick={() => removeCustomLink(link.key)}
-                class="mc-tab px-3 py-2 text-[9px] text-red-400 hover:text-red-300"
+                class="mc-tab grid min-h-9 place-items-center px-3 py-2 text-red-400 hover:text-red-300"
                 aria-label={`Удалить ссылку ${link.label || "без названия"}`}
               >
-                ×
+                <PixelIcon name="close" size={10} />
               </button>
             </div>
           {/each}
@@ -202,9 +204,10 @@
             <button
               type="button"
               onclick={addCustomLink}
-              class="mc-tab px-3 py-2 text-[9px] tracking-widest text-neutral-500 hover:text-white"
+              class="mc-tab inline-flex items-center gap-2 px-3 py-2 text-[9px] tracking-widest text-neutral-500 hover:text-white"
             >
-              + ДОБАВИТЬ ССЫЛКУ
+              <PixelIcon name="plus" size={10} />
+              ДОБАВИТЬ ССЫЛКУ
             </button>
           {/if}
         </div>
@@ -215,14 +218,16 @@
       >
         <a
           href={playerProfilePath(data.player.username)}
-          class="mc-tab px-4 py-3 text-center text-[9px] tracking-widest"
+          class="mc-tab inline-flex items-center justify-center gap-2 px-4 py-3 text-center text-[9px] tracking-widest"
         >
+          <PixelIcon name="close" size={10} />
           ОТМЕНА
         </a>
         <button
           type="submit"
-          class="mc-tab px-4 py-3 text-[9px] tracking-widest text-neutral-200 hover:text-white"
+          class="mc-tab inline-flex items-center justify-center gap-2 px-4 py-3 text-[9px] tracking-widest text-neutral-200 hover:text-white"
         >
+          <PixelIcon name="save" size={11} />
           СОХРАНИТЬ
         </button>
       </div>
