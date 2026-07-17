@@ -1,12 +1,16 @@
 import { applyD1Migrations, env } from "cloudflare:test";
 import { beforeEach, describe, expect, it } from "vitest";
 import {
+  deletePlayerAsAdmin,
   listRecentAdminActions,
   setPlayerBlocked,
+  updatePlayerAsAdmin,
 } from "../src/lib/server/admin";
 import {
   createPlayer,
   getPlayerById,
+  getPlayerSocials,
+  replacePlayerSocials,
   toPublicPlayer,
   updatePlayerBio,
 } from "../src/lib/server/players";
@@ -75,6 +79,60 @@ describe("player moderation", () => {
         player_id: playerId,
         player_username: "Player",
         details: { reason: "Private note" },
+      },
+    ]);
+  });
+
+  it("updates profile fields and records only changed sections", async () => {
+    const playerId = await createPlayer(env.DB, "Player");
+    await replacePlayerSocials(env.DB, playerId, [
+      { platform: "telegram", url: "https://t.me/old" },
+    ]);
+    const player = (await getPlayerById(env.DB, playerId))!;
+    const existingSocials = await getPlayerSocials(env.DB, playerId);
+
+    await expect(
+      updatePlayerAsAdmin(env.DB, {
+        player,
+        existingSocials,
+        actorDiscordId: "admin-1",
+        ownerDiscordId: "12345678901234567",
+        bio: "Updated bio",
+        skinUrl: "",
+        socials: [{ platform: "telegram", url: "https://t.me/new" }],
+      }),
+    ).resolves.toEqual(["owner", "bio", "socials"]);
+
+    await expect(getPlayerById(env.DB, playerId)).resolves.toMatchObject({
+      owner_discord_id: "12345678901234567",
+      bio: "Updated bio",
+    });
+    await expect(getPlayerSocials(env.DB, playerId)).resolves.toMatchObject([
+      { platform: "telegram", url: "https://t.me/new" },
+    ]);
+    await expect(listRecentAdminActions(env.DB)).resolves.toMatchObject([
+      {
+        action: "player.updated",
+        details: { fields: ["owner", "bio", "socials"] },
+      },
+    ]);
+  });
+
+  it("keeps a deletion event after removing an erroneous player", async () => {
+    const playerId = await createPlayer(env.DB, "Mistake");
+    const player = (await getPlayerById(env.DB, playerId))!;
+
+    await deletePlayerAsAdmin(env.DB, {
+      player,
+      actorDiscordId: "admin-1",
+    });
+
+    await expect(getPlayerById(env.DB, playerId)).resolves.toBeNull();
+    await expect(listRecentAdminActions(env.DB)).resolves.toMatchObject([
+      {
+        action: "player.deleted",
+        player_id: null,
+        player_username: "Mistake",
       },
     ]);
   });

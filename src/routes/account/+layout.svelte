@@ -7,6 +7,7 @@
     { href: "/account", label: "ПРОФИЛЬ" },
     ...(data.isAdmin
       ? [
+          { href: "/account/admin", label: "ОБЗОР" },
           { href: "/account/news", label: "НОВОСТИ" },
           { href: "/account/players", label: "ИГРОКИ" },
         ]
