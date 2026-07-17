@@ -6,6 +6,7 @@ import {
   updatePlayerBio,
   updatePlayerSkin,
 } from "$lib/server/players";
+import { playerEditPath, playerProfilePath } from "$lib/player-paths";
 import {
   CUSTOM_LINK_LABEL_MAX_LENGTH,
   CUSTOM_LINKS_MAX,
@@ -24,7 +25,7 @@ export const load: PageServerLoad = async ({ params, platform, locals }) => {
   if (!locals.user) {
     redirect(
       303,
-      `/auth/discord/login?redirect_to=${encodeURIComponent(`/u/${params.username}/edit`)}`,
+      `/auth/discord/login?redirect_to=${encodeURIComponent(playerEditPath(params.username))}`,
     );
   }
   if (locals.user.discordId !== player.owner_discord_id) {
@@ -112,6 +113,6 @@ export const actions: Actions = {
     await updatePlayerSkin(db, player.id, skinUrl);
     await replacePlayerSocials(db, player.id, socials);
 
-    redirect(303, `/u/${player.username}`);
+    redirect(303, playerProfilePath(player.username));
   },
 };

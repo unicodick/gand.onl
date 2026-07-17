@@ -1,6 +1,7 @@
 <script lang="ts">
   import { BRAND, skinRender } from "$lib/creators";
   import Skin from "$lib/components/Skin.svelte";
+  import { playerEditPath } from "$lib/player-paths";
   import { SOCIAL_PLATFORMS } from "$lib/socials";
 
   let { data } = $props();
@@ -83,7 +84,7 @@
         </div>
         {#if data.showEditLink}
           <a
-            href={`/u/${data.player.username}/edit`}
+            href={playerEditPath(data.player.username)}
             class="mc-tab px-3 py-2 text-[10px] tracking-widest text-neutral-300 hover:text-white"
           >
             РЕДАКТИРОВАТЬ
