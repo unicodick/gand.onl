@@ -11,6 +11,7 @@ SvelteKit + Tailwind CSS v4, Cloudflare Workers (D1, Workers Assets).
 ```sh
 pnpm install
 cp .dev.vars.example .dev.vars   # заполнить Discord OAuth2 секреты
+pnpm exec wrangler r2 bucket create gandonl-news
 pnpm exec wrangler d1 migrations apply gandonl --local
 pnpm dev
 ```

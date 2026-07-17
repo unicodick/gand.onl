@@ -157,3 +157,14 @@ export async function updateNews(
 export async function deleteNews(db: D1Database, id: number): Promise<void> {
   await db.prepare("DELETE FROM news WHERE id = ?").bind(id).run();
 }
+
+export async function isNewsCoverInUse(
+  db: D1Database,
+  coverKey: string,
+): Promise<boolean> {
+  const row = await db
+    .prepare("SELECT 1 AS found FROM news WHERE cover_key = ? LIMIT 1")
+    .bind(coverKey)
+    .first<{ found: number }>();
+  return Boolean(row);
+}
