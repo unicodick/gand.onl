@@ -17,6 +17,7 @@ export default defineConfig({
   plugins: [
     cloudflareTest(async () => ({
       miniflare: {
+        compatibilityDate: "2026-07-14",
         d1Databases: ["DB"],
         bindings: {
           TEST_MIGRATIONS: await readD1Migrations(
