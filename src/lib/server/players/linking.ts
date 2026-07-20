@@ -1,7 +1,8 @@
 import type { D1Database } from "@cloudflare/workers-types";
 
-const KEY_ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
-const KEY_LENGTH = 8;
+const KEY_PREFIX = "gand-";
+const KEY_ALPHABET = "abcdefghjkmnpqrstuvwxyz23456789";
+const KEY_SUFFIX_LENGTH = 6;
 const DEFAULT_TTL_MINUTES = 15;
 
 export interface LinkRequestRow {
@@ -14,8 +15,10 @@ export interface LinkRequestRow {
 }
 
 export function generateLinkKey(): string {
-  let key = "";
-  for (const byte of crypto.getRandomValues(new Uint8Array(KEY_LENGTH))) {
+  let key = KEY_PREFIX;
+  for (const byte of crypto.getRandomValues(
+    new Uint8Array(KEY_SUFFIX_LENGTH),
+  )) {
     key += KEY_ALPHABET[byte % KEY_ALPHABET.length];
   }
   return key;

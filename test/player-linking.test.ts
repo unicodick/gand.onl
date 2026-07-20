@@ -1,6 +1,9 @@
 import { applyD1Migrations, env } from "cloudflare:test";
 import { beforeEach, describe, expect, it } from "vitest";
-import { linkPlayerByUsername } from "../src/lib/server/players/linking";
+import {
+  generateLinkKey,
+  linkPlayerByUsername,
+} from "../src/lib/server/players/linking";
 import {
   getPlayerByOwnerDiscordId,
   getPlayerByUsername,
@@ -33,6 +36,14 @@ beforeEach(async () => {
     env.DB.prepare("DELETE FROM players"),
     env.DB.prepare("DELETE FROM link_requests"),
   ]);
+});
+
+describe("generateLinkKey", () => {
+  it("creates branded lowercase keys without ambiguous characters", () => {
+    for (let index = 0; index < 100; index += 1) {
+      expect(generateLinkKey()).toMatch(/^gand-[a-hj-km-np-z2-9]{6}$/);
+    }
+  });
 });
 
 describe("linkPlayerByUsername", () => {
