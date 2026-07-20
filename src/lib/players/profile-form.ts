@@ -6,7 +6,7 @@ import {
   SOCIAL_PLATFORMS,
 } from "./socials";
 
-export const BIO_MAX_LENGTH = 2000;
+export const BIO_MAX_LENGTH = 260;
 
 export interface EditablePlayerProfile {
   bio: string;

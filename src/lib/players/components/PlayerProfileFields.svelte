@@ -1,5 +1,6 @@
 <script lang="ts">
   import { untrack } from "svelte";
+  import { BIO_MAX_LENGTH } from "$lib/players/profile-form";
 
   let {
     initialBio = null,
@@ -23,12 +24,12 @@
     name="bio"
     bind:value={bio}
     rows="8"
-    maxlength="2000"
+    maxlength={BIO_MAX_LENGTH}
     placeholder={bioPlaceholder}
     class="min-h-40 resize-y border border-white/10 bg-black/20 px-3 py-3 text-[10px] leading-loose tracking-normal text-neutral-100 outline-none placeholder:text-neutral-700 focus:border-grass-dim sm:text-xs"
   ></textarea>
   <span class="text-right text-[8px] text-neutral-600">
-    {bio.length}/2000
+    {bio.length}/{BIO_MAX_LENGTH}
   </span>
 </label>
 
