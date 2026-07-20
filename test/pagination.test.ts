@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { MAX_PAGE, parsePage } from "../src/lib/pagination";
+import {
+  MAX_PAGE,
+  pageCount,
+  pageOffset,
+  parsePage,
+} from "../src/lib/pagination";
 
 describe("parsePage", () => {
   it("uses the first page when the parameter is absent", () => {
@@ -20,4 +25,15 @@ describe("parsePage", () => {
       expect(parsePage(raw)).toBeNull();
     },
   );
+});
+
+describe("pagination metadata", () => {
+  it("keeps empty collections on the first page", () => {
+    expect(pageCount(0, 7)).toBe(1);
+  });
+
+  it("calculates page counts and offsets", () => {
+    expect(pageCount(15, 7)).toBe(3);
+    expect(pageOffset(3, 7)).toBe(14);
+  });
 });

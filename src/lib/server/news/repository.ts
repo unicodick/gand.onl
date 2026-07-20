@@ -45,15 +45,22 @@ export async function listAllNews(db: D1Database): Promise<NewsRow[]> {
 
 export async function listPublishedNews(
   db: D1Database,
-  { limit }: { limit: number },
+  { limit, offset = 0 }: { limit: number; offset?: number },
 ): Promise<NewsRow[]> {
   const { results } = await db
     .prepare(
-      "SELECT * FROM news WHERE published = 1 ORDER BY published_at DESC LIMIT ?",
+      "SELECT * FROM news WHERE published = 1 ORDER BY published_at DESC, id DESC LIMIT ? OFFSET ?",
     )
-    .bind(limit)
+    .bind(limit, offset)
     .all<NewsDbRow>();
   return results.map(fromDbNews);
+}
+
+export async function countPublishedNews(db: D1Database): Promise<number> {
+  const row = await db
+    .prepare("SELECT COUNT(*) AS total FROM news WHERE published = 1")
+    .first<{ total: number }>();
+  return row?.total ?? 0;
 }
 
 export async function getPublishedNewsBySlug(
