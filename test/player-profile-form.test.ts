@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { parsePlayerProfileForm } from "../src/lib/players/profile-form";
+import {
+  BIO_MAX_LENGTH,
+  parsePlayerProfileForm,
+} from "../src/lib/players/profile-form";
 
 function form(entries: Record<string, string | string[]>): FormData {
   const data = new FormData();
@@ -45,5 +48,17 @@ describe("player profile form", () => {
     expect(
       parsePlayerProfileForm(form({ social_telegram: "javascript:alert(1)" })),
     ).toMatchObject({ ok: false });
+  });
+
+  it("accepts descriptions up to 260 characters", () => {
+    expect(
+      parsePlayerProfileForm(form({ bio: "x".repeat(BIO_MAX_LENGTH) })),
+    ).toMatchObject({ ok: true });
+  });
+
+  it("rejects descriptions longer than 260 characters", () => {
+    expect(
+      parsePlayerProfileForm(form({ bio: "x".repeat(BIO_MAX_LENGTH + 1) })),
+    ).toEqual({ ok: false, errorMessage: "Слишком длинное описание" });
   });
 });
