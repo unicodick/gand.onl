@@ -18,7 +18,7 @@ export const load: PageServerLoad = async ({ platform, locals, url }) => {
   if (player) {
     return {
       player: toPublicPlayer(player),
-      socials: await getPlayerSocials(db, player.id),
+      socials: player.blocked_at ? [] : await getPlayerSocials(db, player.id),
       linkKey: null,
       linkExpiresAt: null,
       saved: url.searchParams.get("saved") === "1",

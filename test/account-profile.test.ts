@@ -87,6 +87,33 @@ describe("account profile editor", () => {
     ).rejects.toMatchObject({ status: 404 });
   });
 
+  it("does not expose editable links for blocked profiles", async () => {
+    const playerId = await createPlayer(env.DB, "Player");
+    await setPlayerOwner(env.DB, playerId, "owner");
+    await updatePlayerProfile(env.DB, {
+      playerId,
+      bio: "Hidden bio",
+      skinUrl: "https://example.com/hidden.png",
+      socials: [{ platform: "telegram", url: "https://t.me/hidden" }],
+    });
+    await env.DB.prepare(
+      "UPDATE players SET blocked_at = ?, blocked_by_discord_id = ? WHERE id = ?",
+    )
+      .bind("2026-07-20T12:00:00.000Z", "admin", playerId)
+      .run();
+
+    const result = await load({
+      platform: { env },
+      locals: { user: { discordId: "owner", username: "owner" } },
+      url: new URL("https://gand.onl/account"),
+    } as never);
+
+    expect(result).toMatchObject({
+      player: { id: playerId, bio: null, skin_url: null },
+      socials: [],
+    });
+  });
+
   it("rejects anonymous profile writes", async () => {
     await expect(
       actions.default!({
