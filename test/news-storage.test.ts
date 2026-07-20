@@ -1,6 +1,7 @@
 import { applyD1Migrations, env } from "cloudflare:test";
 import { describe, expect, it } from "vitest";
 import {
+  countPublishedNews,
   createNews,
   getNewsById,
   listPublishedNews,
@@ -42,6 +43,13 @@ describe("news storage", () => {
       "post-3",
     ]);
     expect(news[0].tags).toEqual(["Обновление"]);
+    await expect(countPublishedNews(env.DB)).resolves.toBe(5);
+
+    const secondPage = await listPublishedNews(env.DB, {
+      limit: 3,
+      offset: 3,
+    });
+    expect(secondPage.map((item) => item.slug)).toEqual(["post-2", "post-1"]);
   });
 
   it("creates and updates cover and tag metadata", async () => {
