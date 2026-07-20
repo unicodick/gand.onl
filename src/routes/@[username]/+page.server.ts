@@ -14,7 +14,7 @@ import {
 import { DISCORD_PLATFORM_ID } from "$lib/players/socials";
 import type { PageServerLoad } from "./$types";
 
-export const load: PageServerLoad = async ({ params, platform, locals }) => {
+export const load: PageServerLoad = async ({ params, platform }) => {
   const db = platform!.env.DB;
   const player = await getPlayerByUsername(db, params.username.toLowerCase());
   if (!player) error(404, "Игрок не найден");
@@ -24,7 +24,6 @@ export const load: PageServerLoad = async ({ params, platform, locals }) => {
       player: toPublicPlayer(player),
       socials: [],
       discordProfile: null,
-      showEditLink: false,
       isLinked: false,
       isAdmin: false,
     };
@@ -37,7 +36,6 @@ export const load: PageServerLoad = async ({ params, platform, locals }) => {
   const socials = allSocials.filter(
     (social) => social.platform !== DISCORD_PLATFORM_ID,
   );
-  const isOwner = locals.user?.discordId === player.owner_discord_id;
   const isLinked = Boolean(player.owner_discord_id);
   const isAdmin = Boolean(
     player.owner_discord_id &&
@@ -64,7 +62,6 @@ export const load: PageServerLoad = async ({ params, platform, locals }) => {
     player: toPublicPlayer(player),
     socials,
     discordProfile,
-    showEditLink: isOwner,
     isLinked,
     isAdmin,
   };

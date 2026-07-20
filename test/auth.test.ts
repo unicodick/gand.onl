@@ -7,7 +7,7 @@ const ORIGIN = "https://gand.onl";
 describe("safeRedirectTarget", () => {
   it.each([
     ["/account", "/account"],
-    ["/@player/edit?tab=links#socials", "/@player/edit?tab=links#socials"],
+    ["/account?tab=links#socials", "/account?tab=links#socials"],
   ])("accepts same-origin path %s", (raw, expected) => {
     expect(safeRedirectTarget(raw, ORIGIN)).toBe(expected);
   });

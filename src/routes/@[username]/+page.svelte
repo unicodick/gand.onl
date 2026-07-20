@@ -5,7 +5,7 @@
   import PixelIcon from "$lib/ui/PixelIcon.svelte";
   import ProfileBadge from "$lib/players/components/ProfileBadge.svelte";
   import Skin from "$lib/players/components/Skin.svelte";
-  import { playerEditPath, playerProfilePath } from "$lib/players/paths";
+  import { playerProfilePath } from "$lib/players/paths";
   import { SOCIAL_PLATFORMS } from "$lib/players/socials";
 
   let { data } = $props();
@@ -83,7 +83,7 @@
 
       <div class="flex min-w-0 flex-col justify-center gap-6">
         <header class="space-y-3">
-          <div class="flex items-start justify-between gap-4">
+          <div class="flex items-start gap-4">
             <div class="min-w-0 space-y-2">
               <p class="text-[9px] tracking-widest text-neutral-500">
                 ПРОФИЛЬ ИГРОКА
@@ -112,16 +112,6 @@
                 </div>
               </div>
             </div>
-
-            {#if data.showEditLink}
-              <a
-                href={playerEditPath(data.player.username)}
-                class="mc-tab inline-flex shrink-0 items-center gap-2 px-3 py-2 text-[9px] tracking-widest"
-              >
-                <PixelIcon name="edit" size={11} />
-                ИЗМЕНИТЬ
-              </a>
-            {/if}
           </div>
         </header>
 
