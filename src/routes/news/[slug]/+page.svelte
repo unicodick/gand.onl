@@ -1,10 +1,13 @@
 <script lang="ts">
-  import { BRAND } from "$lib/site";
+  import { BRAND, SITE_ORIGIN } from "$lib/site";
   import NewsArticle from "$lib/news/components/NewsArticle.svelte";
   import { newsCoverUrl } from "$lib/news/model";
 
   let { data } = $props();
-  let coverUrl = $derived(newsCoverUrl(data.news.cover_key));
+  let coverUrl = $derived.by(() => {
+    const path = newsCoverUrl(data.news.cover_key);
+    return path ? new URL(path, SITE_ORIGIN).href : null;
+  });
 </script>
 
 <svelte:head>

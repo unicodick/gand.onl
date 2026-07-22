@@ -14,6 +14,7 @@ export const CREATORS: Creator[] = [
 ];
 
 export const BRAND = "gand.onl";
+export const SITE_ORIGIN = `https://${BRAND}`;
 
 export const LINKS = [
   { label: "zlp.onl", href: "https://zlp.onl" },
