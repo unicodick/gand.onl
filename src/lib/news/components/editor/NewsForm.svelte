@@ -148,8 +148,7 @@
         type="submit"
         formaction="/account/news/preview"
         formtarget="_blank"
-        disabled={uploadingCover}
-        aria-disabled={!coverKey || uploadingCover}
+        disabled={!coverKey || uploadingCover}
         class="mc-panel mc-tab inline-flex items-center gap-2 px-4 py-3 text-[10px] tracking-widest text-neutral-300 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
         class:opacity-40={!coverKey}
       >
@@ -158,8 +157,7 @@
       </button>
       <button
         type="submit"
-        disabled={uploadingCover}
-        aria-disabled={!coverKey || uploadingCover}
+        disabled={!coverKey || uploadingCover}
         class="mc-panel mc-tab inline-flex items-center gap-2 px-5 py-3 text-[10px] tracking-widest text-neutral-200 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
         class:opacity-40={!coverKey}
       >
