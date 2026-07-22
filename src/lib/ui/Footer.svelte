@@ -69,6 +69,13 @@
     {/each}
   </div>
 
+  <a
+    href="/privacy"
+    class="mc-tab px-2 py-1 text-[8px] tracking-widest text-neutral-400 sm:text-[9px]"
+  >
+    КОНФИДЕНЦИАЛЬНОСТЬ
+  </a>
+
   <p
     class="max-w-xs text-center text-[8px] leading-relaxed tracking-wide text-neutral-600 sm:text-[9px]"
   >
