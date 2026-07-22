@@ -17,8 +17,8 @@ directory = ".svelte-kit/cloudflare"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "gandonl"
-database_id = "25ace723-df73-4814-8e24-952b1a571315"
+database_name = "gandonl-prod"
+database_id = "742bc6ba-829a-47fe-814f-1b92d4321a2e"
 migrations_dir = "migrations"
 
 [[r2_buckets]]
