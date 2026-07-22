@@ -14,10 +14,12 @@ const result = spawnSync(
 if (result.status !== 0) process.exit(result.status ?? 1);
 
 const generated = readFileSync(target, "utf8");
-const normalized = generated.replace(
-  /\tinterface GlobalProps \{\n\t\tmainModule: typeof import\("[^"]+"\);\n\t\}\n/,
-  "",
-);
+const normalized = generated
+  .replace(
+    /\tinterface GlobalProps \{\n\t\tmainModule: typeof import\("[^"]+"\);\n\t\}\n/,
+    "",
+  )
+  .replace(/[ \t]+$/gm, "");
 
 if (normalized === generated) {
   throw new Error("Wrangler GlobalProps declaration was not found");
