@@ -46,9 +46,9 @@
       </div>
     {:else}
       <p class="text-xs text-neutral-300">
-        Чтобы привязать свой ник Minecraft, напиши <span
+        Чтобы привязать свой Minecraft-ник, отправь игроку <span
           class="text-neutral-100">setunicode</span
-        > в личные сообщения на сервере команду:
+        > личное сообщение на сервере с этой командой:
       </p>
       <p
         class="mc-panel bg-black px-3 py-2 text-sm text-neutral-100 select-all"
