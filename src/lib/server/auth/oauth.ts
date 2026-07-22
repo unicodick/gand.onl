@@ -1,4 +1,5 @@
 const DISCORD_API = "https://discord.com/api/v10";
+const DISCORD_REQUEST_TIMEOUT_MS = 10_000;
 
 export const STATE_COOKIE = "discord_oauth_state";
 export const REDIRECT_COOKIE = "discord_oauth_redirect";
@@ -43,32 +44,54 @@ export async function exchangeCodeForToken(
   env: App.Platform["env"],
   code: string,
 ): Promise<string> {
-  const response = await fetch(`${DISCORD_API}/oauth2/token`, {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({
-      client_id: env.DISCORD_CLIENT_ID,
-      client_secret: env.DISCORD_CLIENT_SECRET,
-      grant_type: "authorization_code",
-      code,
-      redirect_uri: env.DISCORD_REDIRECT_URI,
-    }),
-  });
-  if (!response.ok) {
-    throw new Error(`discord token exchange failed: ${response.status}`);
+  const controller = new AbortController();
+  const timeout = setTimeout(
+    () => controller.abort(),
+    DISCORD_REQUEST_TIMEOUT_MS,
+  );
+
+  try {
+    const response = await fetch(`${DISCORD_API}/oauth2/token`, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        client_id: env.DISCORD_CLIENT_ID,
+        client_secret: env.DISCORD_CLIENT_SECRET,
+        grant_type: "authorization_code",
+        code,
+        redirect_uri: env.DISCORD_REDIRECT_URI,
+      }),
+      signal: controller.signal,
+    });
+    if (!response.ok) {
+      throw new Error(`discord token exchange failed: ${response.status}`);
+    }
+    const data = (await response.json()) as { access_token: string };
+    return data.access_token;
+  } finally {
+    clearTimeout(timeout);
   }
-  const data = (await response.json()) as { access_token: string };
-  return data.access_token;
 }
 
 export async function fetchDiscordUser(
   accessToken: string,
 ): Promise<DiscordUser> {
-  const response = await fetch(`${DISCORD_API}/users/@me`, {
-    headers: { Authorization: `Bearer ${accessToken}` },
-  });
-  if (!response.ok) {
-    throw new Error(`discord user fetch failed: ${response.status}`);
+  const controller = new AbortController();
+  const timeout = setTimeout(
+    () => controller.abort(),
+    DISCORD_REQUEST_TIMEOUT_MS,
+  );
+
+  try {
+    const response = await fetch(`${DISCORD_API}/users/@me`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+      signal: controller.signal,
+    });
+    if (!response.ok) {
+      throw new Error(`discord user fetch failed: ${response.status}`);
+    }
+    return response.json();
+  } finally {
+    clearTimeout(timeout);
   }
-  return response.json();
 }
