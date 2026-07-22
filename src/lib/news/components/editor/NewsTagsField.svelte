@@ -36,10 +36,10 @@
 
 <div class="space-y-2">
   <div class="flex items-center justify-between gap-4">
-    <label for="news-tag" class="text-[9px] tracking-widest text-neutral-500">
+    <label for="news-tag" class="text-[10px] tracking-widest text-neutral-400">
       ТЕГИ
     </label>
-    <span class="text-[8px] tracking-wider text-neutral-600">
+    <span class="text-[10px] tracking-wider text-neutral-400">
       {tags.length}/{MAX_NEWS_TAGS}
     </span>
   </div>
@@ -47,13 +47,13 @@
   <div class="flex flex-wrap gap-2">
     {#each tags as tag, index (`${tag}-${index}`)}
       <span
-        class="flex items-center gap-2 border border-grass-dim/70 bg-grass-dim/10 px-2 py-1.5 text-[9px] text-grass"
+        class="flex items-center gap-2 border border-grass-dim/70 bg-grass-dim/10 px-2 py-1.5 text-[10px] text-grass"
       >
         {tag}
         <button
           type="button"
           onclick={() => removeTag(index)}
-          class="text-neutral-500 transition-colors hover:text-white"
+          class="text-neutral-400 transition-colors hover:text-white"
           aria-label={`Удалить тег ${tag}`}
         >
           <PixelIcon name="close" size={8} />
@@ -71,7 +71,7 @@
           onkeydown={handleTagKeydown}
           maxlength={MAX_NEWS_TAG_LENGTH}
           placeholder="Введите тег и нажмите Enter"
-          class="min-w-0 flex-1 bg-transparent px-3 py-2 text-[10px] text-neutral-100 outline-none placeholder:text-neutral-700"
+          class="min-w-0 flex-1 bg-transparent px-3 py-2 text-[10px] text-neutral-100 outline-none placeholder:text-neutral-400"
         />
         <button
           type="button"

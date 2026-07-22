@@ -50,6 +50,18 @@ describe("player profile form", () => {
     ).toMatchObject({ ok: false });
   });
 
+  it("requires a valid HTTPS URL for custom skins", () => {
+    expect(
+      parsePlayerProfileForm(form({ skin_url: "http://example.com/skin.png" })),
+    ).toEqual({
+      ok: false,
+      errorMessage: "Ссылка на скин должна быть корректным HTTPS-адресом",
+    });
+    expect(
+      parsePlayerProfileForm(form({ skin_url: "https://" })),
+    ).toMatchObject({ ok: false });
+  });
+
   it("accepts descriptions up to 260 characters", () => {
     expect(
       parsePlayerProfileForm(form({ bio: "x".repeat(BIO_MAX_LENGTH) })),

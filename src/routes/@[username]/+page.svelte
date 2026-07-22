@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { skinRender } from "$lib/minecraft/skins";
+  import { playerSkin } from "$lib/minecraft/skins";
   import { BRAND } from "$lib/site";
   import DiscordProfileCard from "$lib/discord/components/DiscordProfileCard.svelte";
   import PixelIcon from "$lib/ui/PixelIcon.svelte";
@@ -40,14 +40,14 @@
   {#if data.player.blocked_at}
     <section class="w-full max-w-xl space-y-6">
       <div class="space-y-3">
-        <p class="text-[9px] tracking-widest text-neutral-500">
+        <p class="text-[10px] tracking-widest text-neutral-400">
           ПРОФИЛЬ ИГРОКА
         </p>
         <div class="flex flex-wrap items-center gap-3">
           <h1
             class="break-all text-xl leading-relaxed text-neutral-100 sm:text-2xl"
           >
-            <span class="text-neutral-600">@</span>{data.player.username}
+            <span class="text-neutral-400">@</span>{data.player.username}
           </h1>
           <ProfileBadge
             icon="lock"
@@ -59,14 +59,14 @@
 
       <div class="mc-panel panel-in space-y-3 p-6">
         <p class="text-xs text-neutral-200">Профиль недоступен</p>
-        <p class="text-[9px] leading-relaxed text-neutral-500">
+        <p class="text-[10px] leading-relaxed text-neutral-400">
           Публичная информация этого профиля временно скрыта.
         </p>
       </div>
 
       <a
         href="/players"
-        class="mc-tab inline-flex items-center gap-2 px-3 py-2 text-[9px] tracking-widest"
+        class="mc-tab inline-flex items-center gap-2 px-3 py-2 text-[10px] tracking-widest"
       >
         <PixelIcon name="arrow-left" size={11} />
         ВСЕ ИГРОКИ
@@ -77,7 +77,7 @@
       <div class="flex justify-center md:justify-start">
         <Skin
           name={data.player.username}
-          src={data.player.skin_url ?? skinRender(data.player.username)}
+          src={playerSkin(data.player.username, data.player.skin_url)}
         />
       </div>
 
@@ -85,14 +85,14 @@
         <header class="space-y-3">
           <div class="flex items-start gap-4">
             <div class="min-w-0 space-y-2">
-              <p class="text-[9px] tracking-widest text-neutral-500">
+              <p class="text-[10px] tracking-widest text-neutral-400">
                 ПРОФИЛЬ ИГРОКА
               </p>
               <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
                 <h1
                   class={`break-all text-xl leading-relaxed sm:text-2xl ${data.isAdmin ? "text-gold" : "text-neutral-100"}`}
                 >
-                  <span class="text-neutral-600">@</span>{data.player.username}
+                  <span class="text-neutral-400">@</span>{data.player.username}
                 </h1>
                 <div class="flex items-center gap-1">
                   <ProfileBadge
@@ -100,7 +100,7 @@
                     label={data.isLinked
                       ? "Привязанный профиль"
                       : "Профиль не привязан"}
-                    class={data.isLinked ? "text-grass" : "text-neutral-600"}
+                    class={data.isLinked ? "text-grass" : "text-neutral-400"}
                   />
                   {#if data.isAdmin}
                     <ProfileBadge
@@ -123,7 +123,7 @@
 
         {#if data.discordProfile || data.socials.length}
           <div class="space-y-3">
-            <p class="text-[9px] tracking-widest text-neutral-500">ССЫЛКИ</p>
+            <p class="text-[10px] tracking-widest text-neutral-400">ССЫЛКИ</p>
 
             {#if data.discordProfile}
               <DiscordProfileCard profile={data.discordProfile} />
@@ -136,7 +136,7 @@
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="mc-panel inline-flex items-center gap-2 px-4 py-3 text-[9px] tracking-widest text-neutral-300 transition-colors hover:text-white"
+                    class="mc-panel inline-flex items-center gap-2 px-4 py-3 text-[10px] tracking-widest text-neutral-300 transition-colors hover:text-white"
                   >
                     {platformLabel(social.platform)}
                     <PixelIcon name="external-link" size={10} />
@@ -147,7 +147,7 @@
           </div>
         {/if}
 
-        <p class="text-[8px] leading-relaxed tracking-widest text-neutral-600">
+        <p class="text-[10px] leading-relaxed tracking-widest text-neutral-400">
           В КАТАЛОГЕ С {joinedAt.toUpperCase()}
         </p>
       </div>

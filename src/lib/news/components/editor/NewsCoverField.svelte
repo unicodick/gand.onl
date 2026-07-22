@@ -92,10 +92,10 @@
 <section class="mc-panel space-y-4 p-5 sm:p-6">
   <div class="flex flex-wrap items-start justify-between gap-3">
     <div class="space-y-1">
-      <h2 class="text-[9px] tracking-widest text-neutral-500">
+      <h2 class="text-[10px] tracking-widest text-neutral-400">
         ОСНОВНОЕ ИЗОБРАЖЕНИЕ
       </h2>
-      <p class="text-[8px] leading-relaxed text-neutral-600">
+      <p class="text-[10px] leading-relaxed text-neutral-400">
         JPEG, PNG или WebP · до 5 МБ · лучше 16:9
       </p>
     </div>
@@ -104,7 +104,7 @@
         type="button"
         onclick={removeCover}
         disabled={uploading}
-        class="inline-flex items-center gap-2 text-[8px] tracking-widest text-red-400 transition-colors hover:text-red-300 disabled:opacity-40"
+        class="inline-flex items-center gap-2 text-[10px] tracking-widest text-red-400 transition-colors hover:text-red-300 disabled:opacity-40"
       >
         <PixelIcon name="trash" size={10} />
         УБРАТЬ
@@ -125,15 +125,15 @@
         class="h-full w-full object-cover"
       />
       <span
-        class="absolute inset-0 grid place-items-center bg-black/65 text-[9px] tracking-widest opacity-0 transition-opacity group-hover:opacity-100"
+        class="absolute inset-0 grid place-items-center bg-black/65 text-[10px] tracking-widest opacity-0 transition-opacity group-hover:opacity-100"
       >
         {uploading ? "ЗАГРУЗКА…" : "ЗАМЕНИТЬ ИЗОБРАЖЕНИЕ"}
       </span>
     {:else}
       <span
-        class="flex h-full flex-col items-center justify-center gap-3 px-4 text-[9px] tracking-widest text-neutral-500"
+        class="flex h-full flex-col items-center justify-center gap-3 px-4 text-[10px] tracking-widest text-neutral-400"
       >
-        <PixelIcon name="image" size={28} class="text-neutral-700" />
+        <PixelIcon name="image" size={28} class="text-neutral-400" />
         {uploading ? "ЗАГРУЗКА…" : "ВЫБРАТЬ ИЗОБРАЖЕНИЕ"}
       </span>
     {/if}
@@ -148,6 +148,6 @@
   />
 
   {#if coverError}
-    <p class="text-[9px] leading-relaxed text-red-400">{coverError}</p>
+    <p class="text-[10px] leading-relaxed text-red-400">{coverError}</p>
   {/if}
 </section>

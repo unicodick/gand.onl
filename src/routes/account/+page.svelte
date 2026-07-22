@@ -46,16 +46,16 @@
       </div>
     {:else}
       <p class="text-xs text-neutral-300">
-        Чтобы привязать свой ник Minecraft, напиши <span
+        Чтобы привязать свой Minecraft-ник, отправь игроку <span
           class="text-neutral-100">setunicode</span
-        > в личные сообщения на сервере команду:
+        > личное сообщение на сервере с этой командой:
       </p>
       <p
         class="mc-panel bg-black px-3 py-2 text-sm text-neutral-100 select-all"
       >
         /m setunicode {data.linkKey}
       </p>
-      <p class="text-[10px] tracking-widest text-neutral-500">
+      <p class="text-[10px] tracking-widest text-neutral-400">
         Код действителен до {new Date(data.linkExpiresAt).toLocaleTimeString(
           "ru-RU",
         )}
@@ -69,7 +69,7 @@
       class="mc-panel panel-in flex flex-col gap-5 p-5 sm:p-6"
     >
       <div class="space-y-2">
-        <p class="text-[9px] tracking-widest text-neutral-500">
+        <p class="text-[10px] tracking-widest text-neutral-400">
           РЕДАКТИРОВАНИЕ
         </p>
         <h1 class="text-sm leading-relaxed text-neutral-100 sm:text-base">
@@ -79,7 +79,7 @@
 
       {#if data.saved}
         <p
-          class="border-l-2 border-l-grass bg-grass/5 p-3 text-[9px] leading-relaxed text-green-300"
+          class="border-l-2 border-l-grass bg-grass/5 p-3 text-[10px] leading-relaxed text-green-300"
           role="status"
         >
           Профиль сохранён
@@ -88,7 +88,7 @@
 
       {#if form?.errorMessage}
         <p
-          class="border-l-2 border-l-red-500 bg-red-500/5 p-3 text-[9px] leading-relaxed text-red-300"
+          class="border-l-2 border-l-red-500 bg-red-500/5 p-3 text-[10px] leading-relaxed text-red-300"
           role="alert"
         >
           {form.errorMessage}
@@ -103,7 +103,7 @@
       />
 
       <div class="space-y-3 border-t border-white/5 pt-5">
-        <p class="text-[9px] tracking-widest text-neutral-500">DISCORD</p>
+        <p class="text-[10px] tracking-widest text-neutral-400">DISCORD</p>
         <label class="flex cursor-pointer items-start gap-3">
           <input
             type="checkbox"
@@ -118,10 +118,10 @@
             <PixelIcon name="check" size={9} />
           </span>
           <span class="space-y-1">
-            <span class="block text-[9px] tracking-widest text-neutral-300">
+            <span class="block text-[10px] tracking-widest text-neutral-300">
               ПОКАЗЫВАТЬ ПРОФИЛЬ
             </span>
-            <span class="block text-[8px] leading-relaxed text-neutral-600">
+            <span class="block text-[10px] leading-relaxed text-neutral-400">
               Только аватар, имя и ссылка. Без статуса и активности.
             </span>
           </span>
@@ -133,7 +133,7 @@
       <div class="flex justify-end border-t border-white/5 pt-5">
         <button
           type="submit"
-          class="mc-tab inline-flex items-center justify-center gap-2 px-4 py-3 text-[9px] tracking-widest text-neutral-200 hover:text-white"
+          class="mc-tab inline-flex items-center justify-center gap-2 px-4 py-3 text-[10px] tracking-widest text-neutral-200 hover:text-white"
         >
           <PixelIcon name="save" size={11} />
           СОХРАНИТЬ

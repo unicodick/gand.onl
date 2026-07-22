@@ -62,7 +62,7 @@
   <section class="mc-panel panel-in space-y-5 p-5 sm:p-6">
     <div class="grid gap-4 sm:grid-cols-2">
       <label
-        class="flex flex-col gap-2 text-[9px] tracking-widest text-neutral-500"
+        class="flex flex-col gap-2 text-[10px] tracking-widest text-neutral-400"
       >
         ЗАГОЛОВОК
         <input
@@ -71,12 +71,12 @@
           required
           maxlength="140"
           placeholder="Название новости"
-          class="border border-white/10 bg-black/20 px-3 py-3 text-xs text-neutral-100 outline-none transition-colors placeholder:text-neutral-700 focus:border-grass-dim"
+          class="border border-white/10 bg-black/20 px-3 py-3 text-xs text-neutral-100 outline-none transition-colors placeholder:text-neutral-400 focus:border-grass-dim"
         />
       </label>
 
       <label
-        class="flex flex-col gap-2 text-[9px] tracking-widest text-neutral-500"
+        class="flex flex-col gap-2 text-[10px] tracking-widest text-neutral-400"
       >
         SLUG
         <input
@@ -85,7 +85,7 @@
           oninput={() => (slugTouched = true)}
           required
           placeholder="news-slug"
-          class="border border-white/10 bg-black/20 px-3 py-3 text-xs text-neutral-100 outline-none transition-colors placeholder:text-neutral-700 focus:border-grass-dim"
+          class="border border-white/10 bg-black/20 px-3 py-3 text-xs text-neutral-100 outline-none transition-colors placeholder:text-neutral-400 focus:border-grass-dim"
         />
       </label>
     </div>
@@ -102,7 +102,7 @@
   <MarkdownHelp />
 
   <label
-    class="flex flex-col gap-2 text-[9px] tracking-widest text-neutral-500"
+    class="flex flex-col gap-2 text-[10px] tracking-widest text-neutral-400"
   >
     ТЕКСТ НОВОСТИ
     <textarea
@@ -111,7 +111,7 @@
       required
       rows="22"
       placeholder="Начните писать новость в Markdown…"
-      class="mc-panel min-h-96 resize-y bg-transparent px-4 py-4 text-xs leading-loose text-neutral-100 outline-none transition-shadow placeholder:text-neutral-700 focus:shadow-[inset_0_0_0_1px_var(--color-grass-dim),0_0_0_3px_#000]"
+      class="mc-panel min-h-96 resize-y bg-transparent px-4 py-4 text-xs leading-loose text-neutral-100 outline-none transition-shadow placeholder:text-neutral-400 focus:shadow-[inset_0_0_0_1px_var(--color-grass-dim),0_0_0_3px_#000]"
     ></textarea>
   </label>
 
@@ -135,9 +135,9 @@
         ></span>
       </span>
       <span
-        class="text-[9px] tracking-widest"
+        class="text-[10px] tracking-widest"
         class:text-grass={published}
-        class:text-neutral-500={!published}
+        class:text-neutral-400={!published}
       >
         {published ? "ОПУБЛИКОВАТЬ" : "СОХРАНИТЬ КАК ЧЕРНОВИК"}
       </span>
@@ -148,9 +148,8 @@
         type="submit"
         formaction="/account/news/preview"
         formtarget="_blank"
-        disabled={uploadingCover}
-        aria-disabled={!coverKey || uploadingCover}
-        class="mc-panel mc-tab inline-flex items-center gap-2 px-4 py-3 text-[9px] tracking-widest text-neutral-300 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+        disabled={!coverKey || uploadingCover}
+        class="mc-panel mc-tab inline-flex items-center gap-2 px-4 py-3 text-[10px] tracking-widest text-neutral-300 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
         class:opacity-40={!coverKey}
       >
         <PixelIcon name="preview" size={11} />
@@ -158,9 +157,8 @@
       </button>
       <button
         type="submit"
-        disabled={uploadingCover}
-        aria-disabled={!coverKey || uploadingCover}
-        class="mc-panel mc-tab inline-flex items-center gap-2 px-5 py-3 text-[9px] tracking-widest text-neutral-200 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+        disabled={!coverKey || uploadingCover}
+        class="mc-panel mc-tab inline-flex items-center gap-2 px-5 py-3 text-[10px] tracking-widest text-neutral-200 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
         class:opacity-40={!coverKey}
       >
         <PixelIcon name="save" size={11} />

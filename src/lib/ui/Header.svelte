@@ -2,6 +2,10 @@
   import { page } from "$app/state";
   import { BRAND } from "$lib/site";
 
+  interface MeResponse {
+    user: { discordId: string } | null;
+  }
+
   let path = $derived(page.url.pathname);
 
   let discordId = $state<string | null>(null);
@@ -22,9 +26,13 @@
     scrollAnchor = current;
   }
 
+  function isActiveRoute(href: string): boolean {
+    return path === href || path.startsWith(`${href}/`);
+  }
+
   $effect(() => {
     fetch("/api/me")
-      .then((res) => (res.ok ? res.json() : null))
+      .then((res) => (res.ok ? (res.json() as Promise<MeResponse>) : null))
       .then((data) => {
         discordId = data?.user?.discordId ?? null;
       })
@@ -62,8 +70,9 @@
       <a
         href={item.href}
         class="mc-tab px-2.5 py-1.5"
-        class:mc-tab-active={path === item.href}
-        aria-current={path === item.href ? "page" : undefined}>{item.label}</a
+        class:mc-tab-active={isActiveRoute(item.href)}
+        aria-current={isActiveRoute(item.href) ? "page" : undefined}
+        >{item.label}</a
       >
     {/each}
 
@@ -73,8 +82,8 @@
       <a
         href="/account"
         class="mc-tab px-2.5 py-1.5"
-        class:mc-tab-active={path === "/account"}
-        aria-current={path === "/account" ? "page" : undefined}>КАБИНЕТ</a
+        class:mc-tab-active={isActiveRoute("/account")}
+        aria-current={isActiveRoute("/account") ? "page" : undefined}>КАБИНЕТ</a
       >
     {:else}
       <a

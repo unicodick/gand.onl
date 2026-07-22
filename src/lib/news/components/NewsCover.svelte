@@ -29,7 +29,7 @@
     role="img"
     aria-label={`Обложка: ${alt}`}
   >
-    <span class="relative text-[9px] tracking-[0.3em] text-neutral-500">
+    <span class="relative text-[10px] tracking-[0.3em] text-neutral-400">
       GAND.ONL NEWS
     </span>
   </div>

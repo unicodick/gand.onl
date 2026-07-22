@@ -17,5 +17,5 @@ export const GET: RequestHandler = async ({ params, platform, request }) => {
     return new Response(null, { status: 304, headers });
   }
 
-  return new Response(await object.arrayBuffer(), { headers });
+  return new Response(object.body, { headers });
 };

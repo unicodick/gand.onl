@@ -17,8 +17,10 @@
     const controller = new AbortController();
 
     fetch("/api/server-status", { signal: controller.signal })
-      .then((response) => (response.ok ? response.json() : null))
-      .then((data: ServerStatus | null) => {
+      .then((response) =>
+        response.ok ? (response.json() as Promise<ServerStatus>) : null,
+      )
+      .then((data) => {
         if (data) status = data;
       })
       .catch(() => {
@@ -60,7 +62,7 @@
             aria-hidden="true"
           ></span>
           {#if status?.state === "online" && status.players !== null}
-            <span class="text-neutral-500" aria-hidden="true">
+            <span class="text-neutral-400" aria-hidden="true">
               {status.players}
             </span>
           {/if}
@@ -71,13 +73,13 @@
 
   <a
     href="/privacy"
-    class="mc-tab px-2 py-1 text-[8px] tracking-widest text-neutral-400 sm:text-[9px]"
+    class="mc-tab px-2 py-1 text-[10px] tracking-widest text-neutral-400 sm:text-[10px]"
   >
     КОНФИДЕНЦИАЛЬНОСТЬ
   </a>
 
   <p
-    class="max-w-xs text-center text-[8px] leading-relaxed tracking-wide text-neutral-600 sm:text-[9px]"
+    class="max-w-xs text-center text-[10px] leading-relaxed tracking-wide text-neutral-500 sm:text-[10px]"
   >
     Мы не являемся администрацией или владельцами zlp.onl.<br />
     Not affiliated with Minecraft, Mojang or Microsoft.

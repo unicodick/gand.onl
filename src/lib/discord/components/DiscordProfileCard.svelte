@@ -21,13 +21,13 @@
   />
 
   <span class="min-w-0 flex-1 space-y-1">
-    <span class="block text-[8px] tracking-widest text-neutral-500"
+    <span class="block text-[8px] tracking-widest text-neutral-400"
       >DISCORD</span
     >
     <span class="block truncate text-[10px] text-neutral-200">
       {profile.displayName}
     </span>
-    <span class="block truncate text-[8px] text-neutral-500">
+    <span class="block truncate text-[10px] text-neutral-400">
       @{profile.username}
     </span>
   </span>
@@ -35,6 +35,6 @@
   <PixelIcon
     name="external-link"
     size={13}
-    class="text-neutral-600 transition-colors group-hover:text-neutral-300"
+    class="text-neutral-400 transition-colors group-hover:text-neutral-300"
   />
 </a>

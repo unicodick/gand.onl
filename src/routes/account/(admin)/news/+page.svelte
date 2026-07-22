@@ -21,12 +21,12 @@
       <div class="min-w-0 flex-1 space-y-1">
         <p class="truncate text-xs text-neutral-100">{item.title}</p>
         <p
-          class="flex items-center gap-1.5 text-[9px] tracking-widest text-neutral-500"
+          class="flex items-center gap-1.5 text-[10px] tracking-widest text-neutral-400"
         >
           <PixelIcon
             name={item.published ? "check" : "file"}
             size={9}
-            class={item.published ? "text-grass" : "text-neutral-600"}
+            class={item.published ? "text-grass" : "text-neutral-400"}
           />
           {item.published ? "ОПУБЛИКОВАНО" : "ЧЕРНОВИК"} · /news/{item.slug}
         </p>
@@ -40,7 +40,7 @@
       </a>
     </div>
   {:else}
-    <p class="p-6 text-center text-[10px] tracking-widest text-neutral-500">
+    <p class="p-6 text-center text-[10px] tracking-widest text-neutral-400">
       Пока нет новостей
     </p>
   {/each}

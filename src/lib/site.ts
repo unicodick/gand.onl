@@ -14,6 +14,7 @@ export const CREATORS: Creator[] = [
 ];
 
 export const BRAND = "gand.onl";
+export const SITE_ORIGIN = `https://${BRAND}`;
 
 export const LINKS = [
   { label: "zlp.onl", href: "https://zlp.onl" },
@@ -23,6 +24,7 @@ export const LINKS = [
 
 export const CONTACT_LINKS = [
   { label: "discord", href: "https://discord.com/users/606522922240180249" },
+  { label: "contact@gand.onl", href: "mailto:contact@gand.onl" },
   { label: "github", href: "https://github.com/unicodick/gand.onl" },
 ] satisfies Link[];
 

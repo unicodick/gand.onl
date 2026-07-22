@@ -1,5 +1,3 @@
-import type { D1Database } from "@cloudflare/workers-types";
-
 export const SESSION_COOKIE = "session";
 export const SESSION_TTL_SECONDS = 60 * 60 * 24 * 7;
 

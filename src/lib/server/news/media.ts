@@ -1,4 +1,3 @@
-import type { R2Bucket } from "@cloudflare/workers-types";
 import {
   isNewsCoverKey,
   NEWS_COVER_TYPES,
