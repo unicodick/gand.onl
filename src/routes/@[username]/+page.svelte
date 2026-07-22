@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { skinRender } from "$lib/minecraft/skins";
+  import { playerSkin } from "$lib/minecraft/skins";
   import { BRAND } from "$lib/site";
   import DiscordProfileCard from "$lib/discord/components/DiscordProfileCard.svelte";
   import PixelIcon from "$lib/ui/PixelIcon.svelte";
@@ -77,7 +77,7 @@
       <div class="flex justify-center md:justify-start">
         <Skin
           name={data.player.username}
-          src={data.player.skin_url ?? skinRender(data.player.username)}
+          src={playerSkin(data.player.username, data.player.skin_url)}
         />
       </div>
 

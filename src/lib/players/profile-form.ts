@@ -1,3 +1,4 @@
+import { isSecureSkinUrl } from "$lib/minecraft/skins";
 import {
   CUSTOM_LINK_LABEL_MAX_LENGTH,
   CUSTOM_LINKS_MAX,
@@ -27,10 +28,10 @@ export function parsePlayerProfileForm(
   }
 
   const skinUrl = String(form.get("skin_url") ?? "").trim();
-  if (skinUrl && !isValidSocialUrl(skinUrl)) {
+  if (skinUrl && !isSecureSkinUrl(skinUrl)) {
     return {
       ok: false,
-      errorMessage: "Ссылка на скин должна начинаться с http:// или https://",
+      errorMessage: "Ссылка на скин должна быть корректным HTTPS-адресом",
     };
   }
 
