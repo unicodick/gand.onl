@@ -21,8 +21,8 @@
           Вопросы по проекту и исходники
         </h1>
         <p class="max-w-xl text-xs leading-relaxed text-neutral-400">
-          Пишите по багам, идеям и вопросам. Быстрее всего отвечаю в Discord,
-          код проекта лежит на GitHub.
+          Пишите по багам, идеям и вопросам в Discord или по почте. Код проекта
+          лежит на GitHub.
         </p>
       </div>
 
@@ -30,8 +30,10 @@
         {#each CONTACT_LINKS as link (link.href)}
           <a
             href={link.href}
-            target="_blank"
-            rel="noopener noreferrer"
+            target={link.href.startsWith("mailto:") ? undefined : "_blank"}
+            rel={link.href.startsWith("mailto:")
+              ? undefined
+              : "noopener noreferrer"}
             class="mc-panel px-4 py-3 text-[10px] tracking-widest text-neutral-300 transition-colors hover:text-white sm:text-xs"
           >
             {link.label}
