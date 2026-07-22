@@ -2,6 +2,10 @@
   import { page } from "$app/state";
   import { BRAND } from "$lib/site";
 
+  interface MeResponse {
+    user: { discordId: string } | null;
+  }
+
   let path = $derived(page.url.pathname);
 
   let discordId = $state<string | null>(null);
@@ -24,7 +28,7 @@
 
   $effect(() => {
     fetch("/api/me")
-      .then((res) => (res.ok ? res.json() : null))
+      .then((res) => (res.ok ? (res.json() as Promise<MeResponse>) : null))
       .then((data) => {
         discordId = data?.user?.discordId ?? null;
       })

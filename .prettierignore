@@ -4,3 +4,4 @@ build
 package
 pnpm-lock.yaml
 static
+src/types/worker-configuration.d.ts

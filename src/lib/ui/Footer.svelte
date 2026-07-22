@@ -17,8 +17,10 @@
     const controller = new AbortController();
 
     fetch("/api/server-status", { signal: controller.signal })
-      .then((response) => (response.ok ? response.json() : null))
-      .then((data: ServerStatus | null) => {
+      .then((response) =>
+        response.ok ? (response.json() as Promise<ServerStatus>) : null,
+      )
+      .then((data) => {
         if (data) status = data;
       })
       .catch(() => {

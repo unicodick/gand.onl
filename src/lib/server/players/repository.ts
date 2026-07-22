@@ -1,5 +1,3 @@
-import type { D1Database } from "@cloudflare/workers-types";
-
 export interface PlayerRow {
   id: number;
   username: string;

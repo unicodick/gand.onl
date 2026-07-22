@@ -1,5 +1,3 @@
-import type { D1Database } from "@cloudflare/workers-types";
-
 const KEY_PREFIX = "gand-";
 const KEY_ALPHABET = "abcdefghjkmnpqrstuvwxyz23456789";
 const KEY_SUFFIX_LENGTH = 6;

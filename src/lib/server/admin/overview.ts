@@ -1,5 +1,3 @@
-import type { D1Database } from "@cloudflare/workers-types";
-
 export type AdminAuditAction =
   "player.blocked" | "player.unblocked" | "player.updated" | "player.deleted";
 
