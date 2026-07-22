@@ -1,6 +1,5 @@
 // See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces
-import type { D1Database } from "@cloudflare/workers-types";
 
 declare global {
   namespace App {
@@ -14,13 +13,7 @@ declare global {
     // interface PageData {}
     // interface PageState {}
     interface Platform {
-      env: {
-        DB: D1Database;
-        DISCORD_REDIRECT_URI: string;
-        DISCORD_CLIENT_ID: string;
-        DISCORD_CLIENT_SECRET: string;
-        ADMIN_DISCORD_IDS: string;
-      };
+      env: Cloudflare.Env;
     }
   }
 }

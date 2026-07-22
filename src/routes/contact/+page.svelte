@@ -1,31 +1,28 @@
 <script lang="ts">
-  import { API_LINKS, BRAND, CONTACT_LINKS } from "$lib/creators";
+  import { API_LINKS, BRAND, CONTACT_LINKS } from "$lib/site";
+  import RosterDialog from "$lib/roster/components/RosterDialog.svelte";
 </script>
 
 <svelte:head>
   <title>Связь — {BRAND}</title>
-  <meta name="description" content="контакты детей спавна" />
+  <meta name="description" content="Контакты детей спавна" />
 </svelte:head>
 
-<main
-  class="flex min-h-screen w-full flex-col items-center px-4 pt-24 pb-40 sm:pt-28"
->
+<main class="flex w-full flex-1 flex-col items-center px-4 py-12 sm:py-16">
   <section
     class="grid w-full max-w-4xl gap-8 md:grid-cols-[minmax(0,1fr)_320px]"
   >
     <div class="flex flex-col justify-center gap-8">
       <div class="space-y-4">
-        <p class="text-[10px] tracking-widest text-neutral-500">СВЯЗЬ</p>
+        <p class="text-[10px] tracking-widest text-neutral-400">СВЯЗЬ</p>
         <h1
           class="max-w-xl text-2xl leading-relaxed text-neutral-100 sm:text-3xl"
         >
           Вопросы по проекту и исходники
         </h1>
-        <p
-          class="max-w-xl text-[10px] leading-relaxed text-neutral-500 sm:text-xs"
-        >
-          Пишите по багам, идеям и вопросам. Быстрее всего отвечаю в Discord,
-          код проекта лежит на GitHub.
+        <p class="max-w-xl text-xs leading-relaxed text-neutral-400">
+          Пишите по багам, идеям и вопросам в Discord или по почте. Код проекта
+          лежит на GitHub.
         </p>
       </div>
 
@@ -33,8 +30,10 @@
         {#each CONTACT_LINKS as link (link.href)}
           <a
             href={link.href}
-            target="_blank"
-            rel="noopener noreferrer"
+            target={link.href.startsWith("mailto:") ? undefined : "_blank"}
+            rel={link.href.startsWith("mailto:")
+              ? undefined
+              : "noopener noreferrer"}
             class="mc-panel px-4 py-3 text-[10px] tracking-widest text-neutral-300 transition-colors hover:text-white sm:text-xs"
           >
             {link.label}
@@ -50,11 +49,12 @@
               href={api.href}
               target="_blank"
               rel="noopener noreferrer"
-              class="mc-tab bg-white/3 px-3 py-2 text-[9px] tracking-wide text-neutral-500 hover:text-neutral-200"
+              class="mc-tab bg-white/3 px-3 py-2 text-[10px] tracking-wide text-neutral-400 hover:text-neutral-200"
             >
               {api.label}
             </a>
           {/each}
+          <RosterDialog />
         </div>
       </div>
     </div>

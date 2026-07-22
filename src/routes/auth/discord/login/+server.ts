@@ -2,13 +2,15 @@ import { dev } from "$app/environment";
 import { error, redirect } from "@sveltejs/kit";
 import {
   buildDiscordAuthorizeUrl,
-  randomToken,
+  REDIRECT_COOKIE,
+  safeRedirectTarget,
   STATE_COOKIE,
   STATE_TTL_SECONDS,
-} from "$lib/server/auth";
+} from "$lib/server/auth/oauth";
+import { randomToken } from "$lib/server/auth/sessions";
 import type { RequestHandler } from "./$types";
 
-export const GET: RequestHandler = async ({ cookies, platform }) => {
+export const GET: RequestHandler = async ({ cookies, platform, url }) => {
   if (!platform) error(500, "platform unavailable");
 
   const state = randomToken();
@@ -19,6 +21,20 @@ export const GET: RequestHandler = async ({ cookies, platform }) => {
     sameSite: "lax",
     maxAge: STATE_TTL_SECONDS,
   });
+
+  const redirectTo = safeRedirectTarget(
+    url.searchParams.get("redirect_to"),
+    url.origin,
+  );
+  if (redirectTo) {
+    cookies.set(REDIRECT_COOKIE, redirectTo, {
+      path: "/",
+      httpOnly: true,
+      secure: !dev,
+      sameSite: "lax",
+      maxAge: STATE_TTL_SECONDS,
+    });
+  }
 
   redirect(302, buildDiscordAuthorizeUrl(platform.env, state));
 };
