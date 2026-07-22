@@ -25,7 +25,7 @@
     >
       <span class="text-neutral-300">КАБИНЕТ</span>
       <div class="flex items-center gap-3">
-        <span class="text-neutral-500">{data.user.username}</span>
+        <span class="text-neutral-400">{data.user.username}</span>
         <form method="POST" action="/account/logout">
           <button
             type="submit"

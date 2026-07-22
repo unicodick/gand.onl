@@ -30,7 +30,7 @@
 <main class="flex w-full flex-1 flex-col items-center px-4 py-12 sm:py-16">
   <section class="w-full max-w-6xl space-y-8">
     <header class="space-y-4">
-      <p class="text-[10px] tracking-widest text-neutral-500">НОВОСТИ</p>
+      <p class="text-[10px] tracking-widest text-neutral-400">НОВОСТИ</p>
       <h1 class="text-2xl text-neutral-100 sm:text-3xl">Что нового</h1>
     </header>
 
@@ -55,7 +55,7 @@
           </div>
 
           <div class="flex min-h-56 flex-col gap-5 p-5 sm:min-h-64 sm:p-7">
-            <p class="text-[9px] tracking-widest text-neutral-500 uppercase">
+            <p class="text-[10px] tracking-widest text-neutral-400 uppercase">
               {formatDate(featured.published_at)}
             </p>
             <h2
@@ -66,7 +66,7 @@
             <div class="mt-auto space-y-5 pt-2">
               <NewsTags tags={featured.tags} />
               <span
-                class="inline-flex items-center gap-2 text-[9px] tracking-widest text-neutral-500 transition-colors group-hover:text-neutral-200"
+                class="inline-flex items-center gap-2 text-[10px] tracking-widest text-neutral-400 transition-colors group-hover:text-neutral-200"
               >
                 ЧИТАТЬ
                 <PixelIcon name="arrow-right" size={11} />
@@ -96,7 +96,7 @@
 
                 <div class="flex min-h-44 flex-1 flex-col gap-3 p-5 sm:p-6">
                   <p
-                    class="text-[8px] tracking-widest text-neutral-500 uppercase"
+                    class="text-[10px] tracking-widest text-neutral-400 uppercase"
                   >
                     {formatDate(item.published_at)}
                   </p>
@@ -123,7 +123,7 @@
           {#if data.page > 1}
             <a
               href={pageHref(data.page - 1)}
-              class="mc-panel mc-tab inline-flex h-11 items-center gap-2 px-3 text-[9px] tracking-widest sm:px-4"
+              class="mc-panel mc-tab inline-flex h-11 items-center gap-2 px-3 text-[10px] tracking-widest sm:px-4"
               rel="prev"
               aria-label="Предыдущая страница новостей"
             >
@@ -135,7 +135,7 @@
           {/if}
 
           <p
-            class="text-center text-[9px] tracking-widest text-neutral-500"
+            class="text-center text-[10px] tracking-widest text-neutral-400"
             aria-live="polite"
           >
             {data.page} / {data.pageCount}
@@ -144,7 +144,7 @@
           {#if data.page < data.pageCount}
             <a
               href={pageHref(data.page + 1)}
-              class="mc-panel mc-tab inline-flex h-11 items-center gap-2 px-3 text-[9px] tracking-widest sm:px-4"
+              class="mc-panel mc-tab inline-flex h-11 items-center gap-2 px-3 text-[10px] tracking-widest sm:px-4"
               rel="next"
               aria-label="Следующая страница новостей"
             >
@@ -158,7 +158,7 @@
       {/if}
     {:else}
       <p
-        class="mc-panel p-6 text-center text-[10px] tracking-widest text-neutral-500"
+        class="mc-panel p-6 text-center text-[10px] tracking-widest text-neutral-400"
       >
         Пока нет новостей
       </p>

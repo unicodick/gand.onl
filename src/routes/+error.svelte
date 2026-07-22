@@ -32,9 +32,7 @@
       {status}
     </p>
 
-    <p
-      class="max-w-xs text-[10px] leading-relaxed tracking-wide text-neutral-500 sm:text-xs"
-    >
+    <p class="max-w-xs text-xs leading-relaxed tracking-wide text-neutral-400">
       {#if notFound}
         Такой страницы нет :(
       {:else}

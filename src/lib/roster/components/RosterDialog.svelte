@@ -14,7 +14,7 @@
 
 <button
   type="button"
-  class="mc-tab bg-white/3 px-3 py-2 text-[9px] tracking-wide text-neutral-500 hover:text-neutral-200"
+  class="mc-tab bg-white/3 px-3 py-2 text-[10px] tracking-wide text-neutral-400 hover:text-neutral-200"
   aria-haspopup="dialog"
   aria-controls="roster-dialog"
   onclick={openDialog}
@@ -33,7 +33,7 @@
   <section class="mc-panel space-y-6 p-5 sm:p-6">
     <header class="flex items-start justify-between gap-4">
       <div class="space-y-2">
-        <p class="text-[8px] tracking-widest text-gold">ЗАКРЫТЫЙ ПРОЕКТ</p>
+        <p class="text-[10px] tracking-widest text-gold">ЗАКРЫТЫЙ ПРОЕКТ</p>
         <h3 id="roster-title" class="text-sm text-neutral-100">Roster API</h3>
       </div>
       <form method="dialog">
@@ -49,7 +49,7 @@
 
     <div
       id="roster-description"
-      class="space-y-4 text-[9px] leading-loose text-neutral-500 sm:text-[10px]"
+      class="space-y-4 text-xs leading-loose text-neutral-400"
     >
       <p>
         Roster — внутренний API gand.onl. Клиентский мод, запущенный обычным
@@ -68,7 +68,7 @@
     </div>
 
     <p
-      class="border-l-2 border-neutral-700 pl-3 text-[8px] leading-loose text-neutral-600"
+      class="border-l-2 border-neutral-700 pl-3 text-[10px] leading-loose text-neutral-500"
     >
       gand.onl — независимый сайт сообщества. Мы не являемся владельцами или
       администрацией zlp.onl и не имеем доступа к серверной инфраструктуре.

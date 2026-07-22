@@ -18,7 +18,7 @@
       <span aria-hidden="true">
         <span class="block">
           Эти люди занимаются х<span
-            class="inline-block select-none text-neutral-500 blur-[2px]"
+            class="inline-block select-none text-neutral-400 blur-[2px]"
             >##</span
           >нёй.
         </span>
@@ -27,7 +27,7 @@
     </h1>
 
     <p
-      class="text-[9px] leading-relaxed tracking-widest text-neutral-500 sm:text-[10px]"
+      class="text-[10px] leading-relaxed tracking-widest text-neutral-400 sm:text-[10px]"
     >
       Новостное сообщество спавна
     </p>

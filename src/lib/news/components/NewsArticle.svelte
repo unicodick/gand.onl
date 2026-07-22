@@ -29,14 +29,14 @@
 <article class="w-full max-w-3xl space-y-6">
   <a
     href={backHref}
-    class="inline-flex items-center gap-2 text-[9px] tracking-widest text-neutral-500 transition-colors hover:text-neutral-200"
+    class="inline-flex items-center gap-2 text-[10px] tracking-widest text-neutral-400 transition-colors hover:text-neutral-200"
   >
     <PixelIcon name="arrow-left" size={11} />
     {backLabel}
   </a>
 
   <header class="space-y-4">
-    <p class="text-[9px] tracking-widest text-neutral-500 uppercase">
+    <p class="text-[10px] tracking-widest text-neutral-400 uppercase">
       {formattedDate}
     </p>
     <h1

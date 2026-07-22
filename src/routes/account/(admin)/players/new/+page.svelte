@@ -12,7 +12,7 @@
   {/if}
 
   <label
-    class="flex flex-col gap-1 text-[10px] tracking-widest text-neutral-500"
+    class="flex flex-col gap-1 text-[10px] tracking-widest text-neutral-400"
   >
     НИК MINECRAFT
     <input

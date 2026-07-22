@@ -14,7 +14,7 @@
   {#if form?.preview}
     <div class="w-full max-w-3xl">
       <div
-        class="mb-6 border border-gold/40 bg-gold/5 px-4 py-3 text-[9px] tracking-widest text-gold"
+        class="mb-6 border border-gold/40 bg-gold/5 px-4 py-3 text-[10px] tracking-widest text-gold"
       >
         ПРЕДПРОСМОТР · ИЗМЕНЕНИЯ НЕ СОХРАНЕНЫ
       </div>
@@ -27,12 +27,12 @@
     </div>
   {:else}
     <div class="mc-panel w-full max-w-xl p-6 text-center">
-      <p class="text-[10px] leading-relaxed text-neutral-500">
+      <p class="text-[10px] leading-relaxed text-neutral-400">
         {form?.errorMessage ?? "Откройте предпросмотр из редактора новости"}
       </p>
       <a
         href="/account/news"
-        class="mc-tab mt-5 inline-flex items-center gap-2 px-3 py-2 text-[9px] tracking-widest"
+        class="mc-tab mt-5 inline-flex items-center gap-2 px-3 py-2 text-[10px] tracking-widest"
       >
         <PixelIcon name="arrow-left" size={10} />
         В КАБИНЕТ

@@ -19,18 +19,18 @@
       <h1 class="text-2xl leading-relaxed text-neutral-100 sm:text-3xl">
         Политика конфиденциальности
       </h1>
-      <p class="text-[9px] tracking-wide text-neutral-400">
+      <p class="text-[10px] tracking-wide text-neutral-400">
         Действует с 22 июля 2026 года
       </p>
     </header>
 
     <section class="mc-panel space-y-4 p-5 sm:p-7">
-      <p class="text-[10px] leading-loose text-neutral-300 sm:text-xs">
+      <p class="text-xs leading-loose text-neutral-300">
         gand.onl — независимый проект сообщества игроков zlp.onl. Его ведёт
         владелец gand.onl, игрок setunicode. Проект не принадлежит администрации
         или владельцам zlp.onl и не связан с Mojang или Microsoft.
       </p>
-      <p class="text-[10px] leading-loose text-neutral-300 sm:text-xs">
+      <p class="text-xs leading-loose text-neutral-300">
         Эта страница объясняет, какие данные нужны сайту, откуда они берутся и
         как попросить об их исправлении или удалении.
       </p>
@@ -41,7 +41,7 @@
         Какие данные использует сайт
       </h2>
       <ul
-        class="list-disc space-y-3 pl-5 text-[10px] leading-loose text-neutral-300 sm:text-xs"
+        class="list-disc space-y-3 pl-5 text-xs leading-loose text-neutral-300"
       >
         <li>
           При входе через Discord: Discord ID, имя пользователя, отображаемое
@@ -77,7 +77,7 @@
       <h2 class="text-sm leading-relaxed text-neutral-100 sm:text-base">
         Зачем это нужно
       </h2>
-      <p class="text-[10px] leading-loose text-neutral-300 sm:text-xs">
+      <p class="text-xs leading-loose text-neutral-300">
         Данные используются только для входа, привязки Minecraft-ника,
         отображения и редактирования профиля, работы каталога игроков,
         публикации материалов, модерации и защиты проекта от злоупотреблений.
@@ -89,7 +89,7 @@
       <h2 class="text-sm leading-relaxed text-neutral-100 sm:text-base">
         Что видно другим
       </h2>
-      <p class="text-[10px] leading-loose text-neutral-300 sm:text-xs">
+      <p class="text-xs leading-loose text-neutral-300">
         Minecraft-ники в каталоге публичны. Описание, скин и социальные ссылки
         становятся публичными, если владелец привязал ник и сам их добавил.
         Карточка Discord с аватаром, именем и ссылкой на профиль показывается
@@ -103,7 +103,7 @@
         Сторонние сервисы
       </h2>
       <ul
-        class="list-disc space-y-3 pl-5 text-[10px] leading-loose text-neutral-300 sm:text-xs"
+        class="list-disc space-y-3 pl-5 text-xs leading-loose text-neutral-300"
       >
         <li>
           <a
@@ -135,7 +135,7 @@
           сервис получает обычные технические данные веб-запроса.
         </li>
       </ul>
-      <p class="text-[10px] leading-loose text-neutral-300 sm:text-xs">
+      <p class="text-xs leading-loose text-neutral-300">
         Если игрок указал собственную ссылку на скин, браузер загружает
         изображение с выбранного им сайта, и этот сайт также получает обычные
         технические данные запроса. Переход по внешним ссылкам подчиняется
@@ -147,7 +147,7 @@
       <h2 class="text-sm leading-relaxed text-neutral-100 sm:text-base">
         Срок хранения
       </h2>
-      <p class="text-[10px] leading-loose text-neutral-300 sm:text-xs">
+      <p class="text-xs leading-loose text-neutral-300">
         Cookie сессии действует до 7 дней. После этого сессией нельзя
         воспользоваться; её техническая запись может оставаться в базе до
         очистки. Записи Discord-профиля, привязка ника, заполнение профиля и
@@ -161,7 +161,7 @@
       <h2 class="text-sm leading-relaxed text-neutral-100 sm:text-base">
         Исправление и удаление
       </h2>
-      <p class="text-[10px] leading-loose text-neutral-300 sm:text-xs">
+      <p class="text-xs leading-loose text-neutral-300">
         Можно попросить показать, исправить или удалить связанные с вами данные,
         отвязать профиль либо убрать Minecraft-ник из каталога. Напишите на
         <a
@@ -173,7 +173,7 @@
         личных данных, чем необходимо для обработки запроса, и не публикуйте их
         в GitHub Issues.
       </p>
-      <p class="text-[10px] leading-loose text-neutral-300 sm:text-xs">
+      <p class="text-xs leading-loose text-neutral-300">
         Часть служебных записей может быть сохранена, если это необходимо для
         безопасности, разрешения спора или предотвращения повторного
         злоупотребления.
@@ -184,7 +184,7 @@
       <h2 class="text-sm leading-relaxed text-neutral-100 sm:text-base">
         Изменения политики
       </h2>
-      <p class="text-[10px] leading-loose text-neutral-300 sm:text-xs">
+      <p class="text-xs leading-loose text-neutral-300">
         Если набор данных или работа сайта существенно изменятся, эта страница
         будет обновлена вместе с датой вступления изменений в силу.
       </p>

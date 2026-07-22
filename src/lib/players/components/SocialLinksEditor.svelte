@@ -10,7 +10,7 @@
   let {
     socials,
     children,
-    addButtonClass = "text-neutral-500 hover:text-white",
+    addButtonClass = "text-neutral-400 hover:text-white",
   }: {
     socials: { platform: string; url: string }[];
     children?: Snippet;
@@ -49,14 +49,14 @@
 </script>
 
 <div class="space-y-4 border-t border-white/5 pt-5">
-  <p class="text-[9px] tracking-widest text-neutral-500">ССЫЛКИ</p>
+  <p class="text-[10px] tracking-widest text-neutral-400">ССЫЛКИ</p>
 
   {@render children?.()}
 
   <div class="grid gap-4 sm:grid-cols-2">
     {#each LINK_SOCIAL_PLATFORMS as platform (platform.id)}
       <label
-        class="flex min-w-0 flex-col gap-2 text-[9px] tracking-widest text-neutral-500"
+        class="flex min-w-0 flex-col gap-2 text-[10px] tracking-widest text-neutral-400"
       >
         {platform.label.toUpperCase()}
         <input
@@ -64,7 +64,7 @@
           bind:value={socialValues[platform.id]}
           type="url"
           placeholder="https://"
-          class="min-w-0 border border-white/10 bg-black/20 px-3 py-3 text-[10px] tracking-normal text-neutral-100 outline-none placeholder:text-neutral-700 focus:border-grass-dim"
+          class="min-w-0 border border-white/10 bg-black/20 px-3 py-3 text-[10px] tracking-normal text-neutral-100 outline-none placeholder:text-neutral-400 focus:border-grass-dim"
         />
       </label>
     {/each}
@@ -72,8 +72,8 @@
 
   <div class="space-y-3">
     <div class="flex items-center justify-between gap-4">
-      <p class="text-[9px] tracking-widest text-neutral-500">СВОИ ССЫЛКИ</p>
-      <span class="text-[8px] text-neutral-600">
+      <p class="text-[10px] tracking-widest text-neutral-400">СВОИ ССЫЛКИ</p>
+      <span class="text-[10px] text-neutral-400">
         {customLinks.length}/{CUSTOM_LINKS_MAX}
       </span>
     </div>
@@ -86,7 +86,7 @@
           placeholder="Название"
           maxlength="30"
           aria-label="Название ссылки"
-          class="min-w-0 border border-white/10 bg-black/20 px-3 py-3 text-[10px] text-neutral-100 outline-none placeholder:text-neutral-700 focus:border-grass-dim"
+          class="min-w-0 border border-white/10 bg-black/20 px-3 py-3 text-[10px] text-neutral-100 outline-none placeholder:text-neutral-400 focus:border-grass-dim"
         />
         <input
           name="custom_url"
@@ -94,7 +94,7 @@
           type="url"
           placeholder="https://"
           aria-label="Адрес ссылки"
-          class="min-w-0 border border-white/10 bg-black/20 px-3 py-3 text-[10px] text-neutral-100 outline-none placeholder:text-neutral-700 focus:border-grass-dim"
+          class="min-w-0 border border-white/10 bg-black/20 px-3 py-3 text-[10px] text-neutral-100 outline-none placeholder:text-neutral-400 focus:border-grass-dim"
         />
         <button
           type="button"
@@ -111,7 +111,7 @@
       <button
         type="button"
         onclick={addCustomLink}
-        class="mc-tab inline-flex items-center gap-2 px-3 py-2 text-[9px] tracking-widest {addButtonClass}"
+        class="mc-tab inline-flex items-center gap-2 px-3 py-2 text-[10px] tracking-widest {addButtonClass}"
       >
         <PixelIcon name="plus" size={10} />
         ДОБАВИТЬ ССЫЛКУ

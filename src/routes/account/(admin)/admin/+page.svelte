@@ -36,7 +36,7 @@
 
 <div class="space-y-1">
   <h1 class="text-sm text-neutral-100">Обзор</h1>
-  <p class="text-[9px] leading-relaxed tracking-widest text-neutral-500">
+  <p class="text-[10px] leading-relaxed tracking-widest text-neutral-400">
     СОСТОЯНИЕ GAND.ONL И ДАННЫХ СООБЩЕСТВА
   </p>
 </div>
@@ -45,7 +45,7 @@
   <dl class="grid grid-cols-2 sm:grid-cols-3">
     {#each stats as stat (stat.label)}
       <div class="space-y-2 border-r border-b border-white/5 p-4 sm:p-5">
-        <dt class="text-[8px] tracking-widest text-neutral-500">
+        <dt class="text-[10px] tracking-widest text-neutral-400">
           {stat.label}
         </dt>
         <dd class="text-lg text-neutral-100">{stat.value}</dd>
@@ -60,9 +60,9 @@
     <div class="flex items-center justify-between gap-4 p-4">
       <div class="space-y-1">
         <p class="text-[10px] text-neutral-200">zlp.onl</p>
-        <p class="text-[8px] tracking-widest text-neutral-600">MCSRVSTAT.US</p>
+        <p class="text-[10px] tracking-widest text-neutral-400">MCSRVSTAT.US</p>
       </div>
-      <div class="flex items-center gap-2 text-[9px] tracking-widest">
+      <div class="flex items-center gap-2 text-[10px] tracking-widest">
         <span
           class="size-1.5"
           class:bg-grass={data.serverStatus.state === "online"}
@@ -79,7 +79,7 @@
         {:else if data.serverStatus.state === "offline"}
           <span class="text-red-400">ОФЛАЙН</span>
         {:else}
-          <span class="text-neutral-500">НЕДОСТУПЕН</span>
+          <span class="text-neutral-400">НЕДОСТУПЕН</span>
         {/if}
       </div>
     </div>
@@ -88,27 +88,27 @@
       <div class="min-w-0 space-y-1">
         <p class="text-[10px] text-neutral-200">Roster API</p>
         {#if data.roster}
-          <p class="text-[8px] leading-relaxed text-neutral-600">
+          <p class="text-[10px] leading-relaxed text-neutral-400">
             {formatDate(data.roster.last_seen_at)} · ПРИНЯТО {data.roster
               .received_count}
             · НОВЫХ {data.roster.added_count}
           </p>
         {:else}
-          <p class="text-[8px] tracking-widest text-neutral-600">
+          <p class="text-[10px] tracking-widest text-neutral-400">
             СИНХРОНИЗАЦИЙ ЕЩЁ НЕ БЫЛО
           </p>
         {/if}
       </div>
       {#if rosterFreshness === "recent"}
-        <span class="shrink-0 text-[8px] tracking-widest text-grass">
+        <span class="shrink-0 text-[10px] tracking-widest text-grass">
           ДАННЫЕ СВЕЖИЕ
         </span>
       {:else if rosterFreshness === "stale"}
-        <span class="shrink-0 text-[8px] tracking-widest text-neutral-500">
+        <span class="shrink-0 text-[10px] tracking-widest text-neutral-400">
           НЕТ НОВЫХ ДАННЫХ
         </span>
       {:else}
-        <span class="shrink-0 text-[8px] tracking-widest text-neutral-600">
+        <span class="shrink-0 text-[10px] tracking-widest text-neutral-400">
           НЕТ ДАННЫХ
         </span>
       {/if}
@@ -123,7 +123,7 @@
   <div class="mc-panel divide-y divide-white/5">
     {#each data.activity as item (item.id)}
       <div class="space-y-1 p-4">
-        <p class="text-[9px] leading-relaxed text-neutral-300">
+        <p class="text-[10px] leading-relaxed text-neutral-300">
           <span class="text-neutral-100">
             {item.actor_name ?? item.actor_discord_id}
           </span>
@@ -132,15 +132,17 @@
             <span class="text-neutral-100">@{item.player_username}</span>
           {/if}
         </p>
-        <p class="text-[8px] text-neutral-600">{formatDate(item.created_at)}</p>
+        <p class="text-[10px] text-neutral-400">
+          {formatDate(item.created_at)}
+        </p>
         {#if item.action === "player.blocked" && item.details.reason}
-          <p class="text-[8px] leading-relaxed text-neutral-500">
+          <p class="text-[10px] leading-relaxed text-neutral-400">
             {String(item.details.reason)}
           </p>
         {/if}
       </div>
     {:else}
-      <p class="p-6 text-center text-[9px] tracking-widest text-neutral-500">
+      <p class="p-6 text-center text-[10px] tracking-widest text-neutral-400">
         Действий пока нет
       </p>
     {/each}
